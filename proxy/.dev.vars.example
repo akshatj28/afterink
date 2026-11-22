@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars (which git ignores) and fill in one key. Restart `npm run dev` after.
+# Free: a Gemini key from https://aistudio.google.com/apikey
+GEMINI_API_KEY=
+# Paid alternative: an Anthropic key. Set PROVIDER in wrangler.toml if both are filled in.
+# ANTHROPIC_API_KEY=sk-ant-...

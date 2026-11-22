@@ -1,0 +1,27 @@
+name = "afterink-proxy"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Per-visitor rate limit: 20 model calls a minute from one address. Free on every plan.
+[[unsafe.bindings]]
+name = "RL"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 20, period = 60 }
+
+# Optional: a daily cap on output tokens across all visitors (default 400,000, about USD 8 on
+# Claude Opus 5.5). Create the store once with `npx wrangler kv namespace create BUDGET`,
+# then paste the id it prints below and remove the leading `#` on these three lines.
+# [[kv_namespaces]]
+# binding = "BUDGET"
+# id = "paste-the-id-here"
+
+[vars]
+# Comma-separated origins allowed to call this server. Add your own if the page moves.
+ALLOWED_ORIGINS = "https://akshatj28.github.io,http://localhost:8765,http://127.0.0.1:8765"
+DAILY_OUTPUT_TOKENS = "400000"
+
+# The API key is a secret, never a var. Set one of:
+#   npx wrangler secret put GEMINI_API_KEY      (free tier)
+#   npx wrangler secret put ANTHROPIC_API_KEY   (paid)

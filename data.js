@@ -391,7 +391,7 @@ Signed for Fleetline Logistics LLC and Kestrel Mobility Ltd. on 22 September 202
         risks: ['Overtime is billable only with written approval in advance (§4). Nothing records those approvals today.', 'A 15% conversion fee applies if a contractor is hired within six months (§5).'],
         values: {
           effective: ['2026-05-01', 'high'], termEnd: ['2027-04-30', 'high'], autoRenew: [true, 'high'], renewalMonths: [12, 'high'], noticeDays: [60, 'high'],
-          upliftText: ['Bill rates change only by signed amendment', 'high'], upliftPct: [0, 'medium', 'My reading: no increase without a signed amendment. The contract gives no percentage.'],
+          upliftText: ['Bill rates change only by signed amendment', 'high'], upliftPct: [0, 'medium', 'Interpreted: no increase without a signed amendment. The contract gives no percentage.'],
           annualValue: [null, 'low', 'Not stated. Spend depends on hours billed. Finance estimate from invoices so far: about USD 1,100,000 a year.'],
           paymentDays: [30, 'high'], sla: ['Free replacement of a rejected contractor within the first 10 working days', 'high'],
           liabilityCap: ['Fees paid in the preceding 12 months', 'high'], noticeMethod: ['Email to legal@talentbridge.example', 'high'], law: ['New York', 'high'],
@@ -430,7 +430,7 @@ Between Talentbridge Staffing Inc. ("Agency") and Kestrel Mobility Ltd. ("Client
         summary: 'A two-page letter for running the staff canteen at a price per meal. It leaves most commercial protections unstated.',
         risks: ['Price increases have no cap and need no agreement (§2).', 'The notice period is "reasonable notice", with no number of days (§3).', 'No liability clause and no governing law.'],
         values: {
-          effective: ['2025-01-06', 'high'], termEnd: ['2027-01-05', 'low', 'No end date is written. The letter runs year to year from 6 January, so the next anniversary is my reading.'],
+          effective: ['2025-01-06', 'high'], termEnd: ['2027-01-05', 'low', 'No end date is written. The letter runs year to year from 6 January, so the next anniversary is an interpretation.'],
           autoRenew: [true, 'medium', 'The letter says it "carries on from year to year". That works like automatic renewal.'], renewalMonths: [12, 'medium'],
           noticeDays: [null, 'low', 'The letter says "reasonable notice" and gives no number of days.'],
           upliftText: ['Supplier may pass on increases in food costs', 'high'], upliftPct: [null, 'low', 'No cap is stated.'],
@@ -501,11 +501,43 @@ Total due: $45,090.00
 Payment terms: 14 days`;
 
   const SUGGESTED = [
-    { id: 'q1', q: 'Which contracts renew automatically in the next 90 days, and what do we have to do to stop each one?' },
+    { id: 'q1', q: 'Which contracts have a notice deadline in the next 90 days, and what do we have to do to stop each one renewing?' },
     { id: 'q2', q: 'Which suppliers can raise their prices without any cap?' },
     { id: 'q3', q: 'What are we owed when BrightClean misses its audit score?' },
     { id: 'q4', q: 'Where is a supplier\'s liability limited to less than 12 months of fees?' }
   ];
 
-  return { DEMO_TODAY, FIELDS, CATEGORIES, SEED_CONTRACTS, SEED_INBOX, SEED_INVOICES, SAMPLE_INVOICE_TEXT, SUGGESTED };
+  /* A fresh contract for "Read a document of your own". It is not in the repository and has no
+     saved reading, so what the viewer sees is a genuine live extraction with the code checks. */
+  const SAMPLE_CONTRACT_TEXT = `MASTER SUBSCRIPTION AGREEMENT
+
+This Master Subscription Agreement (the "Agreement") is made on 1 March 2026 between Northgate Telematics Inc., a Delaware corporation with offices at 410 Harbor Way, Oakland, California ("Northgate"), and Kestrel Mobility Ltd. ("Customer").
+
+1. Services. Northgate will provide Customer with access to the Northgate fleet tracking platform, the driver safety module and related professional services (together, the "Services") as described in Order Form No. NT-2026-0117, which forms part of this Agreement.
+
+2. Term. This Agreement takes effect on 1 March 2026 (the "Effective Date"). The initial subscription term runs for twenty-four (24) months and ends on 28 February 2028. At the end of the initial term and of each renewal term, this Agreement renews automatically for successive periods of twelve (12) months unless either party gives written notice of non-renewal at least ninety (90) days before the end of the then-current term.
+
+3. Fees. Customer will pay the fees set out in the Order Form: USD 14.00 per enrolled vehicle per month for the fleet tracking subscription, USD 6.50 per enrolled vehicle per month for the driver safety module, and USD 185.00 per hour for professional services ordered in writing. Based on the 1,200 vehicles enrolled at the Effective Date, the annual subscription fees are USD 295,200.00. Fees for the initial term are fixed. At each renewal, Northgate may increase the subscription fees by no more than four percent (4%) over the fees in effect during the preceding term, on sixty (60) days' written notice.
+
+4. Invoicing and payment. Northgate invoices subscription fees quarterly in advance and professional services monthly in arrears. Customer will pay each undisputed invoice within forty-five (45) days of the invoice date. Customer may withhold payment of any amount disputed in good faith, provided it notifies Northgate in writing of the dispute before the due date.
+
+5. Service levels. Northgate will make the platform available at least 99.5% of the time in each calendar month, excluding scheduled maintenance notified at least 48 hours in advance. If availability in a month falls below 99.5%, Customer is entitled to a service credit of five percent (5%) of that month's subscription fees for each full percentage point below 99.5%, up to a maximum credit of twenty percent (20%) of that month's subscription fees. Credits are applied to the next invoice and are Customer's sole remedy for unavailability.
+
+6. Data. Customer owns all vehicle, driver and location data entered into or generated by the Services. Northgate may use aggregated and anonymised data to improve the Services. On termination, Northgate will make Customer data available for export for sixty (60) days and will then delete it.
+
+7. Confidentiality. Each party will keep the other's confidential information in confidence and use it only to perform this Agreement, for the term and for three (3) years afterwards.
+
+8. Warranties. Northgate warrants that the Services will perform materially in accordance with the documentation. Customer's remedy for breach of this warranty is repair, replacement or, if Northgate cannot cure the breach within thirty (30) days, termination and a refund of prepaid fees for the unexpired term.
+
+9. Limitation of liability. Except for breach of confidentiality, infringement indemnities and amounts payable under clause 3, each party's total liability arising out of this Agreement in any contract year is limited to the fees paid or payable by Customer in the twelve (12) months before the event giving rise to the claim. Neither party is liable for indirect or consequential loss, or for loss of profit, revenue or data.
+
+10. Termination. Either party may terminate this Agreement on thirty (30) days' written notice if the other party commits a material breach and fails to cure it within that period. Customer may terminate for convenience at the end of the initial term by giving the notice described in clause 2.
+
+11. Notices. Notices under this Agreement must be in writing and sent by email to legal@kestrelmobility.example and contracts@northgate.example, with a copy by registered post to the addresses above. A notice is deemed received on the next business day after sending.
+
+12. Governing law. This Agreement is governed by the laws of England and Wales, and the courts of England have exclusive jurisdiction.
+
+Signed for Northgate Telematics Inc. by Dana Whitfield, VP Sales, and for Kestrel Mobility Ltd. by Priya Raman, Head of Procurement, on 1 March 2026.`;
+
+  return { DEMO_TODAY, FIELDS, CATEGORIES, SEED_CONTRACTS, SEED_INBOX, SEED_INVOICES, SAMPLE_INVOICE_TEXT, SAMPLE_CONTRACT_TEXT, SUGGESTED };
 })();

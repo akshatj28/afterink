@@ -1,0 +1,20 @@
+{
+  "name": "afterink-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small Cloudflare Worker that holds an API key (Gemini or Claude) so the Afterink page can run its AI steps live for every viewer.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js",
+    "smoke": "node scripts/live-smoke.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.12.0",
+    "@google/genai": "^3.6.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

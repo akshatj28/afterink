@@ -20,7 +20,11 @@ The five sections the brief asks for (why this stage, stakeholder map, the probl
 
 ## AI in this copy
 
-This GitHub Pages copy replays saved AI results, prepared in advance from the same documents. Filing, deadlines, invoice checks and every sum run live in your browser. The AI steps run live only in the [Claude-hosted copy](https://claude.ai/artifact/QvDrGbxDgdboEDAN2mFeEJ), for a viewer signed in to Claude.
+The AI steps run live for every viewer. The page is static, so a small server of our own (`proxy/`, a Cloudflare Worker) holds the API key and the prompts. The page sends data to one of seven named tasks and streams the reply back, so you watch each term arrive with the sentence it came from. A strip under the title names the model and lists every call made, with its time and token count.
+
+The server works with a free Gemini key from Google AI Studio or a paid Claude key from Anthropic; see `proxy/README.md` to deploy it in about ten minutes. If the server is down, has no key, or has used up the day's budget, the page replays saved AI results and says why. The free key's provider may keep what is sent to it, which is acceptable here only because every contract in the prototype is invented.
+
+The model reads and drafts. It never does the arithmetic: dates, price comparisons and the check that every quoted sentence really is in the document are done by code in your browser.
 
 Nothing in the prototype sends an email, makes a payment or contacts a supplier. Use **Reset demo** to return to the starting state.
 
@@ -32,6 +36,7 @@ Nothing in the prototype sends an email, makes a payment or contacts a supplier.
 | `app.js` | Logic: extraction review, filing, renewal dates, invoice checks, cited answers, guided tour |
 | `data.js` | Invented contracts, documents and invoices |
 | `APPROACH.md` | The reasoning: decisions, assumptions, and where an evaluator is likely to push |
+| `proxy/` | The AI server: seven named tasks, streaming, caps, and the deploy steps |
 
 ## Run locally
 

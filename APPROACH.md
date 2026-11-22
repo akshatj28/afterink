@@ -2,7 +2,7 @@
 
 Notes on the thinking behind the prototype: the order the decisions were made in, what was chosen, what was rejected, and which assumptions carry the most weight. Written so you can defend each call if an evaluator pushes on it.
 
-Prototype: https://claude.ai/artifact/QvDrGbxDgdboEDAN2mFeEJ
+Prototype: https://akshatj28.github.io/afterink/ (the AI steps run live for every viewer through a small server of our own; see section 7)
 
 ---
 
@@ -124,6 +124,11 @@ A fourth document, a two-page catering letter, was written to be vague on purpos
 
 **The five-step path** on the Start page orders these so one desk's work visibly changes the next desk's screen.
 
+**Two places where the model is used beyond the four desks' main steps.** Both follow the same rule: the model reads or translates, code does the exact work.
+
+- **Find in plain words**, on the repository. The viewer types "which contracts renew in the next 90 days with an uncapped increase". The model turns that into a structured filter (field, operator, value) and never sees the contracts. Code runs the filter over every record and shows the filter it ran, so the person can confirm it. The one piece of arithmetic left to the model is turning a relative date such as "the next 90 days" into a day count, and that count is shown in the filter for the person to check. The list is exact, and it would still be exact over 4,000 contracts, because nothing has to be sent to the model.
+- **An amendment in plain English**, on the review screen. After the model has read an amendment term by term, it writes a short plain-English account of what changes, what stays and what new obligation the company takes on. The term-by-term table is what gets applied; the account is for the person checking it, and is kept on the contract record.
+
 **Deliberately left out.**
 
 - Intake and negotiation (the other two stages)
@@ -144,11 +149,13 @@ A fourth document, a two-page catering letter, was written to be vague on purpos
 | Invented company and invented contracts | Real contracts raise confidentiality and copyright questions. Forms follow common contract types. |
 | Fixed demo date (17 November 2026) | Deadlines stay the same whenever the link is opened |
 | Sample contracts written with the source sentence tagged in the text | The "show source" highlight is exact by construction for the saved readings. The tags never reach the model: a live reading, or any contract pasted into the Inbox, goes through the real quote and value checks |
-| Saved AI results as a fallback | The page still works end to end for a viewer without Claude access, and says so |
+| Live AI for every viewer, through a small server of our own | The page is static (GitHub Pages) and cannot hold a key. A Cloudflare Worker (`proxy/`) holds the key and the prompts. The page sends data only, to one of seven named tasks (read a document, answer a question, write a brief, redraft a dispute, read an invoice, turn a question into a filter, explain an amendment). There is no free-form route, so the key cannot be used as a chatbot. Every reply streams, so the viewer watches the reading happen, and a strip under the title lists every call made with its time and token count |
+| Either model provider, chosen by which key is set | Gemini through Google AI Studio has a free tier, which keeps the demo at no cost. Claude through the Anthropic API is the paid alternative. The prompts and the checks are the same for both. The free tier has small daily limits and Google may use free-tier content to improve its products, which is acceptable only because every contract here is invented |
+| Saved AI results as a fallback | The page still works end to end without the AI. When the server cannot be reached, has no key or has used up the day's budget, a bar at the top says so and every desk replays saved results. When the free tier's per-minute limit is hit, the screen in use says so and the viewer can retry; inbox documents fall back to their saved reading |
 | Search by clause, then answer | Mirrors how this would work at 4,000 contracts, where the whole set cannot be sent to a model |
 | State kept in the viewer's browser, with a reset button | Each evaluator gets a clean copy and cannot break another's |
 
-**The trade-off in the fallback.** Saved results make the demo reliable but mean a viewer without Claude sees a replay of the AI steps. The page labels every such result.
+**The trade-off in the fallback.** Saved results make the demo reliable, but a viewer who meets the fallback sees a replay of the AI steps rather than the AI. The page labels every such result, and the top bar says why the server could not be reached. The first submitted version only ever showed the replay to evaluators, because its live path depended on the viewer being signed in to Claude. The server removes that dependency.
 
 ---
 
@@ -190,7 +197,7 @@ A fourth document, a two-page catering letter, was written to be vague on purpos
 | 5 | USD 220M supplier spend, about 4,000 contracts, 1% recoverable | The $2.2M sizing, cross-checked bottom up: renewals $1.0M ($66M auto-renewing, half unreviewed, 3% avoided), invoices $0.8M (0.75% of $110M rate-card spend), credits $0.5M (2% of $25M with credit clauses), total $2.3M | Invented for sizing. Each row has a two-week check that replaces it. |
 | 6 | Usage, ledger and service data can be fed in | The renewal brief and credit check | Simulated |
 | 7 | Every contract gets a named owner at filing: the budget holder whose cost centre pays the supplier in the ledger, else the category manager. An undecided date escalates to the category lead at 30 days and the Head of Procurement at 10 | Whether a deadline reaches a person with authority | Still the most likely to fail. The design now names who gets silence, but whether they act is the rethink trigger in section 8. |
-| 8 | Contract text may be sent to an AI model under an enterprise agreement | Whether this can run at all | Depends on the company's policy |
+| 8 | Contract text may be sent to an AI model under an enterprise agreement | Whether this can run at all | Depends on the company's policy. The prototype's free-tier key is fine for invented contracts and would not be for real ones |
 
 ## 10. Where an evaluator is likely to push, and the answer
 
@@ -203,11 +210,16 @@ A fourth document, a two-page catering letter, was written to be vague on purpos
 - **"Your numbers are made up."** Yes, and labelled. The two-week plan (a 50-contract audit, three months of invoices, six interviews, a count of lost requests) is what replaces them.
 - **"Can't someone hit the north star by renewing everything, or by not filing?"** Not filing: unfiled documents count as undecided, and coverage is measured from the ledger. Renewing everything: a monthly sample of renewals made against a flagged brief, with a required reason if more than half have none.
 - **"Why doesn't it just send the notice?"** Legal effect and supplier goodwill. The line can move once error rates are known.
+- **"Is the AI actually live, or a recording?"** Live, for every viewer, through a small server that holds the key. The strip under the title names the model and lists every call with its time and token count. Paste any contract into the inbox and it is read with no saved answer to fall back on, and the code checks run on what comes back.
 
 ## 11. What was not validated
 
 - No user interviews. Personas and feelings are hypotheses.
 - External statistics came from search summaries, not the primary reports. Two are vendor-sourced and one is from 2020. The sizing no longer leans on them: it is built from the three losses, and the 8.6% figure is cited only as context.
 - No comparison with existing contract management products beyond the general point that they already extract terms and alert on renewals.
-- The live AI paths were not exercised during the build, only the saved-result paths.
-- Extraction accuracy on real, messy contracts is unknown.
+- The first submitted version had only exercised the saved-result paths, and evaluators saw only those. The live paths were tested on 22 November 2026 against a free Gemini key, through the server running locally. What that showed:
+  - All seven tasks returned well-formed results. Reading the three inbox documents live and filing them reproduced the figures the page quotes: $9,486.92 on the Fleetline invoice, $12,008 on the Talentbridge invoice, $28,561.92 across all five. On the vague Greenleaf letter the model marked the notice period, price cap, liability and governing law as not stated, so none of its deadline or price terms passed without a person.
+  - The first amendment prompt caught both Fleetline changes in 1 of 6 runs: it kept missing the new surcharge cap. A prompt that asks for the changes clause by clause, plus code that reads "6%" as 6, caught both in all 6 runs that completed. Two more runs failed on model overload and would have fallen back to the next model.
+  - On the free tier the Flash models were often overloaded or slow to start, and their default deep thinking made one reading take over two minutes. The server therefore tries Flash-Lite first at low thinking, and moves to the next model on overload, quota or 20 seconds of silence. Most calls took 1 to 11 seconds; one that fell back took 15.
+- The server was then deployed to Cloudflare the same day and the same checks passed against it, called as if from the published page: both Fleetline changes read correctly in about 5 seconds, and requests from other sites, with no origin, or to unknown routes were refused. Not yet tested: the Claude path against a real key.
+- Six runs on one amendment is a smoke test, not an accuracy measure. Extraction accuracy on real, messy contracts is unknown, and the monthly audit described in section 5 is what would measure it.

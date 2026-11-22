@@ -9,19 +9,24 @@
 <body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Afterink Contract Repository</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<script>(function(){var t="night";try{if(localStorage.getItem("afterink.theme")==="light")t="light";}catch(e){}var q=new URLSearchParams(location.search).get("theme");if(q==="light"||q==="night")t=q;document.documentElement.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
-/* Layout: the assignment's five sections run down a left rail; one working pane on the right.
+/* Layout: the workspace and the case for it run down a left rail; one working pane on the right.
    Signed text is set like paper and marked with highlighter where a term was read from it. */
-/* Theme: white page, one strong blue for the top band, actions and highlights. */
+/* Theme: styled after the sirion.ai brand. Deep navy and teal for the
+   frame (top band, side menu, hero), purple for actions, light work surfaces for the product itself, the way
+   Sirion shows its product inside a dark site. Afterink keeps its own name; no Sirion logo or wording is used. */
 :root{
-  --bg:#FFFFFF; --surface:#FFFFFF; --sunk:#F2F6FD; --ink:#0B1B3F; --muted:#52617D; --line:#DCE4F1;
-  --accent:#1F4FD8; --accent-ink:#FFFFFF; --accent-soft:#E7EEFE;
-  --band:#1F4FD8; --on-band:#FFFFFF; --on-band-muted:#D3E0FF; --band-chip:#3D68E3;
-  --mark:#D4E2FF; --mark-ink:#0B1B3F;
-  --scrim:rgba(11,27,63,.45); --shadow:rgba(11,27,63,.18);
+  --bg:#F3F6F7; --surface:#FFFFFF; --sunk:#EDF3F4; --ink:#0B1821; --muted:#4D565D; --line:#D7E1E3;
+  --accent:#92429F; --accent-hover:#773A86; --accent-ink:#FFFFFF; --accent-soft:#F4EAF6;
+  --teal:#0D5E68; --teal-mid:#5D939A; --teal-soft:#E7EFF0; --teal-deep:#05272C; --teal-chip:#073439;
+  --band:#0B1821; --on-band:#F5F6F6; --on-band-muted:#B4CDD0; --band-chip:#073439;
+  --glow:radial-gradient(120% 160% at 50% -60%, rgba(13,94,104,.85) 0%, rgba(13,94,104,0) 62%);
+  --mark:#EAD6EE; --mark-ink:#0B1821;
+  --scrim:rgba(11,24,33,.55); --shadow:rgba(11,24,33,.18);
   --good:#17693F; --good-soft:#DAF0E3; --warn:#8A5200; --warn-soft:#FBEACB; --crit:#AD231C; --crit-soft:#FBDFDC;
-  --f-ui:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-ui:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-doc:"Source Serif 4",Georgia,"Times New Roman",serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
   color-scheme:light;
@@ -284,48 +289,213 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .persona dd{margin:0}
 .foot{margin-top:48px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Live AI: a slim strip under the band names the model and lists every call made this session. */
+.aistrip{background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin:0 0 20px;font-size:13px;color:var(--muted)}
+.aistrip b{color:var(--ink)}
+.aistrip-in{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.aistrip-in span{flex:1 1 400px;min-width:0}
+.ailog{margin:8px 0 0}
+.hero{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px 18px;margin:0 0 20px}
+.hero>div{flex:1 1 360px;min-width:0}
+.hero b{font:600 17px/1.3 var(--f-ui)}
+.hero p{margin:4px 0 0;color:var(--muted)}
+.findbox{background:var(--sunk);border-radius:8px;padding:12px 14px;margin:0 0 12px;max-width:90ch}
+.findbox p{margin:0 0 6px}
+.findbox .sugg{margin:0 0 8px}
+.fchip{display:inline-block;font:500 12px var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+/* ---------- Sirion-style frame: rules below restyle the shared pieces above ---------- */
+body{font-weight:400;-webkit-font-smoothing:antialiased}
+h1{font-weight:300;font-size:36px;line-height:1.12;letter-spacing:-.022em}
+h2{font-weight:400;font-size:23px;letter-spacing:-.012em}
+h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
+.lede{font:300 19px/1.5 var(--f-ui);letter-spacing:-.005em}
+.desk{color:var(--teal);font-weight:700;letter-spacing:.14em}
+.band{background:var(--glow),var(--band);border-bottom:1px solid rgba(180,205,208,.14)}
+.band .brand b{font:500 24px/1 var(--f-ui);letter-spacing:-.02em}
+.band .chip.mute{background:var(--band-chip);color:var(--on-band);border:1px solid rgba(93,147,154,.45)}
+.band .chip.good{background:var(--band-chip);color:#A7E8C6;border:1px solid rgba(93,147,154,.45)}
+.btn,.inp,.segb{border-radius:8px}
+.btn{font-weight:500}
+.btn:hover{border-color:var(--teal-mid)}
+.btn.pri:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.light{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:500}
+.btn.light:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.ghost{border-color:rgba(245,246,246,.35)}
+.segb.on{background:var(--teal-deep);border-color:var(--teal-deep);color:var(--on-band)}
+.chipb{border-radius:999px}
+.chipb:hover{border-color:var(--accent);color:var(--accent)}
+.card,.tile,.steps li,.fnode,.scroll,.finding{border-radius:12px}
+.tn{font:300 30px/1.2 var(--f-ui);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tile.star{background:var(--glow),var(--band);color:var(--on-band);border-color:var(--band)}
+.tile.star .tl,.tile.star .ts{color:var(--on-band-muted)}
+.callout{background:var(--teal-soft)}
+.aistrip{background:var(--teal-soft);border-color:#CFDFE1;color:var(--muted)}
+.aistrip b{color:var(--teal)}
+.doc{border-radius:6px;box-shadow:0 1px 2px rgba(11,24,33,.05)}
+/* Side menu: a dark panel with pill links, like the site's navigation. */
+.side{background:var(--glow),var(--band);border-radius:16px;padding:16px 10px 18px;gap:3px}
+.side .ng{color:var(--teal-mid);font-weight:700;letter-spacing:.14em;padding:0 8px}
+.side .nl{color:var(--on-band);border-radius:8px}
+.side .nl:hover{background:var(--teal-deep)}
+.side .nl.on{background:var(--accent);color:var(--accent-ink);font-weight:500}
+.side .ct{background:var(--on-band);color:var(--band)}
+.side .nl.on .ct{background:var(--accent-ink);color:var(--accent)}
+@media (max-width:860px){
+  .side{padding:8px;border-radius:12px}
+  .side .nl{border:0;background:var(--teal-deep)}
+  .side .nl.on{background:var(--accent)}
+}
+/* Start page hero: the brand moment, dark with the teal glow and a purple call to action. */
+.hero{background:var(--glow),var(--band);border:1px solid var(--teal-chip);border-radius:16px;padding:22px 24px;color:var(--on-band)}
+.hero b{font:400 22px/1.25 var(--f-ui);letter-spacing:-.01em}
+.hero p{color:var(--on-band-muted)}
+.intro{border-top-color:var(--accent);border-radius:16px}
+.toast{background:var(--band);color:var(--on-band)}
+
+/* ---------- Two modes: Sirion Night (the default) and Sirion Light (the toggle in the top bar) ----------
+   Each mode only changes tokens and a few shared pieces, so every screen, diagram and state follows it. */
+
+/* Sirion Light: the same brand colours on an all-light, airy layout. */
+:root[data-theme="light"]{--bg:#F7F8FA;--sunk:#F1F4F6;--line:#E3E8EA;--band:#FFFFFF;--on-band:#0B1821;--on-band-muted:#55595C;--band-chip:#F1F4F6;--glow:none}
+[data-theme="light"] .band{border-bottom:1px solid var(--line)}
+[data-theme="light"] .band .chip.mute,[data-theme="light"] .band .chip.good{background:var(--teal-soft);color:var(--teal);border-color:#CFDFE1}
+[data-theme="light"] .btn.ghost{color:var(--ink);border-color:var(--line)}
+[data-theme="light"] .side{background:var(--surface);border:1px solid var(--line)}
+[data-theme="light"] .side .nl{color:var(--ink)}
+[data-theme="light"] .side .nl:hover{background:var(--sunk)}
+[data-theme="light"] .side .nl.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+[data-theme="light"] .side .ct{background:var(--ink);color:#fff}
+[data-theme="light"] .side .nl.on .ct{background:var(--accent);color:#fff}
+[data-theme="light"] .hero{background:linear-gradient(120deg,#F4EAF6,#E7EFF0);border:1px solid #E5D3EA;color:var(--ink)}
+[data-theme="light"] .hero p{color:var(--muted)}
+[data-theme="light"] .tile.star{background:var(--accent-soft);color:var(--ink);border-color:#E5D3EA}
+[data-theme="light"] .tile.star .tl,[data-theme="light"] .tile.star .ts{color:var(--muted)}
+[data-theme="light"] .side .ng{color:var(--teal)}
+@media (max-width:860px){[data-theme="light"] .side .nl{background:var(--sunk)}[data-theme="light"] .side .nl.on{background:var(--accent);color:#fff}}
+
+/* Sirion Night: fully dark, like sirion.ai itself. Contracts stay on paper so they read like documents. */
+:root[data-theme="night"]{color-scheme:dark;--bg:#0B1821;--surface:#102430;--sunk:#0E1F29;--ink:#EEF2F3;--muted:#A3B2B8;--line:#20394A;
+  --accent:#B565C4;--accent-hover:#C77BD6;--accent-ink:#FFFFFF;--accent-soft:#2B1F36;--teal:#7FB9C1;--teal-soft:#0F2E33;--teal-mid:#5D939A;
+  --band:#07121A;--band-chip:#0F2E33;--mark:#4D2E59;--mark-ink:#FFFFFF;--shadow:rgba(0,0,0,.5);--scrim:rgba(0,0,0,.6);
+  --good:#86DDAE;--good-soft:#12352A;--warn:#F0C674;--warn-soft:#3A2E14;--crit:#FF948A;--crit-soft:#3E1C1C}
+[data-theme="night"] body{background:radial-gradient(90% 60% at 50% -10%,rgba(13,94,104,.35),transparent 70%),var(--bg)}
+[data-theme="night"] .doc{background:#F7F5EF;color:#1C1A17}
+[data-theme="night"] .doc mark.hl{background:#E9D2EE;color:#1C1A17}
+[data-theme="night"] .side{border:1px solid var(--line)}
+[data-theme="night"] .tbl tr.bad td{background:var(--crit-soft)}
+[data-theme="night"] .toast{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+
+
+/* Sirion's own gradients, taken from sirion.ai: the blue-to-purple announcement bar, and the rotating
+   periwinkle-and-white border it puts on outlined pills. */
+.announce{background:linear-gradient(90deg,#0F3FBB -97%,#7F208F 102%);color:#fff;font-size:14px}
+.announce-in{max-width:1280px;margin:0 auto;display:flex;gap:10px 18px;align-items:center;flex-wrap:wrap;padding-block:9px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.announce p{margin:0;flex:1 1 320px}
+.announce .lnk{color:#fff;font-weight:600;text-decoration:none;white-space:nowrap}
+.announce .lnk:hover{text-decoration:underline}
+.announce-x{background:none;border:0;color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:0 2px;opacity:.85}
+.announce-x:hover{opacity:1}
+.glowpill{position:relative;display:table;padding:4px 14px;border-radius:50px;font-size:12.5px;line-height:1.4;isolation:isolate;overflow:hidden;margin:0 0 10px;color:var(--on-band)}
+.glowpill::before{content:"";position:absolute;inset:-160% -40%;background:conic-gradient(from 25deg,#818BFB 0deg,#FFFFFF 90deg,#818BFB 180deg,#FFFFFF 270deg,#818BFB 360deg);animation:rotateBorder 3s linear infinite;z-index:-2}
+.glowpill::after{content:"";position:absolute;inset:1.5px;border-radius:50px;background:#0C1C26;z-index:-1}
+[data-theme="light"] .glowpill{color:var(--ink)}
+[data-theme="light"] .glowpill::after{background:#FBF7FC}
+@keyframes rotateBorder{to{transform:rotate(360deg)}}
+/* Team badges, AI / code / person tags, and the Start page */
+.team{display:flex;gap:12px;align-items:flex-start;background:var(--teal-soft);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 14px;max-width:84ch}
+.team b{font-weight:600}
+.team p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.team-ic{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);flex:none}
+.team-ic .ic{width:20px;height:20px}
+.team-who{font-size:12.5px;color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:5px;font:500 12px/1.3 var(--f-ui);padding:3px 9px 3px 7px;border-radius:999px;white-space:nowrap;border:1px solid transparent;cursor:help}
+.tag .ic{width:13px;height:13px}
+.tag-ai{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.tag-code{background:var(--teal-soft);color:var(--teal);border-color:color-mix(in srgb,var(--teal) 30%,transparent)}
+.tag-you{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.cardhead>span{display:inline-flex;gap:6px;flex-wrap:wrap}
+.filebar .tag{margin-right:4px}
+.fnote .tag{margin-right:4px}
+.leaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:14px 0 8px}
+.leak{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;display:flex;flex-direction:column;min-width:0}
+.leak-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}
+.leak-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--crit-soft);color:var(--crit);flex:none}
+.leak-ic .ic{width:22px;height:22px}
+.leak-n{font:700 11px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--crit)}
+.leak h3{font:500 17px/1.3 var(--f-ui);letter-spacing:-.005em;text-transform:none;color:var(--ink);margin:2px 0 0}
+.leak p{margin:0 0 4px;font-size:14px}
+.leak-k{font:700 11px var(--f-ui)!important;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:12px 0 4px!important}
+.leak-cost{color:var(--ink)}
+.leak-cost b{color:var(--crit)}
+.leak-steps{list-style:none;padding:0;margin:0 0 6px;display:grid;gap:7px}
+.leak-steps li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:13.5px}
+.leak-steps li>span:last-child{flex:1 1 100%}
+.lk-team{font:600 12px var(--f-ui);color:var(--ink)}
+.leak .bar{margin-top:auto;padding-top:10px}
+.teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
+.teamcard{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;font:inherit;color:var(--ink);cursor:pointer}
+.teamcard:hover{border-color:var(--accent)}
+.teamcard>span:last-child{font-size:13px;color:var(--muted)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0 18px}
+.legend>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.legend p{margin:8px 0 0;font-size:13.5px}
+main>.glowpill{color:var(--ink)}
+main>.glowpill::after{background:var(--bg)}
+/* Icons in the menu and the top-bar buttons */
+.ic{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.nl .ic{opacity:.8}
+.nl.on .ic{opacity:1}
+.nl{gap:10px}
+.btn .ic{width:15px;height:15px;vertical-align:-3px;margin-right:6px}
+.btn:has(.ic){display:inline-flex;align-items:center}
+@media (max-width:860px){.nl .ic{width:16px;height:16px}}
+@media (prefers-reduced-motion:reduce){.glowpill::before{animation:none}}
 </style>
 
+<div class="announce" id="announce"><div class="announce-in"><p><b>Live AI prototype.</b> Every term the AI reads is checked by code before anyone relies on it.</p><button class="lnk" data-act="tour-start">Take the two-minute tour &#8594;</button><button class="announce-x" data-act="announce-x" aria-label="Hide this message">&#215;</button></div></div>
 <header class="band">
   <div class="band-in">
-    <div class="brand"><b>Afterink</b><span>A contract repository prototype for the stage after signature</span></div>
-    <div class="topr"><span>Demo date <span class="mono" id="demo-date"></span></span><span class="chip mute" id="ai-chip">Claude: checking</span><button class="btn sm light" data-act="tour-start" id="tour-btn">Guided tour</button><button class="btn sm ghost" data-act="reset-ask" id="reset-btn">Reset demo</button></div>
+    <div class="brand"><b>Afterink</b><span>Catch the deadlines and overcharges hidden in your signed contracts</span></div>
+    <div class="topr"><span>Demo date <span class="mono" id="demo-date"></span></span><span class="chip mute" id="ai-chip">Claude: checking</span><button class="btn sm ghost" data-act="theme-toggle" id="theme-btn" aria-pressed="false">Light mode</button><button class="btn sm light" data-act="tour-start" id="tour-btn">Guided tour</button><button class="btn sm ghost" data-act="reset-ask" id="reset-btn">Reset demo</button></div>
     <div class="confirm" id="reset-confirm" role="dialog" aria-label="Reset demo" hidden><p>Restore the demo to its starting state? Anything you filed, decided or disputed is cleared.</p><div class="bar"><button class="btn sm pri" data-act="reset" id="reset-yes">Reset</button><button class="btn sm" data-act="reset-cancel">Cancel</button></div></div>
   </div>
 </header>
 <div class="wrap">
   <p class="aibar" id="ai-bar" role="status" hidden></p>
+  <div class="aistrip" id="ai-strip" role="status" hidden></div>
   <div class="app">
     <nav class="side" id="nav" aria-label="Sections"></nav>
     <main id="main"></main>
   </div>
-  <p class="foot">Kestrel Mobility and every supplier, contract, invoice and figure in this prototype are invented for this exercise. Contract forms follow the common types in Law Insider's sample categories. Nothing here sends an email, makes a payment or contacts a supplier.</p>
+  <p class="foot">Kestrel Mobility is a demo workspace. Every supplier, contract, invoice and figure in it is sample data. Contract forms follow the common types in Law Insider's sample categories. Nothing here sends an email, makes a payment or contacts a supplier.</p>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 <aside class="tour" id="tour" aria-live="polite" hidden></aside>
 <div class="intro-back" id="intro" hidden>
   <div class="intro" role="dialog" aria-modal="true" aria-labelledby="intro-h">
     <p class="desk">Working prototype</p>
-    <h2 id="intro-h">Afterink in about two minutes</h2>
-    <p>A contract repository for the stage after signature, built for an invented company, Kestrel Mobility. Everything you click works, and nothing is sent to anyone.</p>
+    <h2 id="intro-h">Afterink in two minutes</h2>
+    <p>Companies sign thousands of supplier contracts, then file them away. Deadlines pass, invoices overcharge and refunds go unclaimed. Afterink reads every signed contract with AI, turns it into dates and prices, and puts each one in front of the team that has to act.</p>
+    <p>This is a working demo on a sample company, Kestrel Mobility. Everything you click works, the AI runs live, and nothing is ever sent to a supplier.</p>
     <ol class="verbs">
-      <li><b>File</b>Legal Ops files a signed document. AI reads it and code checks it.</li>
-      <li><b>Check</b>Accounts Payable checks invoices against the agreed rates.</li>
-      <li><b>Decide</b>Procurement decides each renewal before its notice date.</li>
-      <li><b>Measure</b>Success is dates decided in time, not alerts sent.</li>
+      <li><b>Legal team</b>Files each signed contract. AI reads it, code checks it.</li>
+      <li><b>Buying team</b>Decides every renewal before the last day to say no.</li>
+      <li><b>Finance team</b>Pays only what the contract allows.</li>
+      <li><b>Everyone</b>Asks questions and gets the clause as proof.</li>
     </ol>
     <div class="bar"><button class="btn pri" data-act="intro-tour" id="intro-start">Start the guided tour</button><button class="btn" data-act="intro-skip" id="intro-skip">Explore on my own</button></div>
-    <p class="sub">You can restart the tour any time from the top bar.</p>
+    <p class="sub">The Start page shows the three ways money leaks, with a step-by-step walkthrough for each.</p>
   </div>
 </div>
 
 <template id="tpl-why">
-  <p class="desk">1 &#183; Why this stage</p>
-  <h1>The damage in the brief happens after signature, so that is where I built.</h1>
-  <p class="lede">I chose the intelligent repository. Each of the three losses the brief names is a failure to use a contract that is already signed.</p>
-  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from invented sample data.</p></div>
+  <p class="desk">Why after signature</p>
+  <h1>The money is lost after signature, so that is where Afterink starts.</h1>
+  <p class="lede">Afterink is an intelligent contract repository. Unreviewed renewals, missed service levels and invoices above the agreed price are each a failure to use a contract that is already signed.</p>
+  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from the demo's sample data.</p></div>
   <div class="pos">
-    <h3>Three positions this prototype takes</h3>
+    <h3>Three positions Afterink takes</h3>
     <ol>
       <li><b>AI reads, code verifies.</b> Every extracted term shows the sentence it came from, and code checks the value really is in that sentence before anything relies on it.</li>
       <li><b>Measure decisions, not alerts.</b> Success is a contract date decided by a named person before it passes. An alert nobody acts on counts as a miss.</li>
@@ -333,39 +503,39 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     </ol>
     <div class="try"><p><b>See it in about a minute.</b> File the Fleetline amendment in the Inbox, then open invoice FL-20931: the amount flagged against the contract goes from $1,743.52 to $9,486.92.</p><button class="btn pri" data-act="go" data-r="inbox">Try it in the Inbox</button></div>
   </div>
-  <div class="bar"><button class="btn" data-act="go" data-r="start">Open the guided five-step path</button><button class="btn" data-act="go" data-r="stakeholders">Continue to the stakeholder map</button></div>
+  <div class="bar"><button class="btn" data-act="go" data-r="start">Open the guided five-step path</button><button class="btn" data-act="go" data-r="stakeholders">Next: who it serves</button></div>
 
   <figure class="fig">
-    <div class="dia"><svg viewBox="0 0 1000 230" role="img" aria-label="The contract lifecycle. Intake and negotiation come before signature and only improve new contracts. Both depend on the repository. The repository comes after signature, covers all 4,000 signed contracts, and is where the brief's three losses happen: unreviewed renewals, missed service levels and invoices over the agreed price.">
+    <div class="dia"><svg viewBox="0 0 1000 230" role="img" aria-label="The contract lifecycle. Intake and negotiation come before signature and only improve new contracts. Both depend on the repository. The repository comes after signature, covers all 4,000 signed contracts, and is where the three costly losses happen: unreviewed renewals, missed service levels and invoices over the agreed price.">
       <defs><marker id="a-why" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="d-ah"/></marker></defs>
       <rect class="d-box" x="20" y="30" width="200" height="64" rx="6"/><text class="d-t" x="120" y="57" text-anchor="middle">1 &#183; Contract intake</text><text class="d-s" x="120" y="77" text-anchor="middle">new requests only</text>
       <line class="d-l" x1="220" y1="62" x2="268" y2="62" marker-end="url(#a-why)"/>
       <rect class="d-box" x="270" y="30" width="200" height="64" rx="6"/><text class="d-t" x="370" y="57" text-anchor="middle">2 &#183; Negotiation</text><text class="d-s" x="370" y="77" text-anchor="middle">new deals only</text>
       <line class="d-l" x1="470" y1="62" x2="538" y2="62" marker-end="url(#a-why)"/>
       <line class="d-dash" x1="505" y1="18" x2="505" y2="108"/><text class="d-s" x="505" y="12" text-anchor="middle">signature</text>
-      <rect class="d-pick" x="540" y="30" width="440" height="64" rx="6"/><text class="d-pt" x="760" y="57" text-anchor="middle">3 &#183; Intelligent repository (chosen)</text><text class="d-ps" x="760" y="77" text-anchor="middle">every contract already signed, about 4,000</text>
+      <rect class="d-pick" x="540" y="30" width="440" height="64" rx="6"/><text class="d-pt" x="760" y="57" text-anchor="middle">3 &#183; Intelligent repository: Afterink</text><text class="d-ps" x="760" y="77" text-anchor="middle">every contract already signed, about 4,000</text>
       <text class="d-s" x="120" y="118" text-anchor="middle">depends on stage 3 to know</text><text class="d-s" x="120" y="134" text-anchor="middle">what is already signed</text>
       <text class="d-s" x="370" y="118" text-anchor="middle">depends on stage 3 to know</text><text class="d-s" x="370" y="134" text-anchor="middle">what was agreed last time</text>
       <line class="d-x" x1="610" y1="94" x2="610" y2="140"/><line class="d-x" x1="760" y1="94" x2="760" y2="140"/><line class="d-x" x1="910" y1="94" x2="910" y2="140"/>
       <rect class="d-bad" x="540" y="140" width="140" height="40" rx="6"/><text class="d-xt" x="610" y="165" text-anchor="middle">unreviewed renewals</text>
       <rect class="d-bad" x="690" y="140" width="140" height="40" rx="6"/><text class="d-xt" x="760" y="165" text-anchor="middle">missed service levels</text>
       <rect class="d-bad" x="840" y="140" width="140" height="40" rx="6"/><text class="d-xt" x="910" y="165" text-anchor="middle">invoices over price</text>
-      <text class="d-s" x="760" y="206" text-anchor="middle">the three losses named in the brief</text>
+      <text class="d-s" x="760" y="206" text-anchor="middle">the three losses that cost money</text>
     </svg></div>
-    <figcaption>Each loss is a signed term that nobody could see at the moment it mattered. What I am giving up: lost requests and stalled approvals are real, and this prototype does not touch them.</figcaption>
+    <figcaption>Each loss is a signed term that nobody could see at the moment it mattered. Left out on purpose: lost requests and stalled approvals are real, and the repository does not fix them.</figcaption>
   </figure>
   <details class="more"><summary>Compare the three stages row by row</summary>
   <div class="scroll"><table class="tbl cmp">
     <thead><tr><th></th><th>Contract intake</th><th>Negotiation</th><th>Intelligent repository</th></tr></thead>
     <tbody>
-      <tr><td>Stops the three losses the brief names</td><td>No. It speeds up new requests.</td><td>Partly. Better terms, on new deals only.</td><td class="pick">Yes. Each loss is a signed term that nobody could see at the moment it mattered.</td></tr>
-      <tr><td>Covers the contracts already signed</td><td>No</td><td>No</td><td class="pick">Yes, all of them, about 4,000 by my estimate</td></tr>
+      <tr><td>Stops the three costly losses</td><td>No. It speeds up new requests.</td><td>Partly. Better terms, on new deals only.</td><td class="pick">Yes. Each loss is a signed term that nobody could see at the moment it mattered.</td></tr>
+      <tr><td>Covers the contracts already signed</td><td>No</td><td>No</td><td class="pick">Yes, all of them: about 4,000 at a company like Kestrel (estimate)</td></tr>
       <tr><td>Who must change how they work</td><td>Every requester in a 3,000-person company</td><td>Legal, Procurement and each supplier's negotiator</td><td class="pick">Legal Operations files. People who sign forward the signed copy to one address, or do nothing where e-signature is used. A weekly ledger sweep finds what nobody forwarded.</td></tr>
       <tr><td>What it depends on</td><td>Knowing what is already signed with that supplier</td><td>Knowing what was agreed last time</td><td class="pick">Nothing upstream. The other two stages need it.</td></tr>
       <tr><td>First value</td><td>When requesters adopt a new front door</td><td>At the next negotiation</td><td class="pick">The first week: the next notice date and the next invoice</td></tr>
     </tbody>
   </table></div>
-  <p class="prose">I accept giving up lost requests and stalled approvals because a faster intake that feeds a repository nobody reads would only produce unread contracts faster.</p>
+  <p class="prose">Lost requests and stalled approvals wait because a faster intake that feeds a repository nobody reads would only produce unread contracts faster.</p>
   </details>
 
   <h2>How much work the product takes on</h2>
@@ -379,7 +549,7 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
   <p class="prose sub">A notice of non-renewal has legal effect and a wrong dispute costs goodwill with a supplier. The cost of one wrong automatic action is larger than the minutes saved by skipping the review.</p>
 
   <h2>What it is worth</h2>
-  <div class="sum">$220M <span>supplier spend a year (my assumption)</span> &#215; 1% <span>recovered</span> = $2.2M <span>a year</span></div>
+  <div class="sum">$220M <span>supplier spend a year (assumption)</span> &#215; 1% <span>recovered</span> = $2.2M <span>a year</span></div>
   <p class="prose">Built up from the three losses, the figure comes out about the same: $2.3M.</p>
   <div class="stack" role="img" aria-label="Renewals 1.0 million dollars, invoices 0.8 million, credits 0.5 million"><span style="flex:10">Renewals $1.0M</span><span style="flex:8">Invoices $0.8M</span><span style="flex:5">Credits $0.5M</span></div>
   <div class="tiles">
@@ -387,42 +557,37 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     <div class="tile"><span class="tl">Invoices checked against the contract</span><span class="tn">$0.8M</span><span class="ts">$110M is billed against a rate card. Checking corrects 0.75% of it.</span></div>
     <div class="tile"><span class="tl">Service credits claimed</span><span class="tn">$0.5M</span><span class="ts">$25M carries a credit clause. Credits worth 2% go unclaimed today.</span></div>
   </div>
-  <p class="prose sub">Every input is my assumption, and the two-week checks replace each one: the audit sets the renewal figure, the invoice sample the invoice figure, and the service reports the credit figure. Published research puts average value lost to weak contract management at 8.6% of contract value (World Commerce &amp; Contracting, 2025). That only shows 1% is a modest share. Nothing above depends on it.</p>
+  <p class="prose sub">Every input is an assumption, and the first two weeks with a customer replace each one: the audit sets the renewal figure, the invoice sample the invoice figure, and the service reports the credit figure. Published research puts average value lost to weak contract management at 8.6% of contract value (World Commerce &amp; Contracting, 2025). That only shows 1% is a modest share. Nothing above depends on it.</p>
 
   <h2>What already exists</h2>
-  <p class="prose">Enterprise contract management platforms, Sirion among them, already read terms with AI and raise renewal alerts. This prototype does not claim a new category. It argues three positions I would defend in any product at this stage. I have not compared feature lists in detail.</p>
-  <p class="prose">Those three positions are set out at the top of this page.</p>
+  <p class="prose">Enterprise contract management platforms, Sirion among them, already read terms with AI and raise renewal alerts. Afterink does not claim a new category. It takes the three positions set out at the top of this page. A feature-by-feature comparison is still to do.</p>
 
   <h2>Assumptions</h2>
   <div class="tiles">
-    <div class="tile"><span class="tl">The company (invented)</span><b>Kestrel Mobility</b><span class="ts">3,000 employees, about 2,500 suppliers, about 4,000 contract documents, USD 220M supplier spend a year.</span></div>
+    <div class="tile"><span class="tl">The demo company (sample)</span><b>Kestrel Mobility</b><span class="ts">3,000 employees, about 2,500 suppliers, about 4,000 contract documents, USD 220M supplier spend a year.</span></div>
     <div class="tile"><span class="tl">The documents</span><b>Readable PDF or Word</b><span class="ts">Scanned images need text recognition first, which is outside this prototype.</span></div>
     <div class="tile"><span class="tl">The people</span><b>3 in Legal Operations, half time</b><span class="ts">About 750 hours a quarter. An hour a contract by hand, about 15 minutes checking only flagged terms. Both are guesses.</span></div>
-    <div class="tile"><span class="tl">Where they start</span><b>Top 20% of suppliers</b><span class="ts">About 800 documents, which I assume covers about 80% of spend.</span></div>
+    <div class="tile"><span class="tl">Where they start</span><b>Top 20% of suppliers</b><span class="ts">About 800 documents, assumed to cover about 80% of spend.</span></div>
     <div class="tile"><span class="tl">The systems</span><b>Ledger, sign-on, service reports</b><span class="ts">Invoices, seat usage and service data can be exported. Sample values here.</span></div>
     <div class="tile"><span class="tl">Ownership</span><b>Every contract gets a named owner</b><span class="ts">The budget holder who pays the supplier, else the category manager. Undecided dates escalate at 30 days and at 10.</span></div>
-    <div class="tile"><span class="tl">Data</span><b>Enterprise AI agreement</b><span class="ts">Contract text may be sent to a model that does not train on it. Privileged documents stay out.</span></div>
+    <div class="tile"><span class="tl">Data</span><b>Enterprise AI agreement</b><span class="ts">Contract text may be sent to a model that does not train on it. Privileged documents stay out. This demo's own AI runs on a free key, which is fine only because every contract in it is sample data.</span></div>
     <div class="tile"><span class="tl">The clock</span><b>17 November 2026</b><span class="ts">The demo date is fixed so the deadlines stay the same whenever you open this.</span></div>
   </div>
   <details class="more"><summary>Read the assumptions in full</summary>
   <ul class="prose">
-    <li><b>The company.</b> Kestrel Mobility is invented. 3,000 employees, about 2,500 suppliers, about 4,000 active contract documents (1.6 per supplier), USD 220M of supplier spend a year.</li>
+    <li><b>The company.</b> Kestrel Mobility is a sample company. 3,000 employees, about 2,500 suppliers, about 4,000 active contract documents (1.6 per supplier), USD 220M of supplier spend a year.</li>
     <li><b>The documents.</b> Most signed contracts exist as readable PDF or Word files. Scanned images would need text recognition first, which is outside this prototype.</li>
-    <li><b>The people.</b> Legal Operations is three people who can give about half their time to filing, roughly 750 hours a quarter. Checking every term of a contract by hand takes about an hour. Checking only the terms the AI flagged takes about 15 minutes. Both times are guesses the first audit would replace. They start with the top 20% of suppliers by spend, about 800 documents, which I assume covers about 80% of spend.</li>
+    <li><b>The people.</b> Legal Operations is three people who can give about half their time to filing, roughly 750 hours a quarter. Checking every term of a contract by hand takes about an hour. Checking only the terms the AI flagged takes about 15 minutes. Both times are guesses the first audit would replace. They start with the top 20% of suppliers by spend, about 800 documents, assumed to cover about 80% of spend.</li>
     <li><b>The systems.</b> The ledger can export invoices, single sign-on can report seat usage, and operations keep service reports. Those feeds are sample values here.</li>
     <li><b>Ownership.</b> Every contract gets a named owner when it is filed: by default the budget holder whose cost centre pays that supplier in the ledger, confirmed by Legal Operations. Where the ledger shows none, the category manager owns it. A date still undecided 30 days before its deadline goes to the category lead, and at 10 days to the Head of Procurement. Silence always reaches someone with authority to decide.</li>
     <li><b>Data.</b> Contract text may be sent to an AI model under an enterprise agreement that excludes training on it. Privileged documents stay out.</li>
     <li><b>The clock.</b> The demo date is fixed at 17 November 2026 so the deadlines stay the same whenever you open this.</li>
   </ul>
   </details>
-  <h2>How AI was used, and where its first draft was wrong</h2>
-  <ul class="prose">
-    <li><b>In the product.</b> AI reads documents and drafts briefs, letters and dispute notes. Code checks every reading and does every calculation. A person decides and sends.</li>
-    <li><b>In the build.</b> AI coding tools wrote the code, the sample contracts and the first draft of this reasoning. I set the direction, asked for each review and decided what to change.</li>
-  </ul>
-  <p class="prose">I asked a separate AI review to attack the first version. Four of its findings changed the design:</p>
+  <h2>How the design held up under review</h2>
+  <p class="prose">An adversarial review of an earlier version found four places where the argument did not hold. Each one changed the product:</p>
   <div class="scroll"><table class="tbl">
-    <thead><tr><th>The first version said</th><th>What was wrong</th><th>What changed</th></tr></thead>
+    <thead><tr><th>An earlier version said</th><th>What was wrong</th><th>What changed</th></tr></thead>
     <tbody>
       <tr><td>Three people cannot verify 4,000 contracts</td><td>At the stated 6 minutes each, all 4,000 take 400 hours, which fits in a quarter. The argument contradicted its own numbers.</td><td>Redone at about 750 hours a quarter, an hour per contract by hand and 15 minutes by exception. Scope is cut if review passes 30 minutes.</td></tr>
       <tr><td>The north star counts decisions on filed contracts</td><td>Filing less raised the score, and renewing everything without thought reached 100%.</td><td>Unfiled documents count as undecided dates. A monthly sample guards against renewing without thought.</td></tr>
@@ -430,13 +595,12 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
       <tr><td>A quote found in the document proves the term</td><td>The model could quote "ninety (90) days" and still extract 60.</td><td>Code now also checks that the extracted value appears inside its quote, and flags it if not.</td></tr>
     </tbody>
   </table></div>
-  <p class="prose sub">Before submitting, a simulated council of six AI advisors debated whether to submit as it stood. The saved-results notice at the top of the page and the positions box above both came from its recommendation.</p>
 </template>
 
 <template id="tpl-stakeholders">
-  <p class="desk">2 &#183; Stakeholder map</p>
+  <p class="desk">Who it serves</p>
   <h1>Eight groups have a stake. The ones with the least say are the ones who feel it most.</h1>
-  <p class="lede">I mapped each group twice: by power and interest, to see who must approve this, and by impact and power, to see who lives with the result.</p>
+  <p class="lede">Each group is mapped twice: by power and interest, to see who must approve a rollout, and by impact and power, to see who lives with the result.</p>
 
   <div class="quads">
     <div>
@@ -465,7 +629,7 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
   <figure class="fig">
     <div class="dia"><svg viewBox="0 0 900 250" role="img" aria-label="The three high-impact, low-power groups and the screen each gets. Legal Operations gets the Inbox. Accounts Payable analysts get the Invoice check. Contract owners are named inside the Renewal desk, which is built for the Procurement category manager because stopping a renewal needs leverage. Sponsors get the metrics page.">
       <defs><marker id="a-st" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="d-ah"/></marker></defs>
-      <text class="d-s" x="20" y="18">High impact, low power</text><text class="d-s" x="560" y="18">Their screen in the prototype</text>
+      <text class="d-s" x="20" y="18">High impact, low power</text><text class="d-s" x="560" y="18">Their screen in Afterink</text>
       <rect class="d-pick" x="20" y="30" width="250" height="46" rx="6"/><text class="d-pt" x="145" y="58" text-anchor="middle">Legal Operations</text>
       <line class="d-l" x1="270" y1="53" x2="558" y2="53" marker-end="url(#a-st)"/>
       <rect class="d-box" x="560" y="30" width="320" height="46" rx="6"/><text class="d-t" x="720" y="58" text-anchor="middle">Inbox</text>
@@ -477,7 +641,7 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
       <rect class="d-box" x="560" y="154" width="320" height="46" rx="6"/><text class="d-t" x="720" y="174" text-anchor="middle">Renewal desk</text><text class="d-s" x="720" y="190" text-anchor="middle">built for the Procurement category manager</text>
       <text class="d-s" x="20" y="232">Sponsors (General Counsel, Head of Procurement, CFO) get the metrics page.</text>
     </svg></div>
-    <figcaption>A normal rollout would brief these three groups last. Two get their own screen. The renewal desk goes to Procurement on purpose: stopping a renewal takes someone with the leverage to say no. A view for contract owners is the first thing I would add after the interviews.</figcaption>
+    <figcaption>A normal rollout would brief these three groups last. Two get their own screen. The renewal desk goes to Procurement on purpose: stopping a renewal takes someone with the leverage to say no. A view for contract owners is next on the roadmap.</figcaption>
   </figure>
 
   <h2>What each group wants and fears</h2>
@@ -497,12 +661,12 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
   <div class="vs"><div><div class="pair"><span class="chip mute">Procurement: leverage, including leaving</span><i></i><span class="chip mute">Contract owner: no disruption</span></div></div><p>The renewal desk forces an explicit choice before the notice date and records who made it. "Let it renew" is a valid choice. Saying nothing is not.</p></div>
   <div class="vs"><div><div class="pair"><span class="chip mute">Accounts Payable: hold what does not match</span><i></i><span class="chip mute">Supplier and owner: payment on time</span></div></div><p>The undisputed amount is released on normal terms. Only the difference is held, with the clause quoted.</p></div>
   <div class="vs"><div><div class="pair"><span class="chip mute">Supplier: gains when nobody is looking</span><i></i><span class="chip mute">Kestrel: visibility</span></div></div><p>The product removes that advantage. In return, suppliers with clean invoices get approved faster, and that is tracked as a guardrail.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">IT and Legal: narrow access</span><i></i><span class="chip mute">Everyone else: search everything</span></div></div><p>Assumed: access follows the owning department, with commercial terms open to Finance and Procurement. Not built in this prototype.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">IT and Legal: narrow access</span><i></i><span class="chip mute">Everyone else: search everything</span></div></div><p>Assumed: access follows the owning department, with commercial terms open to Finance and Procurement. Not built yet.</p></div>
   <div class="vs"><div><div class="pair"><span class="chip mute">CFO: savings this quarter</span><i></i><span class="chip mute">Legal Operations: three people</span></div></div><p>By hand at about an hour each, the top 20% (800 documents) would take the whole quarter and all 4,000 more than five. Review by exception is about 15 minutes, so the top 20% takes about 200 hours, roughly a month. File by spend: top 20% first, the rest as their renewal or first invoice comes up.</p></div>
 </template>
 
 <template id="tpl-problem">
-  <p class="desk">3 &#183; The problem</p>
+  <p class="desk">The problem</p>
   <h1>Kestrel pays for terms it cannot see.</h1>
   <p class="lede">The people who have to act on a contract cannot see what was signed. So notice dates pass, credits go unclaimed, and invoices are paid at whatever price the supplier puts on them.</p>
 
@@ -564,7 +728,7 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
       <div><dt>Because</dt><dd>filing ends at signature. Nobody reads the document into data.</dd></div>
     </dl></div>
   </div>
-  <p class="sub">How this makes each of them feel is a hypothesis until I have interviewed them: exposed, for the category manager; blamed, for the analyst; interrupted, for Legal Operations.</p>
+  <p class="sub">How this makes each of them feel is a hypothesis until customer interviews confirm it: exposed, for the category manager; blamed, for the analyst; interrupted, for Legal Operations.</p>
 
   <h2>Why it matters</h2>
   <div class="tiles">
@@ -573,18 +737,18 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     <div class="tile"><b>Skilled time goes on searching</b><span class="ts">Lawyers and buyers look for documents when they could be using them.</span></div>
   </div>
 
-  <h2>How I know it is real</h2>
+  <h2>How we know it is real</h2>
   <div class="cards">
-    <div class="card"><h3>From the brief</h3><p>The company itself reports all three symptoms: unreviewed auto-renewals, missed service levels and invoices that do not match agreed prices. Contracts live in email, Word, shared drives and Excel.</p></div>
+    <div class="card"><h3>From the customer</h3><p>A growing company of 3,000 people reports all three symptoms: unreviewed auto-renewals, missed service levels and invoices that do not match agreed prices. Contracts live in email, Word, shared drives and Excel.</p></div>
     <div class="card"><h3>From published research</h3><ul>
       <li>Average value lost to weak contract management is 8.6% (<a href="https://info.worldcc.com/contract-management-aug-2025" target="_blank" rel="noopener">World Commerce &amp; Contracting, 2025</a>).</li>
       <li>The average company in one large data set faces 247 software renewals a year and uses 47% of its licences in a month (<a href="https://zylo.com/news/2025-saas-management-index" target="_blank" rel="noopener">Zylo SaaS Management Index, 2025</a>).</li>
       <li>62% of 50 large legal departments still searched contract data by hand in Excel, SharePoint or email (<a href="https://www.law.com/corpcounsel/2020/02/12/corporate-legal-departments-slow-to-adopt-artificial-intelligence-contract-analysis-tools/" target="_blank" rel="noopener">Law.com survey, 2020</a>).</li>
     </ul><p class="sub">Two of these come from vendors and the third is six years old. They show the pattern exists. They say nothing about Kestrel.</p></div>
-    <div class="card"><h3>From this prototype's data</h3><p>The sample set reproduces each failure once: a renewal that passed unseen, a signed amendment never filed, an invoice with no contract to check it against. With every document filed, about 5.7% of the invoiced value is above contract.</p><p class="sub">I wrote this data to illustrate the problem. It is not evidence of its size.</p></div>
+    <div class="card"><h3>From this prototype's data</h3><p>The sample set reproduces each failure once: a renewal that passed unseen, a signed amendment never filed, an invoice with no contract to check it against. With every document filed, about 5.7% of the invoiced value is above contract.</p><p class="sub">The sample data was written to show the problem. It is not evidence of its size.</p></div>
   </div>
 
-  <h2>What I would check in the first two weeks</h2>
+  <h2>What we check in the first two weeks with a customer</h2>
   <div class="tiles">
     <div class="tile"><span class="tn">50</span><b>contracts audited</b><span class="ts">Top 50 suppliers by spend. How many signed contracts can be found within a day, and how many notice dates passed last year with no decision recorded.</span></div>
     <div class="tile"><span class="tn">3 months</span><b>of invoices</b><span class="ts">Top 20 suppliers, compared by hand with their rate cards. Note whether a service report exists that a credit check could read. If few do, the credit check waits.</span></div>
@@ -592,23 +756,23 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     <div class="tile"><span class="tn">1</span><b>request count</b><span class="ts">Last quarter's purchase requests that were lost, restarted or took more than six weeks, with a cost per delay from the interviews.</span></div>
   </div>
 
-  <h3 style="margin-top:22px">What would prove me wrong</h3>
+  <h3 style="margin-top:22px">What would prove the repository the wrong place to start</h3>
   <div class="chain">
     <div><span class="k">Measure</span><b>Loss after signature, a year</b>From the audit and the invoice sample: missed notice dates times the increase each let through, plus overbilling and unclaimed credits, scaled to all spend.</div>
     <div><span class="k">Measure</span><b>Loss before signature, a year</b>From the request count. A rough figure.</div>
-    <div class="gate"><span class="k">Test</span><b>Is the loss after signature under USD 550,000 a year, or below the loss before signature?</b>USD 550,000 is a quarter of my sizing and about 0.25% of spend.</div>
+    <div class="gate"><span class="k">Test</span><b>Is the loss after signature under USD 550,000 a year, or below the loss before signature?</b>USD 550,000 is a quarter of the sizing above and about 0.25% of spend.</div>
     <div><span class="k">Result</span><span class="chip crit">Yes: intake is the better place to start</span><span class="chip good">No: the repository stands</span></div>
   </div>
 </template>
 
 <template id="tpl-metrics">
-  <p class="desk">5 &#183; Success metrics</p>
+  <p class="desk">Measuring success</p>
   <h1>The north star is the share of contract dates that got a decision before they passed.</h1>
   <p class="lede">A contract date here means any date that costs money if it goes by unseen: a renewal notice deadline, an expiry, a price change, the window to claim a credit.</p>
   <div class="frac"><span>dates where a named person recorded a decision in time</span><span>every date that fell due, filed or not</span></div>
   <p class="prose sub">A signed document known to exist but not yet filed counts as one undecided date. A date that passed while its document sat unfiled is recorded as a miss when the document turns up. So filing less can never make the number look better.</p>
   <h2>The headline result in the sample</h2>
-  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from invented sample data.</p></div>
+  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from the demo's sample data.</p></div>
   <div id="live-metrics"></div>
 
   <h2>Why this metric</h2>
@@ -625,10 +789,10 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     <div class="tile"><span class="chip crit">not chosen</span><b>Contracts filed</b><span class="ts">A full repository that nobody acts on is what the company has today, with better search.</span></div>
     <div class="tile"><span class="chip warn">blind spot</span><b>Invoices</b><span class="ts">Overbilling and unclaimed credits are not dates, so the north star cannot catch them. They are measured below.</span></div>
   </div>
-  <div class="meter" role="img" aria-label="Baseline guessed at under 20 percent. Target 90 percent."><i style="width:20%;background:var(--crit)"></i><b style="left:20%">under 20%</b><em style="left:20%">today, my guess</em><b style="left:90%">90%</b><em style="left:90%">target</em></div>
-  <p class="prose"><b>Target:</b> 90% for contracts in the top 80% of spend within two quarters. <b>Baseline:</b> unknown, and the 50-contract audit would set it. My guess is under 20%.</p>
+  <div class="meter" role="img" aria-label="Baseline guessed at under 20 percent. Target 90 percent."><i style="width:20%;background:var(--crit)"></i><b style="left:20%">under 20%</b><em style="left:20%">today, estimated</em><b style="left:90%">90%</b><em style="left:90%">target</em></div>
+  <p class="prose"><b>Target:</b> 90% for contracts in the top 80% of spend within two quarters. <b>Baseline:</b> unknown, and the 50-contract audit would set it. The estimate is under 20%.</p>
 
-  <h2>How I will know it works</h2>
+  <h2>How we will know it works</h2>
   <div class="tiles">
     <div class="tile"><span class="tl">Coverage: is the spend in the repository?</span><span class="tn">80%</span><span class="ts">of the last 12 months' ledger spend paid to a supplier with a verified contract, within 90 days. Counted from the ledger, so an unfiled contract shows as uncovered spend.</span></div>
     <div class="tile"><span class="tl">Trust: is the reading right?</span><span class="tn">under 5%</span><span class="ts">of deadline and price terms corrected by a reviewer. Under 1% wrong in a monthly audit of terms accepted without review.</span></div>
@@ -642,12 +806,12 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
     <div class="tile"><span class="tl">Wrong flags</span><span class="tn">under 10%</span><span class="ts">of invoice disputes withdrawn because the product was wrong. Each one costs goodwill with a supplier.</span></div>
     <div class="tile"><span class="tl">Clean invoices are not slowed</span><span class="tn">no rise</span><span class="ts">in days to approve an invoice that matches its contract.</span></div>
     <div class="tile"><span class="tl">No action without a person</span><span class="tn">0</span><span class="ts">notices or disputes leave the company without a named approver.</span></div>
-    <div class="tile"><span class="tl">No rubber-stamping</span><span class="tn">monthly sample</span><span class="ts">of renewals where the brief flagged low usage, a missed service level or an uncapped increase. If more than half were renewed with no reason recorded, a one-line reason becomes required.</span></div>
+    <div class="tile"><span class="tl">No rubber-stamping</span><span class="tn">monthly sample</span><span class="ts">of renewals where the renewal brief flagged low usage, a missed service level or an uncapped increase. If more than half were renewed with no reason recorded, a one-line reason becomes required.</span></div>
   </div>
 
-  <h2>What would make me rethink the approach</h2>
+  <h2>What would make us rethink the approach</h2>
   <div class="scroll"><table class="tbl">
-    <thead><tr><th>If I see this</th><th>It means</th><th>I would</th></tr></thead>
+    <thead><tr><th>If we see this</th><th>It means</th><th>We would</th></tr></thead>
     <tbody>
       <tr><td><span class="chip crit">over 10%</span><br>of deadline and price terms corrected after the first 300 contracts</td><td>The reading is not good enough to trust by exception</td><td><b>Have a person key the five critical terms</b>, with AI only suggesting and locating them</td></tr>
       <tr><td><span class="chip crit">under half</span><br>of on-time alerts get a decision</td><td>The gap is ownership, and information was never the constraint</td><td><b>Move to intake:</b> fix who owns each contract at the moment it is requested</td></tr>
