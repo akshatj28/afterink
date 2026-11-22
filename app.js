@@ -67,8 +67,8 @@
   function fresh() {
     return { v: 3, route: 'start', contracts: SEED_CONTRACTS.map(buildContract), inbox: SEED_INBOX.map(buildDoc), invoices: SEED_INVOICES.map(i => Object.assign(clone(i), { status: 'unchecked' })), decisions: {}, log: [], asked: 0, sel: {} };
   }
-  function load() { try { const j = JSON.parse(localStorage.getItem(KEY)); if (j && j.v === 3 && Array.isArray(j.contracts)) return j; } catch (e) { /* storage unavailable */ } return fresh(); }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable */ } }
+  function load() { try { localStorage.removeItem(KEY); } catch (e) { /* storage unavailable; older builds kept state here */ } try { const j = JSON.parse(sessionStorage.getItem(KEY)); if (j && j.v === 3 && Array.isArray(j.contracts)) return j; } catch (e) { /* storage unavailable */ } return fresh(); }
+  function save() { try { sessionStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable */ } }
   let S = load();
   const T = { hl: null, busy: null, review: null, ask: null, briefs: {}, choice: {}, letters: {}, disputes: {}, repoQ: '', repoF: 'all', pasteInv: '', pasteText: '', find: null, showLog: false, aiDraft: {} };
   const DESK = { legal: 'Legal Operations', proc: 'Procurement', fin: 'Accounts Payable', any: 'Anyone' };
@@ -443,58 +443,48 @@
       const flInv = S.invoices.find(i => i.id === 'FL-20931'), flR = checkInvoice(flInv), flFiled = filed('D-1');
       const bcInv = S.invoices.find(i => i.id === 'BC-1187'), bcR = checkInvoice(bcInv), bc = getC('C-1003');
       const bcAct = bc && bc.perf ? bc.perf[bcInv.period] : null;
-      const step = (team, k, text) => `<li><span class="lk-team">${esc(team)}</span>${tag(k)}<span>${text}</span></li>`;
       const leak = (o) => `<article class="leak"><div class="leak-h"><span class="leak-ic">${icon(o.ic)}</span><div><span class="leak-n">Leak ${o.n}</span><h3>${o.title}</h3></div></div>
-        <p class="leak-k">Where it happens today</p><p>${o.today}</p>
-        <p class="leak-k">What it costs</p><p class="leak-cost">${o.cost}</p>
-        <p class="leak-k">How Afterink stops it</p><ol class="leak-steps">${o.steps.join('')}</ol>
-        <div class="bar"><button class="btn pri" data-act="walk" data-w="${o.w}">${icon('play')}Show me, step by step</button><button class="btn" data-act="go" data-r="${o.r}">Open ${o.desk}</button></div></article>`;
+        <p class="leak-today">${o.today}</p>
+        <p class="leak-cost">${o.cost}</p>
+        <div class="bar"><button class="btn pri" data-act="walk" data-w="${o.w}">${icon('play')}Show me, step by step</button></div></article>`;
       const ns = northStar(), t = invoiceTotals();
       return `<span class="glowpill">Afterink &#183; AI contract repository</span>
       <h1>Afterink catches the deadlines and overcharges hidden in signed contracts.</h1>
-      <p class="lede">Companies sign thousands of supplier contracts, then file them away. Notice dates pass, invoices charge more than agreed, refunds go unclaimed. Afterink reads every signed contract with AI, turns its terms into dates and prices, and puts each one in front of the team that has to act.</p>
-      <p class="sub">This is a working demo on a sample company, Kestrel Mobility: 3,000 staff and about 2,500 suppliers. Everything works, the AI runs live, and nothing is ever sent outside the company. Today in the demo is ${fmtDate(DEMO_TODAY)}.</p>
+      <p class="lede">Afterink reads signed contracts with AI and puts every deadline and price in front of the team that must act on it.</p>
+      <p class="facts-line">Live demo on a sample company, Kestrel Mobility, dated ${fmtDate(DEMO_TODAY)}. Nothing is ever sent.</p>
 
       <h2>Three ways money leaks out of signed contracts</h2>
-      <p class="sub">All three are happening in this demo right now. Each card shows where it happens today, what it costs, and how Afterink stops it.</p>
       <div class="leaks">
         ${leak({ n: 1, ic: 'clock', w: 'renewal', r: 'renewals', desk: 'the Renewal desk', title: 'A contract renews because nobody said no in time',
-          today: cm ? `Cloudmetric's software contract renews for another year unless someone gives notice ${cm.f.noticeDays} days before it ends. That last day, ${fmtDate(noticeBy(cm))}, is written in clause 3 of a PDF. Nobody has it in a calendar.` : '',
-          cost: dec ? `Decided in this session: ${esc((choicesFor(ri).find(x => x[0] === dec.choice) || ['', dec.choice])[1].toLowerCase())}.` : ri ? `<b>${money(ri.commit)}</b> commits automatically, with up to <b>${money(ri.uplift)}</b> of price rise. <b>${ri.left} days</b> left to say no.` : '',
-          steps: [step('Buying team', 'code', 'works out the last day to say no from the signed terms, for every contract'), step('Buying team', 'ai', 'writes a short brief and a draft notice letter'), step('Buying team', 'you', 'decides to renew, renegotiate or leave. Nothing is sent automatically.')] })}
+          today: cm ? `Cloudmetric renews for a year unless told no by ${fmtDate(noticeBy(cm))}. That date is buried in clause 3 of a PDF.` : '',
+          cost: dec ? `Decided: ${esc((choicesFor(ri).find(x => x[0] === dec.choice) || ['', dec.choice])[1].toLowerCase())}.` : ri ? `<b>${money(ri.commit)}</b> renews in <b>${ri.left} days</b>, with up to <b>${money(ri.uplift)}</b> more.` : '' })}
         ${leak({ n: 2, ic: 'coin', w: 'overcharge', r: 'inbox', desk: 'the Inbox', title: 'An invoice charges more than the agreed price',
-          today: `Fleetline signed a lower pallet price and a 6% cap on fuel surcharges in September. The signed change sits in someone's email, so the finance team checks October's invoice against the old prices.`,
-          cost: flFiled ? `<b>${money(flR.flagged)}</b> overcharged on one invoice, now that the signed change is filed.` : `Checked against the old prices it looks like <b>${money(flR.flagged)}</b>. File the signed change and the same invoice is <b>$9,486.92</b> over.`,
-          steps: [step('Legal team', 'ai', 'reads the signed change and quotes each new price'), step('Legal team', 'code', 'checks every quote is really in the document; a person confirms and files'), step('Finance team', 'code', 'compares every invoice line with the price in force'), step('Finance team', 'you', 'holds only the difference; AI drafts the dispute letter')] })}
+          today: `Fleetline signed lower prices in September. The signed change sits in an email, so invoices are checked against the old prices.`,
+          cost: flFiled ? `<b>${money(flR.flagged)}</b> overcharged on one invoice.` : `Looks like <b>${money(flR.flagged)}</b> over. Really <b>$9,486.92</b> once the change is filed.` })}
         ${leak({ n: 3, ic: 'gift', w: 'credit', r: 'invoices', desk: 'Invoice check', title: 'A refund the supplier owes is never claimed',
-          today: bc ? `BrightClean promised a monthly audit score of at least ${bc.slaCredit.target}%. October scored ${bcAct}%, so the contract owes a ${bc.slaCredit.creditPct}% credit. The clause sits in a contract the finance team has never seen, so the invoice is paid in full.` : '',
-          cost: bcR.credit ? `<b>${money(bcR.credit)}</b> owed on October's invoice alone, and September was missed too.` : 'Claimed in this session.',
-          steps: [step('Finance team', 'code', 'compares the service report with the credit clause on every invoice'), step('Finance team', 'you', 'claims the credit; AI drafts the note to the supplier')] })}
+          today: bc ? `BrightClean scored ${bcAct}% against a promised ${bc.slaCredit.target}%, so it owes a ${bc.slaCredit.creditPct}% credit. Finance has never seen that clause.` : '',
+          cost: bcR.credit ? `<b>${money(bcR.credit)}</b> owed for October alone.` : 'Claimed.' })}
       </div>
 
       <h2>Who uses what</h2>
-      <p class="sub">Each part of Afterink is built for one team. Filing a contract in one changes what the others can see.</p>
       <div class="teams">
-        ${[['legal', 'inbox', 'Inbox', 'File each signed contract. AI reads it, code checks it, a person confirms only the terms that move money.'], ['proc', 'renewals', 'Renewal desk', 'See every deadline that costs money if it passes, and decide each renewal in time.'], ['fin', 'invoices', 'Invoice check', 'Check each invoice line against the signed price, and hold only what does not match.'], ['any', 'ask', 'Ask and Repository', 'Search every contract, or ask in plain words and get an answer that cites the clause.']].map(x => `<button class="teamcard" data-act="go" data-r="${x[1]}"><span class="team-ic">${icon(TEAM[x[0]].ic)}</span><b>${x[2]}</b><span class="team-who">For ${TEAM[x[0]].name} (${esc(TEAM[x[0]].who)})</span><span>${x[3]}</span></button>`).join('')}
+        ${[['legal', 'inbox', 'Inbox', 'File signed contracts.'], ['proc', 'renewals', 'Renewal desk', 'Decide every renewal in time.'], ['fin', 'invoices', 'Invoice check', 'Pay only what was agreed.'], ['any', 'ask', 'Ask and Repository', 'Find any term, with proof.']].map(x => `<button class="teamcard" data-act="go" data-r="${x[1]}"><span class="team-ic">${icon(TEAM[x[0]].ic)}</span><b>${x[2]}</b><span class="team-who">${esc(TEAM[x[0]].who)}</span><span>${x[3]}</span></button>`).join('')}
       </div>
 
       <h2>Where AI is used, and where it is not</h2>
-      <p class="sub">Every screen tags its output with one of these, so you can always see who produced it.</p>
       <div class="legend">
-        <div>${tag('ai')}<p><b>Reading and writing.</b> Contracts and invoices word the same thing in many ways: "ninety (90) days", "not less than three months". An invoice says "Security officers" where the contract says "Guarding hour". Fixed rules miss that, so AI reads, and drafts letters and answers.</p></div>
-        <div>${tag('code')}<p><b>Dates, money and checks.</b> Deadlines, price comparisons and the check that every AI quote is really in the document follow exact rules. Ordinary code does them the same way every time, with no AI involved.</p></div>
-        <div>${tag('you')}<p><b>Anything that commits the company.</b> Filing a contract, renewing or giving notice, holding a payment. A named person decides, and Afterink never sends anything by itself.</p></div>
+        <div>${tag('ai')}<p><b>Reading and drafting.</b> Contracts word the same term many ways, so fixed rules miss it.</p></div>
+        <div>${tag('code')}<p><b>Dates, money and checks.</b> Exact rules, the same every time. No AI.</p></div>
+        <div>${tag('you')}<p><b>Anything binding.</b> A named person decides. Nothing is sent automatically.</p></div>
       </div>
-
-      <div class="bar"><button class="btn pri" data-act="tour-start">${icon('play')}Take the two-minute guided tour</button><button class="btn" data-act="go" data-r="why">${icon('pen')}Why Afterink focuses on signed contracts</button></div>
 
       <h2>Right now in this workspace</h2>
       <div class="tiles">
-        <div class="tile"><span class="tl">Decisions due in 90 days</span><span class="tn">${ns.onTime} of ${ns.due}</span><span class="ts">made before the deadline${ns.unfiled ? `, counting ${ns.unfiled} unfiled document${ns.unfiled === 1 ? '' : 's'} as undecided` : ''}</span></div>
+        <div class="tile"><span class="tl">Decisions due in 90 days</span><span class="tn">${ns.onTime} of ${ns.due}</span><span class="ts">made before the deadline</span></div>
         <div class="tile"><span class="tl">Invoices in the queue</span><span class="tn">${money(t.flagged)}</span><span class="ts">billed above contract, of ${money(t.total)}</span></div>
-        <div class="tile"><span class="tl">Signed but unfiled</span><span class="tn">${S.inbox.filter(d => d.status === 'new').length}</span><span class="ts">documents the business is already paying against</span></div>
+        <div class="tile"><span class="tl">Signed but unfiled</span><span class="tn">${S.inbox.filter(d => d.status === 'new').length}</span><span class="ts">documents already being paid against</span></div>
       </div>
-      ${S.log.length ? `<h2>What has happened in this session</h2><ul class="logl">${S.log.slice(0, 8).map(l => `<li><span class="chip mute">${esc(DESK[l.desk])}</span> ${esc(l.text)}</li>`).join('')}</ul>` : ''}`;
+      `;
     },
 
     inbox() {
@@ -504,16 +494,15 @@
       </li>`).join('');
       return `${deskTag('legal')}<h1>Inbox</h1>
       <p class="lede">Signed documents that exist somewhere in the company but are not in the repository. Until one is filed, nobody downstream can act on it.</p>
-      <p class="tags">${tag('ai', 'AI reads each document')} ${tag('code', 'Code checks every quote')} ${tag('you', 'You confirm and file')}</p>
-      <p class="sub"><b>How documents get here without anyone remembering to file.</b> Where an e-signature tool is used, the signed copy arrives on its own. Everyone else forwards a signed copy to one address. Each week the ledger lists suppliers that were paid with no filed contract, and Legal Operations goes looking. The three below are the kind that sweep turns up: an attachment in a mailbox, a file on a team drive, a scanned letter.</p>
+      <details class="more"><summary>How documents reach the inbox</summary><p class="prose">E-signature tools send signed copies here on their own; everyone else forwards one to a single address. Each week the ledger lists suppliers paid with no filed contract, and Legal Operations goes looking. The three below are what that sweep finds.</p></details>
       ${aiNote()}
       <ul class="doclist">${rows}</ul>
       <h2>Read a document of your own</h2>
-      <p class="sub">Paste the text of any supplier contract, for example one from the Law Insider samples, or load the bundled sample. ${live() ? `${esc(AI.modelName || 'The AI')} reads it live, with no saved answer to fall back on, and you check the result.` : 'This needs the live AI server, which is not reachable right now.'}</p>
+      <p class="sub">${live() ? 'Paste any supplier contract, or load the sample. It is read live, with no saved answer behind it.' : 'This needs the live AI, which is not reachable right now.'}</p>
       <textarea id="paste-contract" class="inp ta" rows="7" placeholder="Paste contract text here" data-inp="pastedoc" ${live() ? '' : 'disabled'}>${esc(T.pasteText)}</textarea>
       ${live() ? `<p class="sub">${PASTE_NOTE}</p>` : ''}
       <div class="bar">${T.busy === 'read:paste' ? '<span class="thinking">Reading the document…</span>' : `<button class="btn" data-act="paste-sample" ${live() ? '' : 'disabled'}>Load a sample contract</button><button class="btn pri" data-act="read-paste" ${live() && !readingNow() ? '' : 'disabled'}>Read pasted contract</button>`}</div>
-      <div class="callout"><b>What the product does here, and what it leaves to a person.</b> AI extracts every term with the sentence it came from. Code checks that the sentence really appears in the document. Terms that set a deadline or a price are accepted without review only when the AI is confident, the quote matches word for word, and the extracted number or date appears inside that quote. Everything else waits for a person.</div>`;
+      `;
     },
 
     review() {
@@ -536,7 +525,7 @@
           }).join('')}</tbody></table></div><p class="sub">A change to a price or a cap is always confirmed by a person, whatever the AI's confidence.</p>` : ''}
         </div>${explainCard(parent)}`;
       } else {
-        body = `<p class="tags">${tag('ai', 'Terms read by AI')} ${tag('code', 'Quotes and values checked by code')}</p><p class="sub">For each term: the AI's confidence, then what code found when it looked for the quoted sentence in the document and for the value inside that sentence.</p><div class="card fields">${FIELDS.map(fd => fieldRow(fd)).join('')}
+        body = `<p class="tags">${tag('ai', 'Terms read by AI')} ${tag('code', 'Quotes and values checked by code')}</p><div class="card fields">${FIELDS.map(fd => fieldRow(fd)).join('')}
           <div class="frow${needsCheck('rates') && !R.ok.rates ? ' need' : ''}"><span class="flabel">Rate card <span class="crit-dot" title="Drives a deadline or a price">●</span></span>
             <div class="fval">${ex.rates.length ? `<table class="tbl mini"><tbody>${ex.rates.map(r => `<tr><td>${esc(r.item)}</td><td class="num">${money(r.rate)}</td><td>per ${esc(r.unit)}</td></tr>`).join('')}</tbody></table>` : '<span class="muted">No priced items found</span>'}</div>
             <div class="fmeta">${R.streaming && !ex.done ? '<span class="thinking">Reading…</span>' : ex.rates.length && ex.rates[0].quote && findSpan(R.text, ex.rates[0].quote) ? `${valueInQuote('money', ex.rates[0].rate, ex.rates[0].quote) === false ? chip('warn', 'Quote found, rate not in it') : chip('good', 'Quote checked by code')} <button class="lnk" data-act="hl" data-k="rates">Show source</button>` : (ex.rates.length ? chip('warn', 'Quote not found in document') : '')}</div>
@@ -557,7 +546,7 @@
       const unfiled = S.inbox.filter(d => d.status === 'new').length;
       const fs = [['all', 'All'], ['auto', 'Renews automatically'], ['due', 'Decision due in 90 days'], ['uncapped', 'Uncapped price rise']];
       return `${deskTag('any')}<h1>Repository</h1>
-      <p class="lede">One record per signed contract. Each term on file links back to the sentence it was read from, so nobody has to trust a spreadsheet cell.</p>
+      <p class="lede">Every signed contract. Each term links to the sentence it came from.</p>
       ${unfiled ? `<p class="note">${unfiled} signed ${unfiled === 1 ? 'document is' : 'documents are'} not filed yet. <button class="lnk" data-act="go" data-r="inbox">Open the inbox</button></p>` : ''}
       <div class="bar"><input id="repo-q" class="inp" type="search" placeholder="Search supplier, type, owner or any word in the contract" value="${esc(T.repoQ)}" data-inp="repo" aria-label="Search contracts">
       <div class="seg" role="group" aria-label="Filter">${fs.map(f => `<button class="segb${T.repoF === f[0] ? ' on' : ''}" data-act="repo-filter" data-f="${f[0]}">${f[1]}</button>`).join('')}</div></div>
@@ -596,7 +585,7 @@
     ask() {
       const A = T.ask;
       return `${deskTag('any')}<h1>Ask</h1>
-      <p class="lede">Ask about the contracts in plain words. The answer is written only from the verified repository, and each claim carries the contract and clause it rests on.</p>
+      <p class="lede">Ask in plain words. Every answer cites the contract and clause.</p>
       ${aiNote()}
       <div class="bar"><input id="ask-q" class="inp" type="text" placeholder="For example: what notice do we owe Vaultline?" value="${esc(A ? A.q : '')}" aria-label="Your question"><button class="btn pri" data-act="ask" ${T.busy === 'ask' ? 'disabled' : ''}>Ask</button></div>
       <div class="sugg">${SUGGESTED.map(s => `<button class="chipb" data-act="ask-s" data-id="${s.id}">${esc(s.q)}</button>`).join('')}</div>
@@ -611,8 +600,7 @@
       const upl = d90.filter(x => !S.decisions[x.c.id]).reduce((s, x) => s + x.uplift, 0);
       const ns = northStar();
       return `${deskTag('proc')}<h1>Renewal desk</h1>
-      <p class="lede">Every contract with a date that costs money if it passes unseen, ordered by the last day someone can still act.</p>
-      <p class="tags">${tag('code', 'Deadlines calculated by code')} ${tag('ai', 'Briefs and letters drafted by AI')} ${tag('you', 'You decide each renewal')}</p>
+      <p class="lede">Every date that costs money if missed, soonest first.</p>
       <div class="tiles">
         <div class="tile"><span class="tl">Decided before the deadline</span><span class="tn">${ns.onTime} of ${ns.due}</span><span class="ts">dates falling in the next 90 days${ns.unfiled ? `. ${ns.unfiled} of them are unfiled documents, counted as undecided until filed` : ''}</span></div>
         <div class="tile"><span class="tl">Renews if nobody acts</span><span class="tn">${money(atStake)}</span><span class="ts">committed spend, next 90 days, undecided</span></div>
@@ -623,7 +611,7 @@
         <td>${it.kind === 'expiry' ? 'Contract ends. Work after that date is uncovered.' : `Renews for ${it.c.f.renewalMonths || 12} months${it.c.f.upliftPct ? ` at up to +${it.c.f.upliftPct}%` : it.c.f.upliftPct == null ? ' with an uncapped increase' : ''}`}</td>
         <td class="num">${it.commit ? money(it.commit) : '—'}</td><td>${renewChip(it)}</td><td><button class="btn sm" data-act="open-renewal" data-id="${it.c.id}">${S.decisions[it.c.id] ? 'View' : 'Decide'}</button></td></tr>`).join('')}
       </tbody></table></div>
-      <div class="callout"><b>Where the dates come from.</b> Nobody typed these deadlines. Each is the term end minus the notice period, both read from the signed text and checked by Legal Operations. File the Talentbridge agreement from the inbox and its date appears here.</div>`;
+      `;
     },
 
     renewal() {
@@ -641,7 +629,7 @@
           <div><dt>If nobody acts</dt><dd>Renews for ${c.f.renewalMonths || 12} months, committing ${money(it.commit)}${it.uplift ? `, including up to ${money(it.uplift)} of increase` : ''}${p.autoRenew ? `<span class="fnote">"${esc(p.autoRenew)}"</span>` : ''}</dd></div>
           <div><dt>Price rule</dt><dd>${esc(c.f.upliftText || 'Not stated')}</dd></div>` : `<div><dt>If nobody acts</dt><dd>The contract ends and does not renew${p.autoRenew ? `<span class="fnote">"${esc(p.autoRenew)}"</span>` : ''}</dd></div>`}
           <div><dt>How notice must be given</dt><dd>${esc(c.f.noticeMethod || 'Not stated')}</dd></div></dl></div>
-        <div class="card"><h3>Signals from other systems</h3>${c.signals.length ? `<ul class="sig">${c.signals.map(s => `<li>${chip(s.tone, s.tone === 'good' ? 'OK' : s.tone === 'crit' ? 'Act' : 'Watch')} <span><b>${esc(s.label)}</b><br>${esc(s.value)}</span></li>`).join('')}</ul>` : '<p class="muted">None on file.</p>'}<p class="sub">Assumed integrations: single sign-on, the ledger, service reports. In this prototype they are sample values.</p></div>
+        <div class="card"><h3>Signals from other systems</h3>${c.signals.length ? `<ul class="sig">${c.signals.map(s => `<li>${chip(s.tone, s.tone === 'good' ? 'OK' : s.tone === 'crit' ? 'Act' : 'Watch')} <span><b>${esc(s.label)}</b><br>${esc(s.value)}</span></li>`).join('')}</ul>` : '<p class="muted">None on file.</p>'}<p class="sub">Sample data.</p></div>
       </div><div>
         <div class="card"><div class="cardhead"><h3>Renewal brief</h3><span>${tag('ai', B.source === 'live' ? 'Written live by AI' : 'Written by AI (saved)')}</span></div>
           ${T.busy === 'brief:' + c.id ? '<p class="thinking">Writing the brief…</p>' : `<p class="headline">${esc(B.headline)}</p><ul>${(B.why || []).map(w => `<li>${esc(w)}</li>`).join('')}</ul>
@@ -656,7 +644,7 @@
             <label class="mini-h" for="letter">Draft to the supplier. Edit before you record it.</label>
             <textarea id="letter" class="inp ta" rows="13" data-inp="letter" data-id="${c.id}">${esc(letter)}</textarea>
             <div class="bar"><button class="btn pri" data-act="decide" data-id="${c.id}" data-c="${choice}">Record decision and queue the notice</button></div>
-            <p class="sub">Recording a decision does not send anything. A notice has legal effect, so a named person sends it.</p>`}
+            <p class="sub">Nothing is sent. The contract owner sends the notice.</p>`}
         </div>
       </div></div>`;
     },
@@ -664,8 +652,7 @@
     invoices() {
       const t = invoiceTotals();
       return `${deskTag('fin')}<h1>Invoice check</h1>
-      <p class="lede">Each invoice line is compared with the price in the signed contract before anyone pays it.</p>
-      <p class="tags">${tag('code', 'Every line compared by code')} ${tag('ai', 'Pasted invoices and dispute letters by AI')} ${tag('you', 'You decide what to pay')}</p>
+      <p class="lede">Every invoice line, checked against the signed price before payment.</p>
       <div class="tiles">
         <div class="tile"><span class="tl">Billed above contract</span><span class="tn">${money(t.flagged)}</span><span class="ts">across ${S.invoices.length} invoices worth ${money(t.total)}</span></div>
         <div class="tile"><span class="tl">Held under dispute</span><span class="tn">${money(t.held)}</span><span class="ts">approved by Accounts Payable</span></div>
@@ -675,7 +662,7 @@
       ${S.invoices.map(inv => { const r = checkInvoice(inv); return `<tr><td class="mono">${esc(inv.id)}</td><td>${esc(inv.supplier)}</td><td>${esc(inv.periodLabel || inv.period || '')}</td><td class="num">${money(inv.total)}</td><td>${r.c ? `<span class="mono">${r.c.id}</span>${r.c.amendments.length ? ' as amended' : ''}` : '<span class="muted">Nothing on file</span>'}</td><td>${invChip(inv, r)}</td><td><button class="btn sm" data-act="open-invoice" data-id="${esc(inv.id)}">Open</button></td></tr>`; }).join('')}
       </tbody></table></div>
       <h2>Check an invoice of your own</h2>
-      <p class="sub">Paste invoice text. ${live() ? `${esc(AI.modelName || 'The AI')} reads the lines and maps each one to a rate card item. The comparison is then done by code.` : 'Reading a pasted invoice needs the live AI server, which is not reachable right now.'}</p>
+      <p class="sub">${live() ? 'AI reads the lines; code checks the prices.' : 'This needs the live AI, which is not reachable right now.'}</p>
       <textarea id="paste-inv" class="inp ta mono" rows="8" placeholder="Paste invoice text here" data-inp="pasteinv" ${live() ? '' : 'disabled'}>${esc(T.pasteInv)}</textarea>
       ${live() ? `<p class="sub">${PASTE_NOTE}</p>` : ''}
       <div class="bar">${T.busy === 'inv' ? '<span class="thinking">Reading the invoice…</span>' : `<button class="btn" data-act="inv-sample" ${live() ? '' : 'disabled'}>Use a sample invoice</button><button class="btn pri" data-act="inv-parse" ${live() ? '' : 'disabled'}>Read and check</button>`}</div>`;
@@ -704,7 +691,7 @@
           <p class="tags">${T.aiDraft[inv.id] ? tag('ai', 'Redrafted by AI') : tag('code', 'Drafted by code from the checks')}</p>
           <textarea id="dispute" class="inp ta" rows="11" data-inp="dispute" data-id="${esc(inv.id)}">${esc(dis != null ? dis : tplDispute(inv, r))}</textarea>
           <div class="bar">${T.busy === 'dispute:' + inv.id ? '<span class="thinking">Drafting…</span>' : (live() ? `<button class="btn" data-act="dispute-ai" data-id="${esc(inv.id)}">Redraft with AI</button>` : '')}<button class="btn pri" data-act="inv-dispute" data-id="${esc(inv.id)}">Queue dispute and pay the undisputed amount</button><button class="btn" data-act="inv-approve" data-id="${esc(inv.id)}">Pay in full anyway</button></div>
-          <p class="sub">The supplier still gets paid on time for everything that matches. Only the difference is held.</p>`
+          <p class="sub">Only the difference is held. The rest is paid on time.</p>`
         : r.state === 'nocontract' ? `<div class="bar"><button class="btn pri" data-act="go" data-r="inbox">Go to the inbox</button><button class="btn" data-act="inv-blind" data-id="${esc(inv.id)}">Pay without a check</button></div>`
         : `<p>${r.state === 'query' ? 'The prices match the contract. Resolve the query above with the contract owner, then approve.' : 'Every line matches the contract.'}</p><div class="bar"><button class="btn pri" data-act="inv-approve" data-id="${esc(inv.id)}">Approve for payment</button></div>`}
       </div>`;
@@ -925,7 +912,6 @@
   }
   const ACT = {
     go: d => go(d.r),
-    reset() { const rc = $('#reset-confirm'); if (rc) rc.hidden = true; S = fresh(); S.route = location.hash.slice(1) && VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : 'start'; Object.assign(T, { hl: null, busy: null, review: null, ask: null, briefs: {}, choice: {}, letters: {}, disputes: {}, repoQ: '', repoF: 'all', pasteInv: '', pasteText: '', find: null, citeText: null, aiDraft: {} }); save(); render(); toast('Demo data restored.'); },
     'paste-sample'() { T.pasteText = SAMPLE_CONTRACT_TEXT; render(); const ta = $('#paste-contract'); if (ta) ta.scrollIntoView({ block: 'center' }); },
     explain: explainAmendment,
     find() { findInWords($('#find-q').value); },
@@ -1012,7 +998,7 @@
       why: "The north star counts silence as a miss. Corvid's notice date passed before the product existed, so the score can never reach 100% on old misses, and unfiled documents count as undecided.",
       tryIt: () => 'Check how the tiles moved with what you did, then scroll to the table of what would make us rethink the approach.' }
   ];
-  /* One walkthrough per money leak, started from the cards on the Start page. */
+  /* One walkthrough per money leak, started from the cards on the Overview. */
   const fl = () => checkInvoice(S.invoices.find(i => i.id === 'FL-20931')).flagged;
   const WALKS = {
     renewal: { label: 'Missed renewal, step by step', steps: [
@@ -1067,11 +1053,10 @@
     'tour-next'() { tourGo(TOUR.i + 1); },
     'tour-prev'() { tourGo(TOUR.i - 1); },
     'tour-here'() { tourGo(TOUR.i); },
-    'tour-end'() { TOUR.on = false; tourPaint(); toast('Walkthrough closed. Start another from the Start page, or the guided tour from the top bar.'); },
+    'tour-end'() { TOUR.on = false; tourPaint(); toast('Walkthrough closed. Start another from the Overview.'); },
     'intro-tour'() { introSeen(); startTour(TOUR_STEPS, 'Guided tour'); },
     'intro-skip'() { introSeen(); },
-    'reset-ask'() { const rc = $('#reset-confirm'); rc.hidden = !rc.hidden; if (!rc.hidden) $('#reset-yes').focus(); },
-    'reset-cancel'() { $('#reset-confirm').hidden = true; }
+
   });
   document.addEventListener('click', e => { if (e.target && e.target.id === 'intro') introSeen(); });
   document.addEventListener('click', e => { const el = e.target.closest('[data-act]'); if (!el || el.disabled) return; const fn = ACT[el.dataset.act]; if (fn) { e.preventDefault(); fn(el.dataset, el); } });
@@ -1085,7 +1070,7 @@
     if (el.dataset.inp === 'pastedoc') T.pasteText = el.value;
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { if (!$('#intro').hidden) { introSeen(); return; } if (!$('#reset-confirm').hidden) { $('#reset-confirm').hidden = true; return; } if (TOUR.on) { ACT['tour-end'](); return; } }
+    if (e.key === 'Escape') { if (!$('#intro').hidden) { introSeen(); return; } if (TOUR.on) { ACT['tour-end'](); return; } }
     if (e.key !== 'Enter') return;
     if (e.target.id === 'ask-q') { e.preventDefault(); ask(e.target.value); }
     else if (e.target.id === 'find-q') { e.preventDefault(); findInWords(e.target.value); }
@@ -1121,27 +1106,29 @@
   };
   const icon = name => ICON[name] ? `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICON[name]}</svg>` : '';
   const NAV = [
-    { r: 'start', t: 'Start here', ic: 'home' },
-    { g: 'Legal team' }, { r: 'inbox', t: 'Inbox', ic: 'inbox', alias: ['review'], ct: () => S.inbox.filter(d => d.status === 'new').length },
-    { g: 'Buying team' }, { r: 'renewals', t: 'Renewal desk', ic: 'calendar', alias: ['renewal'], ct: () => renewalItems(90).filter(it => !S.decisions[it.c.id]).length },
-    { g: 'Finance team' }, { r: 'invoices', t: 'Invoice check', ic: 'receipt', alias: ['invoice'], ct: () => S.invoices.filter(i => !['disputed', 'approved', 'blind'].includes(i.status)).length },
-    { g: 'Everyone' }, { r: 'repository', t: 'Repository', ic: 'archive', alias: ['contract'] }, { r: 'ask', t: 'Ask', ic: 'chat' },
-    { g: 'Why Afterink' }, { r: 'why', t: 'Why after signature', ic: 'pen' }, { r: 'stakeholders', t: 'Who it serves', ic: 'users' }, { r: 'problem', t: 'The problem', ic: 'alert' },
-    { r: 'metrics', t: 'Measuring success', ic: 'target' }
+    { g: 'Why Afterink' }, { r: 'start', t: 'Overview', ic: 'home' }, { r: 'problem', t: 'The problem', ic: 'alert' }, { r: 'why', t: 'Why after signature', ic: 'pen' }, { r: 'stakeholders', t: 'Who it serves', ic: 'users' },
+    { r: 'metrics', t: 'Measuring success', ic: 'target' },
+    { g: 'The product' },
+    { r: 'inbox', t: 'Inbox', team: 'Legal team', ic: 'inbox', alias: ['review'], ct: () => S.inbox.filter(d => d.status === 'new').length },
+    { r: 'renewals', t: 'Renewal desk', team: 'Buying team', ic: 'calendar', alias: ['renewal'], ct: () => renewalItems(90).filter(it => !S.decisions[it.c.id]).length },
+    { r: 'invoices', t: 'Invoice check', team: 'Finance team', ic: 'receipt', alias: ['invoice'], ct: () => S.invoices.filter(i => !['disputed', 'approved', 'blind'].includes(i.status)).length },
+    { r: 'repository', t: 'Repository', team: 'Everyone', ic: 'archive', alias: ['contract'] }, { r: 'ask', t: 'Ask', team: 'Everyone', ic: 'chat' }
   ];
   /* The strip under the top band: which model is live, and every call made in this session. */
   function strip() {
     const el = $('#ai-strip'); if (!el) return;
     const calls = AI.calls;
-    if (AI.state !== 'live' && !calls.length) { el.hidden = true; return; }
+    const running = calls.some(c => c.status === 'running'), chipEl = $('#ai-chip');
+    if (chipEl && AI.state === 'live') chipEl.textContent = `AI: live, ${AI.modelName || AI.model}${running ? ' · working…' : ''}`;
+    if (!T.showLog) { el.hidden = true; return; }
     el.hidden = false;
     const last = calls[0];
     const lastText = !last ? '' : ` Last call: ${esc(last.label.toLowerCase())}, ${last.status === 'running' ? 'running…' : last.status === 'failed' ? 'failed. ' + esc(AI_COPY[last.err] || last.err) : fmtMs(last.ms) + (last.in != null ? `, ${(last.in + last.out).toLocaleString('en-US')} tokens` : '') + '.'}`;
     const head = AI.state === 'live'
       ? `<b>Live AI: ${esc(AI.modelName || AI.model || '')}</b>, through a small server that holds the key${AI_URL_OVERRIDE ? ` (test server ${esc(AI_URL_OVERRIDE)})` : ''}. The page sends data, the server holds the prompts, and the model never does the arithmetic. ${calls.length ? `${calls.length} call${calls.length === 1 ? '' : 's'} this session.` : 'No calls yet.'}`
       : `<b>AI calls this session: ${calls.length}.</b>`;
-    el.innerHTML = `<div class="aistrip-in"><span>${head}${lastText}</span>${calls.length ? `<button class="lnk" data-act="ai-log">${T.showLog ? 'Hide the log' : 'Show the log'}</button>` : ''}</div>
-      ${T.showLog && calls.length ? `<div class="scroll ailog"><table class="tbl mini"><thead><tr><th>Call</th><th>Status</th><th class="num">Time</th><th class="num">Sent</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th>Model</th></tr></thead><tbody>${calls.map(c => `<tr><td>${esc(c.label)}</td><td>${c.status === 'done' ? chip('good', c.truncated ? 'Done, cut short' : 'Done') : c.status === 'running' ? chip('info', 'Running') : chip('crit', 'Failed')}</td><td class="num">${c.ms ? fmtMs(c.ms) : '—'}</td><td class="num">${c.chars.toLocaleString('en-US')} chars</td><td class="num">${c.in != null ? c.in.toLocaleString('en-US') : '—'}</td><td class="num">${c.out != null ? c.out.toLocaleString('en-US') : '—'}</td><td>${esc(c.model || '')}</td></tr>`).join('')}</tbody></table></div>` : ''}`;
+    el.innerHTML = `<div class="aistrip-in"><span>${head}${lastText}</span><button class="lnk" data-act="ai-log">Hide</button></div>
+      ${calls.length ? `<div class="scroll ailog"><table class="tbl mini"><thead><tr><th>Call</th><th>Status</th><th class="num">Time</th><th class="num">Sent</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th>Model</th></tr></thead><tbody>${calls.map(c => `<tr><td>${esc(c.label)}</td><td>${c.status === 'done' ? chip('good', c.truncated ? 'Done, cut short' : 'Done') : c.status === 'running' ? chip('info', 'Running') : chip('crit', 'Failed')}</td><td class="num">${c.ms ? fmtMs(c.ms) : '—'}</td><td class="num">${c.chars.toLocaleString('en-US')} chars</td><td class="num">${c.in != null ? c.in.toLocaleString('en-US') : '—'}</td><td class="num">${c.out != null ? c.out.toLocaleString('en-US') : '—'}</td><td>${esc(c.model || '')}</td></tr>`).join('')}</tbody></table></div>` : ''}`;
   }
   function chrome() {
     const bar = $('#ai-bar');
@@ -1150,8 +1137,8 @@
       if (AI.state === 'off') bar.innerHTML = `<b>The live AI is off: ${esc(WHY_OFF[AI.why] || WHY_OFF.offline)}.</b> This page is replaying saved AI results, prepared in advance from these same documents. The checks, dates and invoice sums still run live in your browser.${AI.why === 'unset' ? '' : ' Reload the page to try again later.'}`;
     }
     const chipEl = $('#ai-chip');
-    if (chipEl) { chipEl.className = 'chip ' + (AI.state === 'live' ? 'good' : 'mute'); chipEl.textContent = AI.state === 'live' ? `AI: live, ${AI.modelName || AI.model}` : AI.state === 'off' ? 'AI: saved results' : 'AI: checking'; }
-    $('#nav').innerHTML = NAV.map(n => n.g ? `<p class="ng">${n.n ? `<span class="nn">${n.n}</span>` : ''}${n.g}</p>` : `<a class="nl${S.route === n.r || (n.alias || []).includes(S.route) ? ' on' : ''}" href="#${n.r}">${n.n ? `<span class="nn">${n.n}</span>` : ''}${icon(n.ic)}<span>${n.t}</span>${n.ct && n.ct() ? `<span class="ct">${n.ct()}</span>` : ''}</a>`).join('');
+    if (chipEl) { chipEl.className = 'chip aichip ' + (AI.state === 'live' ? 'good' : 'mute'); chipEl.textContent = AI.state === 'live' ? `AI: live, ${AI.modelName || AI.model}` : AI.state === 'off' ? 'AI: saved results' : 'AI: checking'; }
+    $('#nav').innerHTML = NAV.map(n => n.g ? `<p class="ng">${n.n ? `<span class="nn">${n.n}</span>` : ''}${n.g}</p>` : `<a class="nl${S.route === n.r || (n.alias || []).includes(S.route) ? ' on' : ''}" href="#${n.r}">${n.n ? `<span class="nn">${n.n}</span>` : ''}${icon(n.ic)}${n.team ? `<span class="nlt"><span>${n.t}</span><span class="nt">${n.team}</span></span>` : `<span>${n.t}</span>`}${n.ct && n.ct() ? `<span class="ct">${n.ct()}</span>` : ''}</a>`).join('');
   }
   let lastRoute = null;
   function render() {
@@ -1186,27 +1173,6 @@
     strip();
     render();   /* render keeps the focused input and its caret, so this is safe while someone types */
   }
-  /* Light and dark: Night is the default. The top-bar button switches, and this viewer's choice is
-     remembered in their browser. The page sets the mode before it first paints (see index.html). */
-  function themeButton() {
-    const light = document.documentElement.dataset.theme === 'light', b = $('#theme-btn');
-    if (b) { b.innerHTML = light ? icon('moon') + 'Dark mode' : icon('sun') + 'Light mode'; b.setAttribute('aria-pressed', String(light)); }
-    const tb = $('#tour-btn'), rb = $('#reset-btn');
-    if (tb && !tb.querySelector('svg')) tb.insertAdjacentHTML('afterbegin', icon('play'));
-    if (rb && !rb.querySelector('svg')) rb.insertAdjacentHTML('afterbegin', icon('reset'));
-  }
-  Object.assign(ACT, {
-    'theme-toggle'() {
-      const next = document.documentElement.dataset.theme === 'light' ? 'night' : 'light';
-      document.documentElement.dataset.theme = next;
-      try { localStorage.setItem('afterink.theme', next); } catch (e) { /* storage unavailable: the choice lasts this page load */ }
-      themeButton();
-    },
-    'announce-x'() { $('#announce').hidden = true; try { sessionStorage.setItem('afterink.announce', 'hidden'); } catch (e) { /* storage unavailable */ } }
-  });
-  themeButton();
-  try { if (sessionStorage.getItem('afterink.announce') === 'hidden') $('#announce').hidden = true; } catch (e) { /* storage unavailable */ }
-  $('#demo-date').textContent = fmtDate(DEMO_TODAY);
   render();
   introInit();
   initAI();

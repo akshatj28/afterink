@@ -9,7 +9,7 @@
 <body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Afterink Contract Repository</title>
-<script>(function(){var t="night";try{if(localStorage.getItem("afterink.theme")==="light")t="light";}catch(e){}var q=new URLSearchParams(location.search).get("theme");if(q==="light"||q==="night")t=q;document.documentElement.dataset.theme=t;})();</script>
+<script>document.documentElement.dataset.theme="light";</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
 /* Layout: the workspace and the case for it run down a left rail; one working pane on the right.
@@ -24,7 +24,7 @@
   --band:#0B1821; --on-band:#F5F6F6; --on-band-muted:#B4CDD0; --band-chip:#073439;
   --glow:radial-gradient(120% 160% at 50% -60%, rgba(13,94,104,.85) 0%, rgba(13,94,104,0) 62%);
   --mark:#EAD6EE; --mark-ink:#0B1821;
-  --scrim:rgba(11,24,33,.55); --shadow:rgba(11,24,33,.18);
+  --scrim:rgba(11,24,33,.35); --shadow:rgba(11,24,33,.18);
   --good:#17693F; --good-soft:#DAF0E3; --warn:#8A5200; --warn-soft:#FBEACB; --crit:#AD231C; --crit-soft:#FBDFDC;
   --f-ui:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-doc:"Source Serif 4",Georgia,"Times New Roman",serif;
@@ -39,17 +39,17 @@ body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-ui)}
 .top{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:22px}
 .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .brand b{font:600 23px/1 var(--f-doc);letter-spacing:-.01em}
-.brand span{color:var(--muted);font-size:13px}
-.topr{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.brand span{color:var(--muted);font-size:14px}
+.topr{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
 .app{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;align-items:start}
 .side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:2px}
-.ng{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 4px;display:flex;gap:8px;align-items:center}
+.ng{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 4px;display:flex;gap:8px;align-items:center}
 .ng:first-child{margin-top:0}
-.nl{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:14px}
+.nl{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:15px}
 .nl:hover{background:var(--sunk)}
 .nl.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
-.nn{font:500 11px/1 var(--f-mono);border:1px solid currentColor;border-radius:50%;width:19px;height:19px;display:inline-grid;place-items:center;flex:none}
-.ct{margin-left:auto;font:500 11px var(--f-mono);background:var(--ink);color:var(--bg);border-radius:9px;padding:1px 7px}
+.nn{font:500 12px/1 var(--f-mono);border:1px solid currentColor;border-radius:50%;width:19px;height:19px;display:inline-grid;place-items:center;flex:none}
+.ct{margin-left:auto;font:500 12px var(--f-mono);background:#FFFFFF;color:var(--ink);border-radius:9px;padding:1px 7px}
 main{min-width:0}
 @media (max-width:860px){
   .app{grid-template-columns:minmax(0,1fr);gap:18px}
@@ -61,18 +61,18 @@ main{min-width:0}
 
 h1{font:600 28px/1.2 var(--f-ui);margin:0 0 10px;text-wrap:balance;letter-spacing:-.012em;max-width:26em}
 h2{font:600 18px/1.3 var(--f-ui);margin:34px 0 8px;text-wrap:balance}
-h3{font:600 12px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+h3{font:600 13px/1.3 var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
 p{margin:0 0 10px}
 ul,ol{margin:0 0 10px;padding-left:20px}
 a{color:var(--accent)}
 .lede{font:400 18px/1.5 var(--f-doc);max-width:66ch;margin-bottom:18px}
 .prose{max-width:70ch}
 .prose li{margin-bottom:6px}
-.sub{color:var(--muted);font-size:13px}
+.sub{color:var(--muted);font-size:14px}
 .muted{color:var(--muted)}
 .mono{font-family:var(--f-mono);font-size:.92em}
-.desk{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
-.aibar{background:var(--accent-soft);color:var(--ink);border-radius:8px;padding:10px 14px;margin:0 0 20px;font-size:14px;max-width:110ch}
+.desk{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+.aibar{background:var(--accent-soft);color:var(--ink);border-radius:8px;padding:10px 14px;margin:0 0 20px;font-size:15px;max-width:110ch}
 .aibar b{color:var(--accent)}
 .pos{border:1px solid var(--accent);border-radius:8px;background:var(--surface);padding:14px 18px;margin:4px 0 18px;max-width:84ch}
 .pos ol{margin:8px 0 12px;padding-left:20px}
@@ -87,19 +87,16 @@ a{color:var(--accent)}
 .band .brand span{color:var(--on-band-muted)}
 .band .topr{color:var(--on-band-muted)}
 .band .chip.mute{background:var(--band-chip);color:var(--on-band)}
-.btn.light{background:var(--on-band);color:var(--band);border-color:var(--on-band);font-weight:600}
+.btn.light{background:var(--accent);color:#FFFFFF;border-color:var(--accent);font-weight:600}
 .btn.ghost{background:transparent;color:var(--on-band);border-color:var(--on-band-muted)}
 .btn.ghost:hover{border-color:var(--on-band)}
-.confirm{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 8px);z-index:25;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px var(--shadow);padding:14px 16px;width:min(320px,calc(100vw - 32px))}
-.confirm p{margin:0 0 10px;font-size:14px}
-.confirm .bar{margin:0}
 .tour{position:fixed;z-index:22;right:calc(env(safe-area-inset-right,0px) + 20px);bottom:calc(env(safe-area-inset-bottom,0px) + 20px);width:min(380px,calc(100vw - 32px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:12px;box-shadow:0 16px 40px var(--shadow);padding:16px 18px}
-.tour-step{font:600 11px var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.tour-step{font:600 12px var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
 .tour-h{font:600 17px/1.3 var(--f-ui);color:var(--ink);text-transform:none;letter-spacing:0;margin:0 0 8px}
-.tour-why,.tour-try{font-size:14px;margin:0 0 8px}
+.tour-why,.tour-try{font-size:15px;margin:0 0 8px}
 .tour-try{background:var(--accent-soft);padding:8px 10px;border-radius:8px}
 .tour-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.tour-x{margin-left:auto;font-size:13px}
+.tour-x{margin-left:auto;font-size:14px}
 .tour-dots{display:flex;gap:4px;margin:0 0 8px}
 .tour-dots span{width:22px;height:4px;border-radius:2px;background:var(--line)}
 .tour-dots span.on{background:var(--accent)}
@@ -110,23 +107,23 @@ body.touring .wrap{padding-bottom:320px}
 .intro{background:var(--surface);color:var(--ink);border-radius:14px;border-top:5px solid var(--accent);max-width:580px;width:100%;padding:24px;box-shadow:0 20px 60px var(--shadow);max-height:calc(100vh - 32px);overflow:auto}
 .intro h2{margin:0 0 8px}
 .verbs{list-style:none;padding:0;margin:16px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.verbs li{background:var(--sunk);border-radius:10px;padding:10px 12px;font-size:13px;min-width:0}
+.verbs li{background:var(--sunk);border-radius:10px;padding:10px 12px;font-size:14px;min-width:0}
 .verbs b{display:block;color:var(--accent);font-size:15px;margin-bottom:2px}
 @media (max-width:520px){.verbs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:no-preference){.tour{animation:tourin .18s ease-out}@keyframes tourin{from{transform:translateY(8px);opacity:.6}to{transform:none;opacity:1}}}
 figure.fig{margin:16px 0}
-.fig figcaption{font-size:13px;color:var(--muted);margin-top:8px;max-width:84ch}
+.fig figcaption{font-size:14px;color:var(--muted);margin-top:8px;max-width:84ch}
 .dia{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px}
 .dia svg{display:block;width:100%;min-width:700px;height:auto;font-family:var(--f-ui)}
 .d-box{fill:var(--bg);stroke:var(--line);stroke-width:1.5}
 .d-none{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 4}
 .d-pick{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
-.d-t{fill:var(--ink);font-size:13px;font-weight:600} .d-s{fill:var(--muted);font-size:11.5px} .d-b{fill:var(--ink);font-size:12px}
-.d-pt{fill:var(--accent);font-size:13px;font-weight:600} .d-ps{fill:var(--accent);font-size:11.5px}
+.d-t{fill:var(--ink);font-size:14px;font-weight:600} .d-s{fill:var(--muted);font-size:12.5px} .d-b{fill:var(--ink);font-size:13px}
+.d-pt{fill:var(--accent);font-size:14px;font-weight:600} .d-ps{fill:var(--accent);font-size:12.5px}
 .d-l{stroke:var(--muted);stroke-width:1.5;fill:none} .d-dash{stroke:var(--muted);stroke-width:1.5;fill:none;stroke-dasharray:4 4}
-.d-x{stroke:var(--crit);stroke-width:1.5;fill:none} .d-xt{fill:var(--crit);font-size:12px;font-weight:500}
+.d-x{stroke:var(--crit);stroke-width:1.5;fill:none} .d-xt{fill:var(--crit);font-size:13px;font-weight:500}
 .d-ah{fill:var(--muted)} .d-bad{fill:var(--crit-soft)} .d-good{fill:var(--good-soft)} .d-sunk{fill:var(--sunk)}
-details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:500;padding:4px 0}
+details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--accent);font-size:14px;font-weight:500;padding:4px 0}
 .vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:8px 20px;align-items:center;padding:12px 0;border-top:1px solid var(--line);max-width:100ch}
 .vs p{margin:0}
 .pair{display:flex;align-items:center;gap:6px}
@@ -134,61 +131,61 @@ details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--ac
 .pair .chip{white-space:normal;text-align:center}
 @media (max-width:700px){.vs{grid-template-columns:minmax(0,1fr)}}
 .chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:14px 0}
-.chain>div{flex:1 1 160px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;font-size:13.5px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.chain>div{flex:1 1 160px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;font-size:14.5px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
 .chain>div.star{background:var(--mark);color:var(--mark-ink);border-color:transparent}
 .chain>div.gate{border-style:dashed;border-color:var(--crit)}
-.chain .k{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.75}
-.stack{display:flex;height:36px;border-radius:6px;overflow:hidden;margin:12px 0 6px;max-width:84ch;font:500 12px var(--f-mono)}
+.chain .k{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.stack{display:flex;height:36px;border-radius:6px;overflow:hidden;margin:12px 0 6px;max-width:84ch;font:500 13px var(--f-mono)}
 .stack>span{display:grid;place-items:center;min-width:0;white-space:nowrap;overflow:hidden;color:var(--bg)}
-.stack>span:nth-child(1){background:var(--accent);color:var(--accent-ink)} .stack>span:nth-child(2){background:var(--ink)} .stack>span:nth-child(3){background:var(--muted)}
+.stack>span:nth-child(1){background:var(--accent);color:var(--accent-ink)} .stack>span:nth-child(2){background:#5C63B2;color:#FFFFFF} .stack>span:nth-child(3){background:var(--muted)}
 .frac{display:inline-grid;text-align:center;font:500 15px/1.4 var(--f-ui);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:8px 0 14px;max-width:100%}
 .frac>span:first-child{border-bottom:2px solid var(--ink);padding-bottom:6px}
 .frac>span:last-child{padding-top:6px;color:var(--muted)}
 .meter{position:relative;height:14px;border-radius:7px;background:var(--sunk);max-width:84ch;margin:30px 0 34px}
 .meter>i{position:absolute;top:0;bottom:0;left:0;border-radius:7px}
-.meter>b{position:absolute;top:-22px;transform:translateX(-50%);font:500 12px var(--f-mono);white-space:nowrap}
-.meter>em{position:absolute;top:18px;transform:translateX(-50%);font-style:normal;font-size:12px;color:var(--muted);white-space:nowrap}
+.meter>b{position:absolute;top:-22px;transform:translateX(-50%);font:500 13px var(--f-mono);white-space:nowrap}
+.meter>em{position:absolute;top:18px;transform:translateX(-50%);font-style:normal;font-size:13px;color:var(--muted);white-space:nowrap}
 .tile b{font-weight:600}
 .tile>.chip{align-self:flex-start}
-.note{background:var(--accent-soft);padding:8px 12px;border-radius:6px;font-size:13px;max-width:80ch}
+.note{background:var(--accent-soft);padding:8px 12px;border-radius:6px;font-size:14px;max-width:80ch}
 .warnp{color:var(--warn)}
 .thinking{color:var(--muted);font-style:italic}
 .critt{color:var(--crit)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.chip{display:inline-block;font:500 12px/1.35 var(--f-ui);padding:2px 8px;border-radius:10px;white-space:nowrap}
+.chip{display:inline-block;font:500 13px/1.35 var(--f-ui);padding:2px 8px;border-radius:10px;white-space:nowrap}
 .chip.good{background:var(--good-soft);color:var(--good)}
 .chip.warn{background:var(--warn-soft);color:var(--warn)}
 .chip.crit{background:var(--crit-soft);color:var(--crit)}
 .chip.info{background:var(--accent-soft);color:var(--accent)}
 .chip.mute{background:var(--sunk);color:var(--muted)}
-.btn{font:500 14px var(--f-ui);padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn{font:500 15px var(--f-ui);padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
 .btn:hover{border-color:var(--muted)}
 .btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.sm{padding:5px 10px;font-size:13px}
+.btn.sm{padding:5px 10px;font-size:14px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .lnk{background:none;border:0;padding:0;color:var(--accent);font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-align:left}
 .inp{font:14px var(--f-ui);padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);width:100%;min-width:0}
 .ta{resize:vertical;line-height:1.5;display:block}
-.ta.mono{font-family:var(--f-mono);font-size:13px}
+.ta.mono{font-family:var(--f-mono);font-size:14px}
 .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
 .bar .inp{flex:1 1 240px;width:auto}
 .seg{display:flex;flex-wrap:wrap;gap:4px}
-.segb{font:500 13px var(--f-ui);padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;cursor:pointer}
-.segb.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.rec{font-size:11px;opacity:.75;margin-left:4px}
+.segb{font:500 14px var(--f-ui);padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;cursor:pointer}
+.segb.on{background:#E1E3FE;color:var(--ink);border-color:#6E76D5;font-weight:600}
+.rec{font-size:12px;opacity:.75;margin-left:4px}
 
 .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface);margin:12px 0}
-.tbl{width:100%;border-collapse:collapse;font-size:14px}
-.tbl th{font:600 11px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{font:600 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
 .tbl td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 .tbl tbody tr:last-child td{border-bottom:0}
 .tbl td:first-child{min-width:11rem}
 .tbl.mini td:first-child{min-width:0}
-.tbl .num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:14px;white-space:nowrap}
 .tbl tfoot td{font-weight:600;border-top:1px solid var(--line);border-bottom:0}
 .tbl tr.bad td{background:var(--crit-soft)}
-.tbl.mini{font-size:13px}
+.tbl.mini{font-size:14px}
 .tbl.mini td,.tbl.mini th{padding:6px 8px}
 .rowlink{cursor:pointer}
 .rowlink:hover td{background:var(--sunk)}
@@ -199,9 +196,9 @@ details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--ac
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:16px 0}
 .tile{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .tile.star{border-color:var(--accent)}
-.tl{font-size:12px;color:var(--muted)}
+.tl{font-size:13px;color:var(--muted)}
 .tn{font:500 26px/1.25 var(--f-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.ts{font-size:12px;color:var(--muted)}
+.ts{font-size:13px;color:var(--muted)}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;min-width:0}
 .cardhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
@@ -210,18 +207,18 @@ details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--ac
 .callout ul{margin:6px 0 0}
 .kv{margin:0;display:grid;gap:10px}
 .kv>div{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:4px 14px}
-.kv dt{color:var(--muted);font-size:13px}
+.kv dt{color:var(--muted);font-size:14px}
 .kv dd{margin:0;min-width:0}
-.fnote{display:block;color:var(--muted);font-size:12.5px;margin:2px 0 0}
-.fnote.q{font-family:var(--f-doc);font-style:italic;font-size:13.5px}
+.fnote{display:block;color:var(--muted);font-size:13.5px;margin:2px 0 0}
+.fnote.q{font-family:var(--f-doc);font-style:italic;font-size:14.5px}
 .frow{display:grid;grid-template-columns:minmax(0,12rem) minmax(0,1fr);gap:6px 14px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center}
 .frow:last-child{border-bottom:0}
 .frow .fmeta,.frow .fnote,.frow .tick{grid-column:2}
 .fmeta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.flabel{font-size:13px;color:var(--muted)}
+.flabel{font-size:14px;color:var(--muted)}
 .frow.need .flabel{color:var(--warn);font-weight:600}
-.tick{font-size:13px;display:flex;gap:6px;align-items:center}
-.crit-dot{color:var(--accent);font-size:9px;vertical-align:middle}
+.tick{font-size:14px;display:flex;gap:6px;align-items:center}
+.crit-dot{color:var(--accent);font-size:11px;vertical-align:middle}
 @media (max-width:520px){
   .kv>div,.frow{grid-template-columns:minmax(0,1fr)}
   .frow .fmeta,.frow .fnote,.frow .tick{grid-column:1}
@@ -230,11 +227,11 @@ details.more{margin:10px 0 0} details.more>summary{cursor:pointer;color:var(--ac
 .split>div{display:flex;flex-direction:column;gap:14px;min-width:0}
 @media (max-width:1180px){.split{grid-template-columns:minmax(0,1fr)}.doc{max-height:60vh}}
 .doc{font:400 15px/1.65 var(--f-doc);background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:22px 24px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:80vh;overflow:auto}
-.doccap{font-size:12px;color:var(--muted);margin:0}
+.doccap{font-size:13px;color:var(--muted);margin:0}
 mark.hl{background:var(--mark);color:var(--mark-ink);border-radius:2px;padding:1px 0}
 mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .headline{font:600 16px/1.4 var(--f-ui)}
-.mini-h{display:block;font:600 12px var(--f-ui);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+.mini-h{display:block;font:600 13px var(--f-ui);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
 .letter{font:13px/1.55 var(--f-mono);white-space:pre-wrap;overflow-wrap:anywhere;background:var(--sunk);padding:12px 14px;border-radius:6px;margin:10px 0}
 .sig{list-style:none;padding:0;margin:0 0 10px;display:grid;gap:10px}
 .sig li{display:flex;gap:10px;align-items:flex-start}
@@ -242,17 +239,17 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .doclist{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
 .docrow{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
 .docrow>div:first-child{min-width:0;flex:1 1 280px;overflow-wrap:anywhere}
-.docrow p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.docrow p{margin:2px 0 0;color:var(--muted);font-size:14px}
 .docact{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .steps{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px}
 .steps li{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
 .steps li>div{flex:1;min-width:0}
-.steps p{margin:2px 0 0;color:var(--muted);font-size:13px}
-.snum{font:500 13px var(--f-mono);width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none}
+.steps p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.snum{font:500 14px var(--f-mono);width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none}
 .steps li.done .snum{background:var(--good-soft);color:var(--good);border-color:transparent}
 .flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:20px 0}
 .fnode{flex:1 1 180px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font:inherit;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
-.fnode span{font-size:13px;color:var(--muted)}
+.fnode span{font-size:14px;color:var(--muted)}
 .fnode.core{border-color:var(--accent)}
 .fstack{flex:1 1 220px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .farrow{align-self:center;color:var(--muted);font-size:20px}
@@ -262,22 +259,22 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .answer .aq{font-weight:600}
 .answer ul{margin:6px 0 10px}
 .answer li{margin-bottom:4px}
-.cite{font:500 12px var(--f-mono);background:var(--accent-soft);color:var(--accent);border:0;border-radius:4px;padding:1px 6px;cursor:pointer;white-space:nowrap}
+.cite{font:500 13px var(--f-mono);background:var(--accent-soft);color:var(--accent);border:0;border-radius:4px;padding:1px 6px;cursor:pointer;white-space:nowrap}
 .srcl{list-style:none;padding:0;display:grid;gap:12px}
 .srcl p{margin:4px 0 0;font:14px/1.5 var(--f-doc)}
 .finding{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
 .finding>div{min-width:0}
 .finding p{margin:2px 0 0}
-.logl{list-style:none;padding:0;display:grid;gap:6px;font-size:14px}
+.logl{list-style:none;padding:0;display:grid;gap:6px;font-size:15px}
 .filebar{position:sticky;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;width:max-content;max-width:min(92vw,580px);z-index:20}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 20px);background:#FFFFFF;color:var(--ink);border:1px solid #D9DCF7;padding:10px 16px;border-radius:8px;font-size:15px;width:max-content;max-width:min(92vw,580px);z-index:20}
 .quads{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin:16px 0}
 .quad{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .quad>div{background:var(--surface);padding:12px 14px;min-height:120px;min-width:0}
 .quad>div.hot{background:var(--accent-soft)}
-.qh{font:600 11px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
-.quad ul{margin:0;padding-left:16px;font-size:13px}
-.qcap{font-size:12px;color:var(--muted);margin:8px 0 0}
+.qh{font:600 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.quad ul{margin:0;padding-left:16px;font-size:14px}
+.qcap{font-size:13px;color:var(--muted);margin:8px 0 0}
 .ladder{list-style:none;padding:0;margin:14px 0;display:grid;gap:8px;max-width:84ch}
 .ladder li{display:grid;grid-template-columns:5.5rem minmax(0,1fr) auto;gap:6px 14px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
 .ladder b{font-weight:600}
@@ -285,12 +282,12 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .sum{font:500 15px/1.6 var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;max-width:84ch;overflow-x:auto;white-space:nowrap}
 .sum span{color:var(--muted)}
 .persona dl{margin:0;display:grid;gap:8px}
-.persona dt{font:600 11px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.persona dt{font:600 12px var(--f-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .persona dd{margin:0}
-.foot{margin-top:48px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.foot{margin-top:48px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 /* Live AI: a slim strip under the band names the model and lists every call made this session. */
-.aistrip{background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin:0 0 20px;font-size:13px;color:var(--muted)}
+.aistrip{background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin:0 0 20px;font-size:14px;color:var(--muted)}
 .aistrip b{color:var(--ink)}
 .aistrip-in{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .aistrip-in span{flex:1 1 400px;min-width:0}
@@ -302,12 +299,12 @@ mark.hl.on{outline:2px solid var(--accent);outline-offset:1px}
 .findbox{background:var(--sunk);border-radius:8px;padding:12px 14px;margin:0 0 12px;max-width:90ch}
 .findbox p{margin:0 0 6px}
 .findbox .sugg{margin:0 0 8px}
-.fchip{display:inline-block;font:500 12px var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.fchip{display:inline-block;font:500 13px var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
 /* ---------- Sirion-style frame: rules below restyle the shared pieces above ---------- */
 body{font-weight:400;-webkit-font-smoothing:antialiased}
-h1{font-weight:300;font-size:36px;line-height:1.12;letter-spacing:-.022em}
+h1{font-weight:500;font-size:36px;line-height:1.12;letter-spacing:-.022em}
 h2{font-weight:400;font-size:23px;letter-spacing:-.012em}
-h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
+h3{font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--teal)}
 .lede{font:300 19px/1.5 var(--f-ui);letter-spacing:-.005em}
 .desk{color:var(--teal);font-weight:700;letter-spacing:.14em}
 .band{background:var(--glow),var(--band);border-bottom:1px solid rgba(180,205,208,.14)}
@@ -321,7 +318,7 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 .btn.light{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:500}
 .btn.light:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
 .btn.ghost{border-color:rgba(245,246,246,.35)}
-.segb.on{background:var(--teal-deep);border-color:var(--teal-deep);color:var(--on-band)}
+.segb.on{background:#E1E3FE;border-color:#6E76D5;color:var(--ink)}
 .chipb{border-radius:999px}
 .chipb:hover{border-color:var(--accent);color:var(--accent)}
 .card,.tile,.steps li,.fnode,.scroll,.finding{border-radius:12px}
@@ -336,13 +333,13 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 .side{background:var(--glow),var(--band);border-radius:16px;padding:16px 10px 18px;gap:3px}
 .side .ng{color:var(--teal-mid);font-weight:700;letter-spacing:.14em;padding:0 8px}
 .side .nl{color:var(--on-band);border-radius:8px}
-.side .nl:hover{background:var(--teal-deep)}
+.side .nl:hover{background:#E9EAFE}
 .side .nl.on{background:var(--accent);color:var(--accent-ink);font-weight:500}
-.side .ct{background:var(--on-band);color:var(--band)}
+.side .ct{background:#FFFFFF;color:var(--ink)}
 .side .nl.on .ct{background:var(--accent-ink);color:var(--accent)}
 @media (max-width:860px){
   .side{padding:8px;border-radius:12px}
-  .side .nl{border:0;background:var(--teal-deep)}
+  .side .nl{border:0;background:#FFFFFF}
   .side .nl.on{background:var(--accent)}
 }
 /* Start page hero: the brand moment, dark with the teal glow and a purple call to action. */
@@ -350,9 +347,9 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 .hero b{font:400 22px/1.25 var(--f-ui);letter-spacing:-.01em}
 .hero p{color:var(--on-band-muted)}
 .intro{border-top-color:var(--accent);border-radius:16px}
-.toast{background:var(--band);color:var(--on-band)}
 
-/* ---------- Two modes: Sirion Night (the default) and Sirion Light (the toggle in the top bar) ----------
+
+/* ---------- Light frame (earlier pass; the Sirion light block below takes precedence) ----------
    Each mode only changes tokens and a few shared pieces, so every screen, diagram and state follows it. */
 
 /* Sirion Light: the same brand colours on an all-light, airy layout. */
@@ -364,7 +361,7 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 [data-theme="light"] .side .nl{color:var(--ink)}
 [data-theme="light"] .side .nl:hover{background:var(--sunk)}
 [data-theme="light"] .side .nl.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
-[data-theme="light"] .side .ct{background:var(--ink);color:#fff}
+[data-theme="light"] .side .ct{background:#FFFFFF;color:var(--ink)}
 [data-theme="light"] .side .nl.on .ct{background:var(--accent);color:#fff}
 [data-theme="light"] .hero{background:linear-gradient(120deg,#F4EAF6,#E7EFF0);border:1px solid #E5D3EA;color:var(--ink)}
 [data-theme="light"] .hero p{color:var(--muted)}
@@ -374,41 +371,24 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 @media (max-width:860px){[data-theme="light"] .side .nl{background:var(--sunk)}[data-theme="light"] .side .nl.on{background:var(--accent);color:#fff}}
 
 /* Sirion Night: fully dark, like sirion.ai itself. Contracts stay on paper so they read like documents. */
-:root[data-theme="night"]{color-scheme:dark;--bg:#0B1821;--surface:#102430;--sunk:#0E1F29;--ink:#EEF2F3;--muted:#A3B2B8;--line:#20394A;
-  --accent:#B565C4;--accent-hover:#C77BD6;--accent-ink:#FFFFFF;--accent-soft:#2B1F36;--teal:#7FB9C1;--teal-soft:#0F2E33;--teal-mid:#5D939A;
-  --band:#07121A;--band-chip:#0F2E33;--mark:#4D2E59;--mark-ink:#FFFFFF;--shadow:rgba(0,0,0,.5);--scrim:rgba(0,0,0,.6);
-  --good:#86DDAE;--good-soft:#12352A;--warn:#F0C674;--warn-soft:#3A2E14;--crit:#FF948A;--crit-soft:#3E1C1C}
-[data-theme="night"] body{background:radial-gradient(90% 60% at 50% -10%,rgba(13,94,104,.35),transparent 70%),var(--bg)}
-[data-theme="night"] .doc{background:#F7F5EF;color:#1C1A17}
-[data-theme="night"] .doc mark.hl{background:#E9D2EE;color:#1C1A17}
-[data-theme="night"] .side{border:1px solid var(--line)}
-[data-theme="night"] .tbl tr.bad td{background:var(--crit-soft)}
-[data-theme="night"] .toast{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
 
 
-/* Sirion's own gradients, taken from sirion.ai: the blue-to-purple announcement bar, and the rotating
-   periwinkle-and-white border it puts on outlined pills. */
-.announce{background:linear-gradient(90deg,#0F3FBB -97%,#7F208F 102%);color:#fff;font-size:14px}
-.announce-in{max-width:1280px;margin:0 auto;display:flex;gap:10px 18px;align-items:center;flex-wrap:wrap;padding-block:9px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.announce p{margin:0;flex:1 1 320px}
-.announce .lnk{color:#fff;font-weight:600;text-decoration:none;white-space:nowrap}
-.announce .lnk:hover{text-decoration:underline}
-.announce-x{background:none;border:0;color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:0 2px;opacity:.85}
-.announce-x:hover{opacity:1}
-.glowpill{position:relative;display:table;padding:4px 14px;border-radius:50px;font-size:12.5px;line-height:1.4;isolation:isolate;overflow:hidden;margin:0 0 10px;color:var(--on-band)}
+/* Sirion's rotating periwinkle-and-white border, from the outlined pills on sirion.ai. The blue-to-purple
+   gradient from its announcement bar is the header (see the bold palette below). */
+.glowpill{position:relative;display:table;padding:4px 14px;border-radius:50px;font-size:13.5px;line-height:1.4;isolation:isolate;overflow:hidden;margin:0 0 10px;color:var(--on-band)}
 .glowpill::before{content:"";position:absolute;inset:-160% -40%;background:conic-gradient(from 25deg,#818BFB 0deg,#FFFFFF 90deg,#818BFB 180deg,#FFFFFF 270deg,#818BFB 360deg);animation:rotateBorder 3s linear infinite;z-index:-2}
-.glowpill::after{content:"";position:absolute;inset:1.5px;border-radius:50px;background:#0C1C26;z-index:-1}
+.glowpill::after{display:none}
 [data-theme="light"] .glowpill{color:var(--ink)}
 [data-theme="light"] .glowpill::after{background:#FBF7FC}
 @keyframes rotateBorder{to{transform:rotate(360deg)}}
 /* Team badges, AI / code / person tags, and the Start page */
 .team{display:flex;gap:12px;align-items:flex-start;background:var(--teal-soft);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 14px;max-width:84ch}
 .team b{font-weight:600}
-.team p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.team p{margin:2px 0 0;font-size:14px;color:var(--muted)}
 .team-ic{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);flex:none}
 .team-ic .ic{width:20px;height:20px}
-.team-who{font-size:12.5px;color:var(--muted)}
-.tag{display:inline-flex;align-items:center;gap:5px;font:500 12px/1.3 var(--f-ui);padding:3px 9px 3px 7px;border-radius:999px;white-space:nowrap;border:1px solid transparent;cursor:help}
+.team-who{font-size:13.5px;color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:5px;font:500 13px/1.3 var(--f-ui);padding:3px 9px 3px 7px;border-radius:999px;white-space:nowrap;border:1px solid transparent;cursor:help}
 .tag .ic{width:13px;height:13px}
 .tag-ai{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
 .tag-code{background:var(--teal-soft);color:var(--teal);border-color:color-mix(in srgb,var(--teal) 30%,transparent)}
@@ -422,24 +402,24 @@ h3{font-weight:700;font-size:11px;letter-spacing:.14em;color:var(--teal)}
 .leak-h{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}
 .leak-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--crit-soft);color:var(--crit);flex:none}
 .leak-ic .ic{width:22px;height:22px}
-.leak-n{font:700 11px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--crit)}
+.leak-n{font:700 12px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--crit)}
 .leak h3{font:500 17px/1.3 var(--f-ui);letter-spacing:-.005em;text-transform:none;color:var(--ink);margin:2px 0 0}
-.leak p{margin:0 0 4px;font-size:14px}
-.leak-k{font:700 11px var(--f-ui)!important;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:12px 0 4px!important}
+.leak p{margin:0 0 4px;font-size:15px}
+.leak-k{font:700 12px var(--f-ui)!important;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:12px 0 4px!important}
 .leak-cost{color:var(--ink)}
 .leak-cost b{color:var(--crit)}
 .leak-steps{list-style:none;padding:0;margin:0 0 6px;display:grid;gap:7px}
-.leak-steps li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:13.5px}
+.leak-steps li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:14.5px}
 .leak-steps li>span:last-child{flex:1 1 100%}
-.lk-team{font:600 12px var(--f-ui);color:var(--ink)}
+.lk-team{font:600 13px var(--f-ui);color:var(--ink)}
 .leak .bar{margin-top:auto;padding-top:10px}
 .teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
 .teamcard{display:flex;flex-direction:column;gap:6px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;font:inherit;color:var(--ink);cursor:pointer}
 .teamcard:hover{border-color:var(--accent)}
-.teamcard>span:last-child{font-size:13px;color:var(--muted)}
+.teamcard>span:last-child{font-size:14px;color:var(--muted)}
 .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0 18px}
 .legend>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
-.legend p{margin:8px 0 0;font-size:13.5px}
+.legend p{margin:8px 0 0;font-size:14.5px}
 main>.glowpill{color:var(--ink)}
 main>.glowpill::after{background:var(--bg)}
 /* Icons in the menu and the top-bar buttons */
@@ -451,14 +431,182 @@ main>.glowpill::after{background:var(--bg)}
 .btn:has(.ic){display:inline-flex;align-items:center}
 @media (max-width:860px){.nl .ic{width:16px;height:16px}}
 @media (prefers-reduced-motion:reduce){.glowpill::before{animation:none}}
+
+/* ---------- Readability pass ----------
+   The page uses the full width, one slim header, softer secondary text, calmer surfaces and fewer
+   repeated labels. Colours stay in the sirion.ai family; purple is kept for main actions. */
+body{font-size:16px;line-height:1.6}
+.wrap{max-width:none;margin:0;padding:0}
+.app{grid-template-columns:248px minmax(0,1fr);gap:0;align-items:stretch;min-height:calc(100vh - 92px)}
+main{padding:36px clamp(20px,4vw,56px) 56px;max-width:1320px}
+.aibar{margin:16px clamp(20px,4vw,56px) 0;max-width:none}
+.foot{margin:0;padding:18px clamp(20px,4vw,56px) 28px;border-top:1px solid var(--line)}
+.band-in{max-width:none;padding-block:10px;padding-left:clamp(16px,2vw,28px);padding-right:clamp(16px,2vw,28px)}
+/* the side menu: a full-height column, not a floating box */
+.side{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;background:transparent;border-radius:0;border-right:1px solid var(--line);padding:26px 14px 28px;gap:2px}
+.side .ng{color:var(--label);font-size:12px;letter-spacing:.12em;margin:22px 0 6px;padding:0 10px}
+.side .nl{color:var(--soft);font-size:15px;padding:8px 10px;border-left:2px solid transparent;border-radius:0 8px 8px 0}
+.side .nl:hover{background:var(--hover)}
+.side .nl.on{background:var(--accent-soft);color:var(--ink);border-left-color:var(--accent);font-weight:500}
+.side .nl .ic{opacity:.75}
+.side .nl.on .ic{opacity:1;color:var(--accent-text)}
+.side .ct,.side .nl.on .ct{background:transparent;color:var(--soft);border:1px solid var(--line);font-weight:500}
+/* type: large light headings, soft secondary text */
+h1{font-size:clamp(30px,3.2vw,42px);line-height:1.15;font-weight:500;letter-spacing:-.02em;max-width:24em;margin-bottom:14px}
+h2{font-size:24px;font-weight:500;letter-spacing:-.01em;margin:44px 0 10px}
+h3{color:var(--label)}
+.lede{font-size:18px;line-height:1.6;color:var(--soft);max-width:68ch}
+.sub,.fnote,.ts,.tl{color:var(--muted)}
+.card p,.leak p,.legend p,.teamcard>span:last-child,.steps p{color:var(--soft)}
+.desk{color:var(--label)}
+/* surfaces: one calm card style */
+.card,.tile,.leak,.legend>div,.teamcard,.steps li,.fnode,.finding,.scroll{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:none}
+.card{padding:22px 24px}
+.callout,.note,.aistrip,.findbox{background:var(--sunk);border:1px solid var(--line);color:var(--soft)}
+.tbl th{color:var(--label)}
+.tbl td{border-color:var(--line)}
+/* the team label: one quiet line, not a box */
+.team{background:transparent;border:0;padding:0;margin:0 0 10px;align-items:center;gap:10px}
+.team-ic{width:28px;height:28px;border-radius:8px;background:var(--sunk);color:var(--accent-text)}
+.team-ic .ic{width:16px;height:16px}
+.team b{font:600 12px var(--f-ui);letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+.team .team-who{color:var(--muted)}
+.team p{display:none}
+/* output tags: outlined and quiet */
+.tag{background:transparent!important;border:1px solid var(--line)!important;font-size:12.5px;padding:2px 8px 2px 6px}
+.tag-ai{color:var(--accent-text)}
+.tag-code{color:var(--code-text)}
+.tag-you{color:var(--you-text)}
+.tag.mini{padding:3px;width:24px;height:24px;justify-content:center;border-radius:50%}
+.tag.mini .ic{width:13px;height:13px}
+.leak-steps li{flex-wrap:nowrap;align-items:flex-start;gap:8px}
+.leak-steps li>span:last-child{flex:1 1 auto}
+/* the AI chip opens the call log; the log is hidden until asked for */
+.aichip{border:0;font:inherit;font-size:13px;cursor:pointer}
+.aistrip{margin:12px clamp(20px,4vw,56px) 0;border-radius:12px}
+/* contracts: a calm reading surface in both modes */
+.doc{font-size:15.5px;line-height:1.75;border-radius:12px}
+@media (max-width:860px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;height:auto;flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px 12px}
+  .side .nl{border-left:0;border-radius:8px;background:var(--sunk);white-space:nowrap}
+  .side .nl.on{background:var(--accent-soft)}
+  main{padding:24px 16px 48px}
+}
+
+.dia,.quad{border-radius:14px}
+.d-box{fill:var(--sunk)}
+/* Night: the sirion.ai navy, with lighter navy-teal surfaces so cards are easy on the eyes */
+/* Light: white surfaces on a soft grey-teal page */
+:root[data-theme="light"]{--bg:#F4F7F8;--surface:#FFFFFF;--sunk:#EEF3F4;--line:#DFE7E9;--hover:#EEF3F4;
+  --ink:#0B1821;--soft:#3D4A52;--muted:#5E6C73;--label:#2F6B73;--accent:#92429F;--accent-soft:#F4EAF6;
+  --accent-text:#7A3487;--code-text:#1E6770;--you-text:#8A5A00;--mark:#EAD6EE}
+[data-theme="light"] .side{background:transparent}
+[data-theme="light"] .side .nl{color:var(--soft)}
+[data-theme="light"] .side .nl.on{background:var(--accent-soft);color:var(--ink)}
+[data-theme="light"] .side .ct{background:transparent;color:var(--soft)}
+[data-theme="light"] .tile.star{background:var(--surface);color:var(--ink);border-color:var(--accent)}
+
+/* ---------- Bold Sirion palette ----------
+   Sirion's signature colours in large areas: the blue-to-purple gradient is the header, the menu is
+   a column of deep Sirion teal, and cards are Sirion teal on the navy page, so areas clearly stand
+   apart. Purple stays for buttons and the selected menu item. */
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:0}
+.facts span{font-size:13.5px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);color:var(--soft);background:var(--surface)}
+.leak-cost{font-size:15px!important;margin:10px 0 2px!important}
+:root[data-theme="light"]{--bg:#F5F7F8;--surface:#FFFFFF;--sunk:#EEF2F4;--line:#DCE3E7;--ink:#111B22;--soft:#344550;--muted:#56646D;--label:#0D5E68;--code-text:#0D5E68}
+[data-theme="light"] .side{background:#E7EFF0;border-right:1px solid #D3E1E3}
+[data-theme="light"] .side .nl.on{background:#92429F;color:#FFFFFF;border-left-color:#5B1F73}
+[data-theme="light"] .side .nl.on .ic{color:#FFFFFF}
+[data-theme="light"] .side .nl.on .ct{color:#FFFFFF;border-color:rgba(255,255,255,.6)}
+
+/* ---------- Reading pass ----------
+   Text sits on neutral, faintly blue-grey surfaces so the words carry no tint of their own; Sirion's
+   colour lives in the header gradient, the teal menu, the purple selection and the buttons.
+   Running text is 15-16px with a 1.6 line height; nothing is smaller than 12px. */
+main p,main li,main td,main dd{line-height:1.6}
+main p{max-width:68ch}
+.lede{font-size:18px;line-height:1.55;color:var(--soft)}
+h1,h2{color:var(--ink)}
+.nl .nlt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.nl .nt{font-size:12px;color:var(--muted);font-weight:400}
+.side .nl.on .nt{color:rgba(255,255,255,.85)}
+
+/* ---------- Sirion light ----------
+   Light mode follows sirion.ai's own light pages: a lavender-white page (#F3F3FF), lavender panels
+   (#E1E3FE) with 16px corners and no borders, navy text, white 8px-radius buttons, one purple button for
+   the main action, and small indigo outlined pills as section labels. Headings are large and light. */
+:root[data-theme="light"]{--bg:#F3F3FF;--surface:#FFFFFF;--sunk:#E1E3FE;--line:#E1E3FE;--hover:#E9EAFE;
+  --ink:#0B1821;--soft:#2E3A44;--muted:#55595C;--label:#5C63B2;--teal:#5C63B2;--accent:#92429F;--accent-hover:#773A86;
+  --accent-soft:#F3E8F5;--accent-text:#7A3487;--code-text:#3F4699;--lav:#E1E3FE;--peri:#C9CDFD;--indigo:#6E76D5}
+[data-theme="light"] body{background:var(--bg);color:var(--ink)}
+/* Header: periwinkle into lavender, navy text, white pill buttons, purple main button. */
+[data-theme="light"] .band{background:linear-gradient(180deg,#C9CDFD 0%,#E1E3FE 100%)!important;color:var(--ink);border-bottom:0!important}
+[data-theme="light"] .band .brand b{color:var(--ink);font-weight:500}
+[data-theme="light"] .band .brand span,[data-theme="light"] .band .topr{color:#3A4148}
+[data-theme="light"] .band .btn.ghost,[data-theme="light"] .band .chip,[data-theme="light"] .band .chip.good,[data-theme="light"] .band .chip.mute{background:#FCFDFD!important;color:var(--ink)!important;border:0!important;border-radius:8px}
+[data-theme="light"] .band .chip.good::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#1F9D57;margin-right:6px;vertical-align:1px}
+[data-theme="light"] .band .btn.light{background:var(--accent)!important;color:#FFFFFF!important;border:0!important}
+[data-theme="light"] .band .btn.light:hover{background:var(--accent-hover)!important}
+/* Buttons: 8px corners, 14-15px, no heavy borders. */
+[data-theme="light"] .btn{border-radius:8px;border:1px solid #D9DCF7;background:#FFFFFF;color:var(--ink);font-weight:500;padding:9px 16px}
+[data-theme="light"] .btn.sm{padding:6px 12px}
+[data-theme="light"] .btn:hover{border-color:var(--indigo)}
+[data-theme="light"] .btn.pri{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+[data-theme="light"] .btn.pri:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+/* Menu: sits on the page, current item is a lavender pill, group names are indigo labels. */
+[data-theme="light"] .side{background:transparent!important;border:0!important}
+[data-theme="light"] .side .nl{color:var(--ink);border-left:0;border-radius:8px}
+[data-theme="light"] .side .nl:hover{background:var(--hover)}
+[data-theme="light"] .side .nl.on{background:var(--lav)!important;color:var(--ink)!important;font-weight:500}
+[data-theme="light"] .side .nl.on .ic{color:var(--accent)!important}
+[data-theme="light"] .side .nl.on .nt{color:var(--muted)}
+[data-theme="light"] .side .ct{background:#FFFFFF;color:var(--ink);border:0}
+[data-theme="light"] .side .nl.on .ct{background:#FFFFFF!important;color:var(--ink)!important}
+[data-theme="light"] .side .ng{color:var(--label);letter-spacing:.1em}
+@media (max-width:860px){[data-theme="light"] .side .nl{background:#FFFFFF;border:0}[data-theme="light"] .side .nl.on{background:var(--lav)!important}}
+/* Section labels: the outlined indigo pill. */
+[data-theme="light"] .glowpill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 7px;border:1px solid var(--indigo);border-radius:30px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);background:transparent}
+[data-theme="light"] .glowpill::before{content:"";position:static;inset:auto;width:6px;height:6px;border-radius:50%;background:var(--indigo);animation:none}
+[data-theme="light"] .glowpill::after{display:none}
+[data-theme="light"] .desk{color:var(--label)}
+[data-theme="light"] main h3{color:var(--label)}
+/* Headings: large and light, tight spacing. */
+[data-theme="light"] main h1{font-weight:400;font-size:clamp(32px,3.4vw,46px);letter-spacing:-.02em;line-height:1.1}
+[data-theme="light"] main h2{font-weight:400;font-size:28px;letter-spacing:-.01em}
+[data-theme="light"] .lede{color:var(--soft)}
+/* Panels: white on the lavender-white page, 16px corners, a hairline of lavender instead of grey borders. */
+[data-theme="light"] .card,[data-theme="light"] .tile,[data-theme="light"] .docrow,[data-theme="light"] .scroll,[data-theme="light"] .pos,[data-theme="light"] .teamcard{background:#FFFFFF;border:1px solid var(--lav);border-radius:16px}
+[data-theme="light"] .leak{background:var(--lav);border:0;border-radius:16px;padding:22px 22px 18px}
+[data-theme="light"] .leak h3{color:var(--ink);font-weight:500;font-size:19px}
+[data-theme="light"] .leak-ic{background:#FFFFFF;color:var(--accent)}
+[data-theme="light"] .leak-n{color:#454C98}
+[data-theme="light"] .hero{background:var(--lav);border:0;border-radius:16px;color:var(--ink)}
+[data-theme="light"] .team-ic{background:var(--lav);color:var(--accent)}
+[data-theme="light"] .tbl th{color:var(--muted);border-bottom-color:var(--lav)}
+[data-theme="light"] .tbl td{border-bottom-color:#ECEDFD}
+[data-theme="light"] .tbl tr.bad td{background:#FDF1F0}
+[data-theme="light"] details.more summary,[data-theme="light"] a{color:var(--accent-text)}
+[data-theme="light"] .foot{color:var(--muted)}
+/* Overview, trimmed: each leak is a title, one sentence, the money and one button. */
+.leak .leak-today{margin:10px 0 0;color:var(--soft)}
+.leak .leak-cost{margin:12px 0 14px!important;font-size:16px!important}
+.leak .bar{margin-top:auto}
+/* Menu and work area: a wider gap and a lavender divider down the work area's left edge. */
+@media (min-width:861px){.app{gap:28px;grid-template-columns:232px minmax(0,1fr)}main{border-left:1px solid #D9DCF7;padding-left:44px;min-height:70vh}}
+/* Selected toggles (Repository filters, renewal choices): Sirion's "current" look, lavender with an indigo edge. */
+[data-theme="light"] .segb{background:#FFFFFF;border:1px solid #D9DCF7;color:var(--ink)}
+[data-theme="light"] .segb:hover{border-color:var(--indigo)}
+[data-theme="light"] .segb.on{background:var(--lav);border-color:var(--indigo);color:var(--ink);font-weight:600}
+[data-theme="light"] .stack>span:nth-child(2){background:#5C63B2;color:#FFFFFF}
+[data-theme="light"] .toast{background:#FFFFFF;color:var(--ink);border:1px solid #D9DCF7;box-shadow:0 8px 24px rgba(11,24,33,.12)}
+.facts-line{max-width:none!important;color:var(--muted);font-size:14px;margin:-4px 0 8px}
 </style>
 
-<div class="announce" id="announce"><div class="announce-in"><p><b>Live AI prototype.</b> Every term the AI reads is checked by code before anyone relies on it.</p><button class="lnk" data-act="tour-start">Take the two-minute tour &#8594;</button><button class="announce-x" data-act="announce-x" aria-label="Hide this message">&#215;</button></div></div>
 <header class="band">
   <div class="band-in">
     <div class="brand"><b>Afterink</b><span>Catch the deadlines and overcharges hidden in your signed contracts</span></div>
-    <div class="topr"><span>Demo date <span class="mono" id="demo-date"></span></span><span class="chip mute" id="ai-chip">Claude: checking</span><button class="btn sm ghost" data-act="theme-toggle" id="theme-btn" aria-pressed="false">Light mode</button><button class="btn sm light" data-act="tour-start" id="tour-btn">Guided tour</button><button class="btn sm ghost" data-act="reset-ask" id="reset-btn">Reset demo</button></div>
-    <div class="confirm" id="reset-confirm" role="dialog" aria-label="Reset demo" hidden><p>Restore the demo to its starting state? Anything you filed, decided or disputed is cleared.</p><div class="bar"><button class="btn sm pri" data-act="reset" id="reset-yes">Reset</button><button class="btn sm" data-act="reset-cancel">Cancel</button></div></div>
+    <div class="topr"><button class="chip mute aichip" id="ai-chip" data-act="ai-log" title="Show every AI call made in this session">AI: checking</button></div>
   </div>
 </header>
 <div class="wrap">
@@ -485,25 +633,24 @@ main>.glowpill::after{background:var(--bg)}
       <li><b>Everyone</b>Asks questions and gets the clause as proof.</li>
     </ol>
     <div class="bar"><button class="btn pri" data-act="intro-tour" id="intro-start">Start the guided tour</button><button class="btn" data-act="intro-skip" id="intro-skip">Explore on my own</button></div>
-    <p class="sub">The Start page shows the three ways money leaks, with a step-by-step walkthrough for each.</p>
+    <p class="sub">The Overview shows the three ways money leaks, with a step-by-step walkthrough for each.</p>
   </div>
 </div>
 
 <template id="tpl-why">
   <p class="desk">Why after signature</p>
-  <h1>The money is lost after signature, so that is where Afterink starts.</h1>
-  <p class="lede">Afterink is an intelligent contract repository. Unreviewed renewals, missed service levels and invoices above the agreed price are each a failure to use a contract that is already signed.</p>
-  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from the demo's sample data.</p></div>
+  <h1>The money is lost after signature.</h1>
+  <p class="lede">Missed renewals, overpriced invoices and unclaimed refunds all come from contracts that are already signed. So that is where Afterink starts.</p>
+  <div class="headline-box"><p class="hl-line">In the demo, filing three missing documents raises the overcharges found on five invoices from $8,810.52 to $28,561.92: 5.7% of the $502,751.56 billed.</p></div>
   <div class="pos">
-    <h3>Three positions Afterink takes</h3>
+    <h3>Three things Afterink believes</h3>
     <ol>
-      <li><b>AI reads, code verifies.</b> Every extracted term shows the sentence it came from, and code checks the value really is in that sentence before anything relies on it.</li>
-      <li><b>Measure decisions, not alerts.</b> Success is a contract date decided by a named person before it passes. An alert nobody acts on counts as a miss.</li>
-      <li><b>Accounts Payable is a first-class reader.</b> Filing one document changes what the invoice desk can check, the same day.</li>
+      <li><b>AI reads, code verifies.</b> Every term shows its source sentence, and code checks it.</li>
+      <li><b>Decisions, not alerts.</b> Success is a date decided in time. Silence counts as a miss.</li>
+      <li><b>Finance reads contracts too.</b> One filing changes what the invoice desk can check.</li>
     </ol>
-    <div class="try"><p><b>See it in about a minute.</b> File the Fleetline amendment in the Inbox, then open invoice FL-20931: the amount flagged against the contract goes from $1,743.52 to $9,486.92.</p><button class="btn pri" data-act="go" data-r="inbox">Try it in the Inbox</button></div>
+    <div class="try"><p>File the Fleetline amendment and invoice FL-20931 goes from $1,743.52 to $9,486.92 over contract.</p><button class="btn pri" data-act="go" data-r="inbox">Try it</button></div>
   </div>
-  <div class="bar"><button class="btn" data-act="go" data-r="start">Open the guided five-step path</button><button class="btn" data-act="go" data-r="stakeholders">Next: who it serves</button></div>
 
   <figure class="fig">
     <div class="dia"><svg viewBox="0 0 1000 230" role="img" aria-label="The contract lifecycle. Intake and negotiation come before signature and only improve new contracts. Both depend on the repository. The repository comes after signature, covers all 4,000 signed contracts, and is where the three costly losses happen: unreviewed renewals, missed service levels and invoices over the agreed price.">
@@ -522,89 +669,83 @@ main>.glowpill::after{background:var(--bg)}
       <rect class="d-bad" x="840" y="140" width="140" height="40" rx="6"/><text class="d-xt" x="910" y="165" text-anchor="middle">invoices over price</text>
       <text class="d-s" x="760" y="206" text-anchor="middle">the three losses that cost money</text>
     </svg></div>
-    <figcaption>Each loss is a signed term that nobody could see at the moment it mattered. Left out on purpose: lost requests and stalled approvals are real, and the repository does not fix them.</figcaption>
+    <figcaption>Every loss is a signed term nobody could see in time. Lost requests and slow approvals are real, but out of scope.</figcaption>
   </figure>
-  <details class="more"><summary>Compare the three stages row by row</summary>
+  <details class="more"><summary>Compare the three stages</summary>
   <div class="scroll"><table class="tbl cmp">
     <thead><tr><th></th><th>Contract intake</th><th>Negotiation</th><th>Intelligent repository</th></tr></thead>
     <tbody>
-      <tr><td>Stops the three costly losses</td><td>No. It speeds up new requests.</td><td>Partly. Better terms, on new deals only.</td><td class="pick">Yes. Each loss is a signed term that nobody could see at the moment it mattered.</td></tr>
-      <tr><td>Covers the contracts already signed</td><td>No</td><td>No</td><td class="pick">Yes, all of them: about 4,000 at a company like Kestrel (estimate)</td></tr>
-      <tr><td>Who must change how they work</td><td>Every requester in a 3,000-person company</td><td>Legal, Procurement and each supplier's negotiator</td><td class="pick">Legal Operations files. People who sign forward the signed copy to one address, or do nothing where e-signature is used. A weekly ledger sweep finds what nobody forwarded.</td></tr>
-      <tr><td>What it depends on</td><td>Knowing what is already signed with that supplier</td><td>Knowing what was agreed last time</td><td class="pick">Nothing upstream. The other two stages need it.</td></tr>
-      <tr><td>First value</td><td>When requesters adopt a new front door</td><td>At the next negotiation</td><td class="pick">The first week: the next notice date and the next invoice</td></tr>
+      <tr><td>Stops the three losses</td><td>No</td><td>Partly, on new deals only</td><td class="pick">Yes</td></tr>
+      <tr><td>Covers contracts already signed</td><td>No</td><td>No</td><td class="pick">All of them, about 4,000 (estimate)</td></tr>
+      <tr><td>Who must change how they work</td><td>Every requester in a 3,000-person company</td><td>Legal, Procurement and suppliers</td><td class="pick">Legal Operations files; signers forward one copy, or nothing with e-signature. A weekly ledger sweep finds the rest.</td></tr>
+      <tr><td>Depends on</td><td>Knowing what is already signed</td><td>Knowing what was agreed last time</td><td class="pick">Nothing upstream</td></tr>
+      <tr><td>First value</td><td>When requesters adopt it</td><td>At the next negotiation</td><td class="pick">The first week</td></tr>
     </tbody>
   </table></div>
-  <p class="prose">Lost requests and stalled approvals wait because a faster intake that feeds a repository nobody reads would only produce unread contracts faster.</p>
+  <p class="prose">A faster intake that feeds a repository nobody reads only produces unread contracts faster.</p>
   </details>
 
-  <h2>How much work the product takes on</h2>
-  <p class="prose"><b>AI reads, code calculates, people decide.</b> The line sits where an action starts to bind the company or touch a supplier relationship.</p>
+  <h2>Who does what</h2>
   <div class="chain">
-    <div><span class="k">1 &#183; Reads</span><span class="chip good">AI, automatic</span>Extracts each term together with the sentence it came from.</div>
-    <div><span class="k">2 &#183; Checks</span><span class="chip good">Code, automatic</span>Confirms the quoted sentence exists in the document and that the value appears in it. Works out notice dates and compares invoice lines with rate cards. The model never does the arithmetic.</div>
-    <div><span class="k">3 &#183; Drafts</span><span class="chip warn">AI, a person edits</span>The renewal brief, the notice letter and the dispute note.</div>
-    <div class="gate"><span class="k">4 &#183; Acts</span><span class="chip crit">A named person only</span>Sending a notice, holding a payment, ending a contract. The prototype never sends anything.</div>
+    <div><span class="k">1 &#183; Reads</span><span class="chip good">AI</span>Pulls each term with its source sentence.</div>
+    <div><span class="k">2 &#183; Checks</span><span class="chip good">Code</span>Confirms the quote and value. Works out dates and prices.</div>
+    <div><span class="k">3 &#183; Drafts</span><span class="chip warn">AI, a person edits</span>Briefs, notice letters, dispute notes.</div>
+    <div class="gate"><span class="k">4 &#183; Acts</span><span class="chip crit">A named person only</span>Sends, holds or ends. Never automatic.</div>
   </div>
-  <p class="prose sub">A notice of non-renewal has legal effect and a wrong dispute costs goodwill with a supplier. The cost of one wrong automatic action is larger than the minutes saved by skipping the review.</p>
+  <details class="more"><summary>Why not let the AI act on its own?</summary>
+  <p class="prose">A notice of non-renewal has legal effect, and a wrong dispute costs goodwill with a supplier. One wrong automatic action costs more than the minutes it saves.</p>
+  </details>
 
   <h2>What it is worth</h2>
   <div class="sum">$220M <span>supplier spend a year (assumption)</span> &#215; 1% <span>recovered</span> = $2.2M <span>a year</span></div>
-  <p class="prose">Built up from the three losses, the figure comes out about the same: $2.3M.</p>
   <div class="stack" role="img" aria-label="Renewals 1.0 million dollars, invoices 0.8 million, credits 0.5 million"><span style="flex:10">Renewals $1.0M</span><span style="flex:8">Invoices $0.8M</span><span style="flex:5">Credits $0.5M</span></div>
   <div class="tiles">
-    <div class="tile"><span class="tl">Renewals decided on time</span><span class="tn">$1.0M</span><span class="ts">$66M renews automatically each year. Half has no review today. Deciding on time avoids about 3%.</span></div>
-    <div class="tile"><span class="tl">Invoices checked against the contract</span><span class="tn">$0.8M</span><span class="ts">$110M is billed against a rate card. Checking corrects 0.75% of it.</span></div>
-    <div class="tile"><span class="tl">Service credits claimed</span><span class="tn">$0.5M</span><span class="ts">$25M carries a credit clause. Credits worth 2% go unclaimed today.</span></div>
+    <div class="tile"><span class="tl">Renewals decided on time</span><span class="tn">$1.0M</span><span class="ts">3% of the $66M that renews automatically, half of it unreviewed</span></div>
+    <div class="tile"><span class="tl">Invoices checked</span><span class="tn">$0.8M</span><span class="ts">0.75% of $110M billed against a rate card</span></div>
+    <div class="tile"><span class="tl">Credits claimed</span><span class="tn">$0.5M</span><span class="ts">2% of $25M with a credit clause</span></div>
   </div>
-  <p class="prose sub">Every input is an assumption, and the first two weeks with a customer replace each one: the audit sets the renewal figure, the invoice sample the invoice figure, and the service reports the credit figure. Published research puts average value lost to weak contract management at 8.6% of contract value (World Commerce &amp; Contracting, 2025). That only shows 1% is a modest share. Nothing above depends on it.</p>
+  <details class="more"><summary>How this is estimated</summary>
+  <p class="prose">Built up from the three losses, the total is about the same: $2.3M. Every input is an assumption that the first two weeks with a customer replace: the audit sets the renewal figure, the invoice sample the invoice figure, and the service reports the credit figure. Published research puts average value lost to weak contract management at 8.6% (World Commerce &amp; Contracting, 2025), so 1% is a modest share. Nothing here depends on that figure.</p>
+  </details>
 
-  <h2>What already exists</h2>
-  <p class="prose">Enterprise contract management platforms, Sirion among them, already read terms with AI and raise renewal alerts. Afterink does not claim a new category. It takes the three positions set out at the top of this page. A feature-by-feature comparison is still to do.</p>
-
-  <h2>Assumptions</h2>
-  <div class="tiles">
-    <div class="tile"><span class="tl">The demo company (sample)</span><b>Kestrel Mobility</b><span class="ts">3,000 employees, about 2,500 suppliers, about 4,000 contract documents, USD 220M supplier spend a year.</span></div>
-    <div class="tile"><span class="tl">The documents</span><b>Readable PDF or Word</b><span class="ts">Scanned images need text recognition first, which is outside this prototype.</span></div>
-    <div class="tile"><span class="tl">The people</span><b>3 in Legal Operations, half time</b><span class="ts">About 750 hours a quarter. An hour a contract by hand, about 15 minutes checking only flagged terms. Both are guesses.</span></div>
-    <div class="tile"><span class="tl">Where they start</span><b>Top 20% of suppliers</b><span class="ts">About 800 documents, assumed to cover about 80% of spend.</span></div>
-    <div class="tile"><span class="tl">The systems</span><b>Ledger, sign-on, service reports</b><span class="ts">Invoices, seat usage and service data can be exported. Sample values here.</span></div>
-    <div class="tile"><span class="tl">Ownership</span><b>Every contract gets a named owner</b><span class="ts">The budget holder who pays the supplier, else the category manager. Undecided dates escalate at 30 days and at 10.</span></div>
-    <div class="tile"><span class="tl">Data</span><b>Enterprise AI agreement</b><span class="ts">Contract text may be sent to a model that does not train on it. Privileged documents stay out. This demo's own AI runs on a free key, which is fine only because every contract in it is sample data.</span></div>
-    <div class="tile"><span class="tl">The clock</span><b>17 November 2026</b><span class="ts">The demo date is fixed so the deadlines stay the same whenever you open this.</span></div>
-  </div>
-  <details class="more"><summary>Read the assumptions in full</summary>
+  <h2>Assumptions and review</h2>
+  <details class="more"><summary>The assumptions behind these numbers</summary>
   <ul class="prose">
-    <li><b>The company.</b> Kestrel Mobility is a sample company. 3,000 employees, about 2,500 suppliers, about 4,000 active contract documents (1.6 per supplier), USD 220M of supplier spend a year.</li>
-    <li><b>The documents.</b> Most signed contracts exist as readable PDF or Word files. Scanned images would need text recognition first, which is outside this prototype.</li>
-    <li><b>The people.</b> Legal Operations is three people who can give about half their time to filing, roughly 750 hours a quarter. Checking every term of a contract by hand takes about an hour. Checking only the terms the AI flagged takes about 15 minutes. Both times are guesses the first audit would replace. They start with the top 20% of suppliers by spend, about 800 documents, assumed to cover about 80% of spend.</li>
-    <li><b>The systems.</b> The ledger can export invoices, single sign-on can report seat usage, and operations keep service reports. Those feeds are sample values here.</li>
-    <li><b>Ownership.</b> Every contract gets a named owner when it is filed: by default the budget holder whose cost centre pays that supplier in the ledger, confirmed by Legal Operations. Where the ledger shows none, the category manager owns it. A date still undecided 30 days before its deadline goes to the category lead, and at 10 days to the Head of Procurement. Silence always reaches someone with authority to decide.</li>
-    <li><b>Data.</b> Contract text may be sent to an AI model under an enterprise agreement that excludes training on it. Privileged documents stay out.</li>
-    <li><b>The clock.</b> The demo date is fixed at 17 November 2026 so the deadlines stay the same whenever you open this.</li>
+    <li><b>The company.</b> Kestrel Mobility is a sample company: 3,000 employees, about 2,500 suppliers, about 4,000 contract documents, USD 220M supplier spend a year.</li>
+    <li><b>The documents.</b> Readable PDF or Word. Scans need text recognition first, which is out of scope.</li>
+    <li><b>The people.</b> Three in Legal Operations at half time, about 750 hours a quarter. About an hour per contract by hand, about 15 minutes checking only flagged terms. Both are guesses.</li>
+    <li><b>Where they start.</b> The top 20% of suppliers: about 800 documents, assumed to cover about 80% of spend.</li>
+    <li><b>The systems.</b> The ledger, single sign-on and service reports can be exported. Sample values here.</li>
+    <li><b>Ownership.</b> Every contract gets a named owner: the budget holder who pays the supplier, else the category manager. Undecided dates escalate at 30 days and at 10.</li>
+    <li><b>Data.</b> Contract text goes to an AI model under an enterprise agreement that excludes training. Privileged documents stay out. This demo's free key is fine only because every contract is sample data.</li>
+    <li><b>The clock.</b> The demo date is fixed at 17 November 2026, so deadlines never move.</li>
   </ul>
   </details>
-  <h2>How the design held up under review</h2>
-  <p class="prose">An adversarial review of an earlier version found four places where the argument did not hold. Each one changed the product:</p>
+  <details class="more"><summary>What review changed in the design</summary>
   <div class="scroll"><table class="tbl">
     <thead><tr><th>An earlier version said</th><th>What was wrong</th><th>What changed</th></tr></thead>
     <tbody>
-      <tr><td>Three people cannot verify 4,000 contracts</td><td>At the stated 6 minutes each, all 4,000 take 400 hours, which fits in a quarter. The argument contradicted its own numbers.</td><td>Redone at about 750 hours a quarter, an hour per contract by hand and 15 minutes by exception. Scope is cut if review passes 30 minutes.</td></tr>
-      <tr><td>The north star counts decisions on filed contracts</td><td>Filing less raised the score, and renewing everything without thought reached 100%.</td><td>Unfiled documents count as undecided dates. A monthly sample guards against renewing without thought.</td></tr>
-      <tr><td>Switch to intake if invoice variance is under 1%</td><td>1% of USD 220M is the whole USD 2.2M case, so the test fired on a problem worth solving.</td><td>The test compares money lost a year before and after signature, and switches below USD 550k.</td></tr>
-      <tr><td>A quote found in the document proves the term</td><td>The model could quote "ninety (90) days" and still extract 60.</td><td>Code now also checks that the extracted value appears inside its quote, and flags it if not.</td></tr>
+      <tr><td>Three people cannot verify 4,000 contracts</td><td>At 6 minutes each, 4,000 take 400 hours, which fits in a quarter</td><td>Redone at about an hour by hand and 15 minutes by exception; scope is cut if review passes 30 minutes</td></tr>
+      <tr><td>The north star counts filed contracts only</td><td>Filing less raised the score</td><td>Unfiled documents count as undecided; a monthly sample guards against renewing without thought</td></tr>
+      <tr><td>Switch to intake if invoice variance is under 1%</td><td>1% of USD 220M is the whole case</td><td>The test compares money lost before and after signature, and switches below USD 550k</td></tr>
+      <tr><td>A quote found in the document proves the term</td><td>The model could quote "ninety (90) days" and extract 60</td><td>Code also checks the value is inside its quote</td></tr>
     </tbody>
   </table></div>
+  </details>
+  <details class="more"><summary>What already exists</summary>
+  <p class="prose">Enterprise contract platforms, Sirion among them, already read terms with AI and raise renewal alerts. Afterink does not claim a new category; it takes the three positions above. A feature-by-feature comparison is still to do.</p>
+  </details>
+  <div class="bar"><button class="btn" data-act="go" data-r="stakeholders">Next: who it serves</button></div>
 </template>
 
 <template id="tpl-stakeholders">
   <p class="desk">Who it serves</p>
-  <h1>Eight groups have a stake. The ones with the least say are the ones who feel it most.</h1>
-  <p class="lede">Each group is mapped twice: by power and interest, to see who must approve a rollout, and by impact and power, to see who lives with the result.</p>
+  <h1>Eight groups have a stake. The quietest feel it most.</h1>
+  <p class="lede">Each group is mapped twice: who must approve it, and who lives with it.</p>
 
   <div class="quads">
     <div>
-      <h3>Power and interest: who must be brought along</h3>
+      <h3>Who must approve it</h3>
       <div class="quad">
         <div><span class="qh">High power, low interest &#183; keep satisfied</span><ul><li>IT and Security</li></ul></div>
         <div><span class="qh">High power, high interest &#183; manage closely</span><ul><li>General Counsel</li><li>Head of Procurement</li><li>CFO and Controller</li></ul></div>
@@ -614,7 +755,7 @@ main>.glowpill::after{background:var(--bg)}
       <p class="qcap">Power runs bottom to top. Interest runs left to right.</p>
     </div>
     <div>
-      <h3>Impact and power: who lives with the result</h3>
+      <h3>Who lives with it</h3>
       <div class="quad">
         <div class="hot"><span class="qh">High impact, low power &#183; raise their voice</span><ul><li>Accounts Payable analysts</li><li>Legal Operations</li><li>Contract owners</li><li>Supplier account managers</li></ul></div>
         <div><span class="qh">High impact, high power &#183; manage closely</span><ul><li>Head of Procurement</li><li>General Counsel</li></ul></div>
@@ -625,7 +766,7 @@ main>.glowpill::after{background:var(--bg)}
     </div>
   </div>
 
-  <h2>What the comparison showed: who gets a screen</h2>
+  <h2>Who gets a screen</h2>
   <figure class="fig">
     <div class="dia"><svg viewBox="0 0 900 250" role="img" aria-label="The three high-impact, low-power groups and the screen each gets. Legal Operations gets the Inbox. Accounts Payable analysts get the Invoice check. Contract owners are named inside the Renewal desk, which is built for the Procurement category manager because stopping a renewal needs leverage. Sponsors get the metrics page.">
       <defs><marker id="a-st" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="d-ah"/></marker></defs>
@@ -641,7 +782,7 @@ main>.glowpill::after{background:var(--bg)}
       <rect class="d-box" x="560" y="154" width="320" height="46" rx="6"/><text class="d-t" x="720" y="174" text-anchor="middle">Renewal desk</text><text class="d-s" x="720" y="190" text-anchor="middle">built for the Procurement category manager</text>
       <text class="d-s" x="20" y="232">Sponsors (General Counsel, Head of Procurement, CFO) get the metrics page.</text>
     </svg></div>
-    <figcaption>A normal rollout would brief these three groups last. Two get their own screen. The renewal desk goes to Procurement on purpose: stopping a renewal takes someone with the leverage to say no. A view for contract owners is next on the roadmap.</figcaption>
+    <figcaption>The groups who feel it most are served first. Renewals go to Procurement, who can say no. A view for contract owners is next.</figcaption>
   </figure>
 
   <h2>What each group wants and fears</h2>
@@ -656,19 +797,19 @@ main>.glowpill::after{background:var(--bg)}
     <div class="card"><h3>Supplier account managers</h3><p><span class="chip good">wants</span> Renewal on existing terms and prompt payment.</p><p><span class="chip crit">fears</span> Disputes, notices and renegotiation they did not face before.</p></div>
   </div>
 
-  <h2>Where interests conflict, and what the design does about it</h2>
-  <div class="vs"><div><div class="pair"><span class="chip mute">Legal: nothing relied on until checked</span><i></i><span class="chip mute">The business: answers now</span></div></div><p>Only terms that set a date or a price wait for a person, and only when the AI was unsure or its quote did not match. Every answer shows its source sentence.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">Procurement: leverage, including leaving</span><i></i><span class="chip mute">Contract owner: no disruption</span></div></div><p>The renewal desk forces an explicit choice before the notice date and records who made it. "Let it renew" is a valid choice. Saying nothing is not.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">Accounts Payable: hold what does not match</span><i></i><span class="chip mute">Supplier and owner: payment on time</span></div></div><p>The undisputed amount is released on normal terms. Only the difference is held, with the clause quoted.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">Supplier: gains when nobody is looking</span><i></i><span class="chip mute">Kestrel: visibility</span></div></div><p>The product removes that advantage. In return, suppliers with clean invoices get approved faster, and that is tracked as a guardrail.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">IT and Legal: narrow access</span><i></i><span class="chip mute">Everyone else: search everything</span></div></div><p>Assumed: access follows the owning department, with commercial terms open to Finance and Procurement. Not built yet.</p></div>
-  <div class="vs"><div><div class="pair"><span class="chip mute">CFO: savings this quarter</span><i></i><span class="chip mute">Legal Operations: three people</span></div></div><p>By hand at about an hour each, the top 20% (800 documents) would take the whole quarter and all 4,000 more than five. Review by exception is about 15 minutes, so the top 20% takes about 200 hours, roughly a month. File by spend: top 20% first, the rest as their renewal or first invoice comes up.</p></div>
+  <h2>Where they pull against each other</h2>
+  <div class="vs"><div><div class="pair"><span class="chip mute">Legal: nothing relied on until checked</span><i></i><span class="chip mute">The business: answers now</span></div></div><p>Only date and price terms wait for a person, and only when unsure.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">Procurement: leverage, including leaving</span><i></i><span class="chip mute">Contract owner: no disruption</span></div></div><p>Every renewal needs an explicit choice. "Let it renew" counts; silence does not.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">Accounts Payable: hold what does not match</span><i></i><span class="chip mute">Supplier and owner: payment on time</span></div></div><p>Only the difference is held. The rest is paid on time.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">Supplier: gains when nobody is looking</span><i></i><span class="chip mute">Kestrel: visibility</span></div></div><p>Clean invoices get approved faster, tracked as a guardrail.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">IT and Legal: narrow access</span><i></i><span class="chip mute">Everyone else: search everything</span></div></div><p>Access follows the owning team. Assumed, not built yet.</p></div>
+  <div class="vs"><div><div class="pair"><span class="chip mute">CFO: savings this quarter</span><i></i><span class="chip mute">Legal Operations: three people</span></div></div><p>Checking only flagged terms files the top 20% of contracts in about a month, not a whole quarter.</p></div>
 </template>
 
 <template id="tpl-problem">
   <p class="desk">The problem</p>
   <h1>Kestrel pays for terms it cannot see.</h1>
-  <p class="lede">The people who have to act on a contract cannot see what was signed. So notice dates pass, credits go unclaimed, and invoices are paid at whatever price the supplier puts on them.</p>
+  <p class="lede">The people who must act on a contract never see it. Deadlines pass, refunds go unclaimed, and invoices are paid as billed.</p>
 
   <figure class="fig">
     <div class="dia"><svg viewBox="0 0 980 250" role="img" aria-label="The same mechanism three times. A notice period sits on page nine of a PDF, nobody is told, and the contract renews unreviewed. A rate card and surcharge cap sit in an unfiled amendment, nobody is told, and the invoice is paid at the supplier's price. A service credit clause sits in a contract Accounts Payable has never seen, nobody is told, and the credit is never claimed.">
@@ -690,7 +831,7 @@ main>.glowpill::after{background:var(--bg)}
       <line class="d-l" x1="220" y1="131" x2="268" y2="131" marker-end="url(#a-pr)"/><line class="d-l" x1="470" y1="131" x2="518" y2="131" marker-end="url(#a-pr)"/><line class="d-l" x1="680" y1="131" x2="728" y2="131" marker-end="url(#a-pr)"/>
       <line class="d-l" x1="220" y1="201" x2="268" y2="201" marker-end="url(#a-pr)"/><line class="d-l" x1="470" y1="201" x2="518" y2="201" marker-end="url(#a-pr)"/><line class="d-l" x1="680" y1="201" x2="728" y2="201" marker-end="url(#a-pr)"/>
     </svg></div>
-    <figcaption>The same failure three times: nothing turns a signed clause into a date or a price with someone's name on it.</figcaption>
+    <figcaption>The same failure three times: no signed clause becomes a date or a price with an owner.</figcaption>
   </figure>
 
   <figure class="fig">
@@ -704,75 +845,74 @@ main>.glowpill::after{background:var(--bg)}
       <text class="d-xt" x="360" y="95" text-anchor="middle">too late to stop the renewal</text>
       <text class="d-s" x="705" y="95" text-anchor="middle">12 more months, up to +5%</text>
     </svg></div>
-    <figcaption>One contract from the sample data, Cloudmetric (USD 186,000 a year, 60 days' notice). The window to decide closes two months before the date written on the contract.</figcaption>
+    <figcaption>Cloudmetric ($186,000 a year): the last day to say no comes two months before the date on the contract.</figcaption>
   </figure>
 
   <h2>Who it affects</h2>
   <div class="cards">
     <div class="card persona"><h3>Procurement category manager</h3><dl>
-      <div><dt>I am</dt><dd>responsible for about 300 suppliers, with renewal dates I keep in a spreadsheet I built myself.</dd></div>
-      <div><dt>Trying to</dt><dd>decide on each renewal while I still have the right to say no.</dd></div>
-      <div><dt>But</dt><dd>the notice period is on page nine of a PDF in someone else's folder, and I hear about the renewal when the invoice arrives.</dd></div>
-      <div><dt>Because</dt><dd>nothing turns a signed clause into a date with my name on it.</dd></div>
+      <div><dt>I am</dt><dd>running about 300 suppliers, with renewals in my own spreadsheet.</dd></div>
+      <div><dt>Trying to</dt><dd>decide before I lose the right to say no.</dd></div>
+      <div><dt>But</dt><dd>the notice period is on page nine of someone else's PDF.</dd></div>
     </dl></div>
     <div class="card persona"><h3>Accounts Payable analyst</h3><dl>
-      <div><dt>I am</dt><dd>approving a few hundred supplier invoices a week against purchase orders.</dd></div>
-      <div><dt>Trying to</dt><dd>pay the right amount on time.</dd></div>
-      <div><dt>But</dt><dd>the purchase order shows a total. The rates, caps and credits live in a contract I have never been given.</dd></div>
-      <div><dt>Because</dt><dd>the invoice is checked against itself and the budget, and never against the agreement.</dd></div>
+      <div><dt>I am</dt><dd>approving a few hundred invoices a week.</dd></div>
+      <div><dt>Trying to</dt><dd>pay the right amount, on time.</dd></div>
+      <div><dt>But</dt><dd>the agreed prices live in a contract I have never seen.</dd></div>
     </dl></div>
     <div class="card persona"><h3>Legal Operations manager</h3><dl>
-      <div><dt>I am</dt><dd>one of three people the whole company emails to ask "where is the contract with X?"</dd></div>
-      <div><dt>Trying to</dt><dd>keep one reliable record of what we have agreed.</dd></div>
-      <div><dt>But</dt><dd>signed copies sit in mailboxes and team drives, and amendments are filed apart from what they amend.</dd></div>
-      <div><dt>Because</dt><dd>filing ends at signature. Nobody reads the document into data.</dd></div>
+      <div><dt>I am</dt><dd>one of three people asked "where is the contract?"</dd></div>
+      <div><dt>Trying to</dt><dd>keep one true record of what we agreed.</dd></div>
+      <div><dt>But</dt><dd>signed copies sit in inboxes and drives, apart from their amendments.</dd></div>
     </dl></div>
   </div>
-  <p class="sub">How this makes each of them feel is a hypothesis until customer interviews confirm it: exposed, for the category manager; blamed, for the analyst; interrupted, for Legal Operations.</p>
+  <p class="sub">How it makes them feel (exposed, blamed, interrupted) is a hypothesis until interviews confirm it.</p>
 
   <h2>Why it matters</h2>
   <div class="tiles">
-    <div class="tile"><b>Money leaves quietly</b><span class="ts">A renewal nobody reviewed commits a further year. An increase nobody checked compounds. A credit nobody claimed is a gift.</span></div>
-    <div class="tile"><b>Risk sits unseen</b><span class="ts">Work continues after a contract ends. A liability cap turns out to be three months of fees.</span></div>
-    <div class="tile"><b>Skilled time goes on searching</b><span class="ts">Lawyers and buyers look for documents when they could be using them.</span></div>
+    <div class="tile"><b>Money leaves quietly</b><span class="ts">Unreviewed renewals, unchecked increases, unclaimed credits.</span></div>
+    <div class="tile"><b>Risk sits unseen</b><span class="ts">Work continues after a contract ends. A liability cap is three months of fees.</span></div>
+    <div class="tile"><b>Skilled time is wasted</b><span class="ts">Lawyers and buyers search for documents instead of using them.</span></div>
   </div>
 
-  <h2>How we know it is real</h2>
+  <details class="more"><summary>How we know it is real</summary>
   <div class="cards">
-    <div class="card"><h3>From the customer</h3><p>A growing company of 3,000 people reports all three symptoms: unreviewed auto-renewals, missed service levels and invoices that do not match agreed prices. Contracts live in email, Word, shared drives and Excel.</p></div>
+    <div class="card"><h3>From the customer</h3><p>A growing company of 3,000 people reports all three symptoms, with contracts kept in email, Word, shared drives and Excel.</p></div>
     <div class="card"><h3>From published research</h3><ul>
-      <li>Average value lost to weak contract management is 8.6% (<a href="https://info.worldcc.com/contract-management-aug-2025" target="_blank" rel="noopener">World Commerce &amp; Contracting, 2025</a>).</li>
-      <li>The average company in one large data set faces 247 software renewals a year and uses 47% of its licences in a month (<a href="https://zylo.com/news/2025-saas-management-index" target="_blank" rel="noopener">Zylo SaaS Management Index, 2025</a>).</li>
-      <li>62% of 50 large legal departments still searched contract data by hand in Excel, SharePoint or email (<a href="https://www.law.com/corpcounsel/2020/02/12/corporate-legal-departments-slow-to-adopt-artificial-intelligence-contract-analysis-tools/" target="_blank" rel="noopener">Law.com survey, 2020</a>).</li>
-    </ul><p class="sub">Two of these come from vendors and the third is six years old. They show the pattern exists. They say nothing about Kestrel.</p></div>
-    <div class="card"><h3>From this prototype's data</h3><p>The sample set reproduces each failure once: a renewal that passed unseen, a signed amendment never filed, an invoice with no contract to check it against. With every document filed, about 5.7% of the invoiced value is above contract.</p><p class="sub">The sample data was written to show the problem. It is not evidence of its size.</p></div>
+      <li>Average value lost to weak contract management: 8.6% (<a href="https://info.worldcc.com/contract-management-aug-2025" target="_blank" rel="noopener">World Commerce &amp; Contracting, 2025</a>).</li>
+      <li>247 software renewals a year, 47% of licences used in a month (<a href="https://zylo.com/news/2025-saas-management-index" target="_blank" rel="noopener">Zylo, 2025</a>).</li>
+      <li>62% of 50 large legal departments searched contracts by hand (<a href="https://www.law.com/corpcounsel/2020/02/12/corporate-legal-departments-slow-to-adopt-artificial-intelligence-contract-analysis-tools/" target="_blank" rel="noopener">Law.com, 2020</a>).</li>
+    </ul><p class="sub">Two are vendor sources and one is six years old. They show the pattern, not Kestrel's numbers.</p></div>
+    <div class="card"><h3>From the demo data</h3><p>With every document filed, about 5.7% of invoiced value is above contract.</p><p class="sub">The sample was written to show the problem. It is not evidence of its size.</p></div>
   </div>
-
-  <h2>What we check in the first two weeks with a customer</h2>
+  </details>
+  <details class="more"><summary>What we check in the first two weeks with a customer</summary>
   <div class="tiles">
-    <div class="tile"><span class="tn">50</span><b>contracts audited</b><span class="ts">Top 50 suppliers by spend. How many signed contracts can be found within a day, and how many notice dates passed last year with no decision recorded.</span></div>
-    <div class="tile"><span class="tn">3 months</span><b>of invoices</b><span class="ts">Top 20 suppliers, compared by hand with their rate cards. Note whether a service report exists that a credit check could read. If few do, the credit check waits.</span></div>
-    <div class="tile"><span class="tn">6</span><b>interviews</b><span class="ts">Two category managers, two Accounts Payable analysts, one Legal Operations manager and one budget owner.</span></div>
-    <div class="tile"><span class="tn">1</span><b>request count</b><span class="ts">Last quarter's purchase requests that were lost, restarted or took more than six weeks, with a cost per delay from the interviews.</span></div>
+    <div class="tile"><span class="tn">50</span><b>contracts audited</b><span class="ts">How many can be found in a day, and how many notice dates passed unseen.</span></div>
+    <div class="tile"><span class="tn">3 months</span><b>of invoices</b><span class="ts">Top 20 suppliers, checked by hand against their rate cards.</span></div>
+    <div class="tile"><span class="tn">6</span><b>interviews</b><span class="ts">Category managers, Accounts Payable, Legal Operations, a budget owner.</span></div>
+    <div class="tile"><span class="tn">1</span><b>request count</b><span class="ts">Last quarter's lost or restarted purchase requests.</span></div>
   </div>
-
-  <h3 style="margin-top:22px">What would prove the repository the wrong place to start</h3>
+  </details>
+  <details class="more"><summary>What would prove this the wrong place to start</summary>
   <div class="chain">
-    <div><span class="k">Measure</span><b>Loss after signature, a year</b>From the audit and the invoice sample: missed notice dates times the increase each let through, plus overbilling and unclaimed credits, scaled to all spend.</div>
-    <div><span class="k">Measure</span><b>Loss before signature, a year</b>From the request count. A rough figure.</div>
-    <div class="gate"><span class="k">Test</span><b>Is the loss after signature under USD 550,000 a year, or below the loss before signature?</b>USD 550,000 is a quarter of the sizing above and about 0.25% of spend.</div>
-    <div><span class="k">Result</span><span class="chip crit">Yes: intake is the better place to start</span><span class="chip good">No: the repository stands</span></div>
+    <div><span class="k">Measure</span><b>Money lost after signature, a year</b>From the audit and the invoice sample.</div>
+    <div><span class="k">Measure</span><b>Money lost before signature, a year</b>From the request count. A rough figure.</div>
+    <div class="gate"><span class="k">Test</span><b>Is the first under USD 550,000, or below the second?</b>USD 550,000 is a quarter of the sizing, about 0.25% of spend.</div>
+    <div><span class="k">Result</span><span class="chip crit">Yes: start with intake instead</span><span class="chip good">No: the repository stands</span></div>
   </div>
+  </details>
 </template>
 
 <template id="tpl-metrics">
   <p class="desk">Measuring success</p>
-  <h1>The north star is the share of contract dates that got a decision before they passed.</h1>
-  <p class="lede">A contract date here means any date that costs money if it goes by unseen: a renewal notice deadline, an expiry, a price change, the window to claim a credit.</p>
+  <h1>North star: contract dates decided before they pass.</h1>
+  <p class="lede">Any date that costs money if missed: a notice deadline, an expiry, a price change, a credit window.</p>
   <div class="frac"><span>dates where a named person recorded a decision in time</span><span>every date that fell due, filed or not</span></div>
-  <p class="prose sub">A signed document known to exist but not yet filed counts as one undecided date. A date that passed while its document sat unfiled is recorded as a miss when the document turns up. So filing less can never make the number look better.</p>
-  <h2>The headline result in the sample</h2>
-  <div class="headline-box"><p class="hl-line">Filing three signed documents that sat outside the repository raises the amount flagged on the sample's five invoices from $8,810.52 to $28,561.92, about 5.7% of the $502,751.56 billed.</p><p class="sub">Flagged means billed above the agreed rate or cap, or a service credit the contract gives that the invoice leaves out. All figures come from the demo's sample data.</p></div>
+  <details class="more"><summary>Why unfiled documents count against the score</summary>
+  <p class="prose">A signed document known to exist but not yet filed counts as one undecided date, and a date that passed while it sat unfiled is a miss. So filing less can never make the number look better.</p>
+  </details>
+  <div class="headline-box"><p class="hl-line">In the demo, filing three missing documents raises the overcharges found on five invoices from $8,810.52 to $28,561.92: 5.7% of the $502,751.56 billed.</p></div>
   <div id="live-metrics"></div>
 
   <h2>Why this metric</h2>
@@ -783,47 +923,48 @@ main>.glowpill::after{background:var(--bg)}
     <div><span class="k">4</span><b>They acted</b></div>
     <div class="star"><span class="k">North star</span><b>A decision before the date</b>"Let it renew" counts. Silence does not.</div>
   </div>
-  <p class="prose sub">A decision made on time needs every earlier step to have worked, so one number checks the whole chain.</p>
-  <div class="tiles">
-    <div class="tile"><span class="chip crit">not chosen</span><b>Dollars saved</b><span class="ts">Arrive months later, depend on how well someone negotiates, and are easy to inflate. Tracked as an outcome, not targeted.</span></div>
-    <div class="tile"><span class="chip crit">not chosen</span><b>Contracts filed</b><span class="ts">A full repository that nobody acts on is what the company has today, with better search.</span></div>
-    <div class="tile"><span class="chip warn">blind spot</span><b>Invoices</b><span class="ts">Overbilling and unclaimed credits are not dates, so the north star cannot catch them. They are measured below.</span></div>
-  </div>
   <div class="meter" role="img" aria-label="Baseline guessed at under 20 percent. Target 90 percent."><i style="width:20%;background:var(--crit)"></i><b style="left:20%">under 20%</b><em style="left:20%">today, estimated</em><b style="left:90%">90%</b><em style="left:90%">target</em></div>
-  <p class="prose"><b>Target:</b> 90% for contracts in the top 80% of spend within two quarters. <b>Baseline:</b> unknown, and the 50-contract audit would set it. The estimate is under 20%.</p>
+  <p class="prose sub">Target: 90% within two quarters, for the top 80% of spend. The 50-contract audit sets the real baseline.</p>
+  <details class="more"><summary>Metrics we chose not to use</summary>
+  <div class="tiles">
+    <div class="tile"><span class="chip crit">not chosen</span><b>Dollars saved</b><span class="ts">Arrive late and are easy to inflate. Tracked, not targeted.</span></div>
+    <div class="tile"><span class="chip crit">not chosen</span><b>Contracts filed</b><span class="ts">A full repository nobody acts on is what exists today.</span></div>
+    <div class="tile"><span class="chip warn">blind spot</span><b>Invoices</b><span class="ts">Overcharges are not dates, so they are measured separately below.</span></div>
+  </div>
+  </details>
 
   <h2>How we will know it works</h2>
   <div class="tiles">
-    <div class="tile"><span class="tl">Coverage: is the spend in the repository?</span><span class="tn">80%</span><span class="ts">of the last 12 months' ledger spend paid to a supplier with a verified contract, within 90 days. Counted from the ledger, so an unfiled contract shows as uncovered spend.</span></div>
-    <div class="tile"><span class="tl">Trust: is the reading right?</span><span class="tn">under 5%</span><span class="ts">of deadline and price terms corrected by a reviewer. Under 1% wrong in a monthly audit of terms accepted without review.</span></div>
-    <div class="tile"><span class="tl">Effort: can three people keep up?</span><span class="tn">under 15 min</span><span class="ts">median for Legal Operations to verify one contract.</span></div>
-    <div class="tile"><span class="tl">Reach: does anyone outside Legal use it?</span><span class="tn">60% / 90%</span><span class="ts">60% of Procurement and Finance use it weekly. 90% of invoices over USD 10,000 are checked against a contract.</span></div>
-    <div class="tile"><span class="tl">Outcome: did money stay in?</span><span class="tn">no target</span><span class="ts">Overbilling corrected, increases avoided and credits claimed, each confirmed by a credit note or a signed change.</span></div>
+    <div class="tile"><span class="tl">Coverage</span><span class="tn">80%</span><span class="ts">of ledger spend has a verified contract, within 90 days</span></div>
+    <div class="tile"><span class="tl">Trust</span><span class="tn">under 5%</span><span class="ts">of date and price terms corrected by a reviewer</span></div>
+    <div class="tile"><span class="tl">Effort</span><span class="tn">under 15 min</span><span class="ts">to verify one contract</span></div>
+    <div class="tile"><span class="tl">Reach</span><span class="tn">60% / 90%</span><span class="ts">weekly use in Procurement and Finance / invoices over $10,000 checked</span></div>
+    <div class="tile"><span class="tl">Outcome</span><span class="tn">no target</span><span class="ts">money confirmed back by credit note or signed change</span></div>
   </div>
-
-  <h2>Guardrails</h2>
+  <details class="more"><summary>Guardrails</summary>
   <div class="tiles">
-    <div class="tile"><span class="tl">Wrong flags</span><span class="tn">under 10%</span><span class="ts">of invoice disputes withdrawn because the product was wrong. Each one costs goodwill with a supplier.</span></div>
-    <div class="tile"><span class="tl">Clean invoices are not slowed</span><span class="tn">no rise</span><span class="ts">in days to approve an invoice that matches its contract.</span></div>
-    <div class="tile"><span class="tl">No action without a person</span><span class="tn">0</span><span class="ts">notices or disputes leave the company without a named approver.</span></div>
-    <div class="tile"><span class="tl">No rubber-stamping</span><span class="tn">monthly sample</span><span class="ts">of renewals where the renewal brief flagged low usage, a missed service level or an uncapped increase. If more than half were renewed with no reason recorded, a one-line reason becomes required.</span></div>
+    <div class="tile"><span class="tl">Wrong flags</span><span class="tn">under 10%</span><span class="ts">of disputes withdrawn because the product was wrong</span></div>
+    <div class="tile"><span class="tl">Clean invoices</span><span class="tn">no rise</span><span class="ts">in days to approve an invoice that matches</span></div>
+    <div class="tile"><span class="tl">A person acts</span><span class="tn">0</span><span class="ts">notices or disputes sent without a named approver</span></div>
+    <div class="tile"><span class="tl">No rubber-stamping</span><span class="tn">monthly sample</span><span class="ts">of flagged renewals; a reason becomes required if half have none</span></div>
   </div>
-
-  <h2>What would make us rethink the approach</h2>
+  </details>
+  <details class="more"><summary>What would make us rethink the approach</summary>
   <div class="scroll"><table class="tbl">
-    <thead><tr><th>If we see this</th><th>It means</th><th>We would</th></tr></thead>
+    <thead><tr><th>If we see this</th><th>We would</th></tr></thead>
     <tbody>
-      <tr><td><span class="chip crit">over 10%</span><br>of deadline and price terms corrected after the first 300 contracts</td><td>The reading is not good enough to trust by exception</td><td><b>Have a person key the five critical terms</b>, with AI only suggesting and locating them</td></tr>
-      <tr><td><span class="chip crit">under half</span><br>of on-time alerts get a decision</td><td>The gap is ownership, and information was never the constraint</td><td><b>Move to intake:</b> fix who owns each contract at the moment it is requested</td></tr>
-      <tr><td><span class="chip crit">over 30 min</span><br>to verify a contract after the first 300</td><td>The top 20% alone would take half a quarter, and the full 4,000 nearly three quarters. The backlog will not clear while new contracts keep arriving.</td><td><b>Cut the scope to renewal terms only</b>, and add rate cards later</td></tr>
-      <tr><td><span class="chip crit">under 30%</span><br>of invoice value maps to a rate card that code can check</td><td>Most spend is priced in ways a line comparison cannot test</td><td><b>Drop invoice checking</b> and put the effort into renewals and credits</td></tr>
-      <tr><td><span class="chip crit">under 10%</span><br>of Procurement and Finance use Ask after eight weeks</td><td>A separate destination is the wrong shape</td><td><b>Push the dates and price checks into email and the ledger</b> where they already work</td></tr>
+      <tr><td><span class="chip crit">over 10%</span> of key terms corrected after 300 contracts</td><td><b>Have a person key the five critical terms</b>, with AI only locating them</td></tr>
+      <tr><td><span class="chip crit">under half</span> of on-time alerts get a decision</td><td><b>Move to intake</b>: ownership, not information, is the gap</td></tr>
+      <tr><td><span class="chip crit">over 30 min</span> to verify a contract after 300</td><td><b>Cut scope to renewal terms</b>, add rate cards later</td></tr>
+      <tr><td><span class="chip crit">under 30%</span> of invoice value maps to a rate card</td><td><b>Drop invoice checking</b>, focus on renewals and credits</td></tr>
+      <tr><td><span class="chip crit">under 10%</span> use Ask after eight weeks</td><td><b>Push checks into email and the ledger</b> instead</td></tr>
     </tbody>
   </table></div>
+  </details>
 </template>
 
-<script src="data.js" charset="utf-8"></script>
-<script src="app.js" charset="utf-8"></script>
+<script src="data.js?v=2026-11-22-2" charset="utf-8"></script>
+<script src="app.js?v=2026-11-22-2" charset="utf-8"></script>
 
 </body>
 </html>

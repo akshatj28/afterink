@@ -122,7 +122,7 @@ Legal Operations and Accounts Payable get the Inbox and Invoice check. The renew
 
 A fourth document, a two-page catering letter, was written to be vague on purpose. It shows the AI saying "not stated" instead of guessing.
 
-**The five-step path** on the Start page orders these so one desk's work visibly changes the next desk's screen.
+**The five-step path** on the Overview orders these so one desk's work visibly changes the next desk's screen.
 
 **Two places where the model is used beyond the four desks' main steps.** Both follow the same rule: the model reads or translates, code does the exact work.
 
@@ -153,7 +153,7 @@ A fourth document, a two-page catering letter, was written to be vague on purpos
 | Either model provider, chosen by which key is set | Gemini through Google AI Studio has a free tier, which keeps the demo at no cost. Claude through the Anthropic API is the paid alternative. The prompts and the checks are the same for both. The free tier has small daily limits and Google may use free-tier content to improve its products, which is acceptable only because every contract here is invented |
 | Saved AI results as a fallback | The page still works end to end without the AI. When the server cannot be reached, has no key or has used up the day's budget, a bar at the top says so and every desk replays saved results. When the free tier's per-minute limit is hit, the screen in use says so and the viewer can retry; inbox documents fall back to their saved reading |
 | Search by clause, then answer | Mirrors how this would work at 4,000 contracts, where the whole set cannot be sent to a model |
-| State kept in the viewer's browser, with a reset button | Each evaluator gets a clean copy and cannot break another's |
+| State kept in the viewer's browser tab only | Each evaluator gets a clean copy, cannot break another's, and every new visit starts fresh |
 
 **The trade-off in the fallback.** Saved results make the demo reliable, but a viewer who meets the fallback sees a replay of the AI steps rather than the AI. The page labels every such result, and the top bar says why the server could not be reached. The first submitted version only ever showed the replay to evaluators, because its live path depended on the viewer being signed in to Claude. The server removes that dependency.
 

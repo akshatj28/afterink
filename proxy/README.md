@@ -44,7 +44,7 @@ Check it is up: open `<address>/v1/health` in a browser. It should say `"ok": tr
 
 | Setting | Meaning | Default |
 |---|---|---|
-| `ALLOWED_ORIGINS` | Which page addresses may call the server | the GitHub Pages site and localhost |
+| `ALLOWED_ORIGINS` | Which page addresses may call the server | the GitHub Pages copy and localhost |
 | `PROVIDER` | `gemini` or `anthropic` when both keys are set | whichever key exists |
 | `GEMINI_MODELS` | Gemini models tried in order; the next one is tried when a model is over quota, overloaded, not available to the key, or sends nothing for 20 seconds; if every model is busy, the list is tried up to twice more, after pauses of 3 and 6 seconds | `gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.6-flash,gemini-3.8-flash` |
 | `GEMINI_THINKING` | How hard Gemini thinks before answering: `MINIMAL`, `LOW`, `MEDIUM` or `HIGH`. Higher is slower; `LOW` read the sample contract perfectly in about five seconds | `LOW` |
